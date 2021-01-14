@@ -12,26 +12,17 @@ export interface AdminGuidesItem {
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: AdminGuidesItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
+  {id: 1, name: 'Hydrogen Guide  1'},
+  {id: 2, name: 'Helium Guide  1'},
+  {id: 3, name: 'Lithium Guide  1'},
+  {id: 4, name: 'Beryllium Guide  1'},
+  {id: 5, name: 'Boron Guide  1'},
+  {id: 6, name: 'Carbon Guide  1'},
+  {id: 7, name: 'Nitrogen Guide  1'},
+  {id: 8, name: 'Oxygen Guide  1'},
+  {id: 9, name: 'Fluorine Guide  1'},
+  {id: 10, name: 'Neon Guide  1'},
+
 ];
 
 /**

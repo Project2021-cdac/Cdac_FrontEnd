@@ -10,6 +10,7 @@
   min-width: 120px;
   width:400px;
   margin: 20px auto;
+  text-align: center;
 }
 
 .mat-radio-button {
@@ -18,7 +19,7 @@
 }
 
 mat-card-actions {
-  display: inline-block;
+display: inline-block;
 align-self: center;
 align-content: space-around;
 }

@@ -10,18 +10,20 @@ import { AdminStudentsComponent } from './admin/admin-students/admin-students.co
 import { StudentNavComponent } from './student/student-nav/student-nav.component';
 import { StudentDashboardComponent } from './student/student-dashboard/student-dashboard.component';
 import { StudentActivityComponent } from './student/student-activity/student-activity.component';
+import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path:'login', component: LoginComponent },
-  { path:'admin-home', component: AdminDashboardComponent },
-  { path:'admin-students', component: AdminStudentsComponent },
-  { path:'admin-projects', component: AdminProjectsComponent },
-  { path:'admin-guides', component: AdminGuidesComponent },
-  { path:'student-home', component: StudentDashboardComponent },
-  { path:'student-activity', component: StudentActivityComponent },
-  { path:'student-tasks', component: StudentTasksComponent },
-  { path:'guide-home', component: GuideDashboardComponent },
-
+  { path:'admin', component: AdminDashboardComponent},
+  { path:'admin/students', component: AdminStudentsComponent },
+  { path:'admin/projects', component: AdminProjectsComponent },
+  { path:'admin/guides', component: AdminGuidesComponent },
+  { path:'student',component: StudentDashboardComponent},
+  { path:'student/activity', component: StudentActivityComponent },
+  { path:'student/tasks', component: StudentTasksComponent },
+  { path:'guide', component: GuideDashboardComponent },
+  { path: '**', component: ErrorComponent },
 ];
 
 @NgModule({

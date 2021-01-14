@@ -17,5 +17,7 @@ export class AdminNavComponent {
     );
 
   constructor(private breakpointObserver: BreakpointObserver) {}
-
+      logout(){
+        
+      }
 }

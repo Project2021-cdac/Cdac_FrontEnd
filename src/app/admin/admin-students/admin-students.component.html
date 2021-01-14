@@ -1,15 +1,31 @@
-<div class="mat-elevation-z8">
+<div class="table-container">
+  <h1 class="mat-h1">Students List</h1>
+</div>
+  <div class="mat-elevation-z8">
+
   <table mat-table class="full-width-table" matSort aria-label="Elements">
     <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+    <ng-container matColumnDef="PRN">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>PRN</th>
+      <td mat-cell *matCellDef="let row">{{row.PRN}}</td>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
+    <ng-container matColumnDef="Name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-      <td mat-cell *matCellDef="let row">{{row.name}}</td>
+      <td mat-cell *matCellDef="let row">{{row.Name}}</td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="Email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let row">{{row.Email}}</td>
+    </ng-container>
+
+    <!-- Contact Column -->
+    <ng-container matColumnDef="Phone">
+      <th mat-header-cell *matHeaderCellDef>Phone</th>
+      <td mat-cell *matCellDef="let row">{{row.Phone}}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -22,4 +38,4 @@
       [pageSize]="50"
       [pageSizeOptions]="[25, 50, 100, 250]">
   </mat-paginator>
-</div>
+  </div>

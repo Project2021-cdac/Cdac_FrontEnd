@@ -9,23 +9,22 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 })
 export class AdminProjectsComponent {
   /** Based on the screen size, switch from standard to one column per row */
+  projects = [{ teamId:'team1',title: 'Project Title 1'},
+  { teamId:'team2',title: 'Project Title 2'},
+  { teamId:'team3',title: 'Project Title 3'},
+  { teamId:'team6',title: 'Project Title 4'},
+  { teamId:'team9',title: 'Project Titl eProject Title Project TitleProject Title 5'}];
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
-        return [
-          { title: 'Card 1', cols: 1, rows: 1 },
-          { title: 'Card 2', cols: 1, rows: 1 },
-          { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
-        ];
+        return {
+          columns :1
+        };
       }
 
-      return [
-        { title: 'Card 1', cols: 2, rows: 1 },
-        { title: 'Card 2', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 }
-      ];
+      return {
+        columns:4,
+      };
     })
   );
 

@@ -29,6 +29,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { StudentTasksComponent } from './student/student-tasks/student-tasks.component';
 import { GuideDashboardComponent } from './guide/guide-dashboard/guide-dashboard.component';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { GuideDashboardComponent } from './guide/guide-dashboard/guide-dashboard
     StudentDashboardComponent,
     StudentActivityComponent,
     StudentTasksComponent,
-    GuideDashboardComponent
+    GuideDashboardComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
