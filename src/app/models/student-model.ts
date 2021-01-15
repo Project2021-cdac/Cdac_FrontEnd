@@ -1,7 +1,7 @@
-import { Project } from "./project-model";
-import { UserAccount } from "./User-Interface";
 
-export interface Student extends UserAccount{
+import { IUserAccount } from "./User-Interface";
+
+export interface IStudent extends IUserAccount{
     prn:bigint;
     user:number;
     project:number;

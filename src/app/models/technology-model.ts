@@ -1,7 +1,5 @@
-import { Guide } from "./guide-model";
-import { Project } from "./project-model";
 
-export interface Technology{
+export interface ITechnology{
     id:number;
     technologyName:string;
     guides:number;

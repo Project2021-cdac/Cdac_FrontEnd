@@ -1,4 +1,6 @@
-export interface UserAccount{
+
+
+export interface IUserAccount{
     id:number;
     role:string;
     courseName:string;

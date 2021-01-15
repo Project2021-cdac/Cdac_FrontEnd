@@ -1,10 +1,10 @@
-import { Technology } from "./technology-model";
-import { UserAccount } from "./User-Interface";
 
-export interface Guide extends UserAccount{
+import { IUserAccount } from "./User-Interface";
+
+export interface IGuide extends IUserAccount{
     id:number;
     inSession:boolean;
-    user:UserAccount;
+    user:number;
     technologies:Array<string>;
     
 

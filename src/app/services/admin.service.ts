@@ -1,8 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {Student} from '../models/student-model';
-
+import {catchError } from 'rxjs/operators';
+import {IGuide} from '../models/guide-model';
+import { IProject } from '../models/project-model';
+import { IStudent } from '../models/student-model';
+//import { ErrorObservable }  from 'rxjs/observable/ErrorObservable';
+import 'rxjs/add/operator/catch';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,16 +15,33 @@ export class AdminService {
   private baseUrl='http://localhost:8080';
   constructor(private http:HttpClient) { }
 
-  registerStudent(student :Object):Observable<Object> {
-      return this.http.post(this.baseUrl+'/admin/',student);
+  registerStudent(IStudent :Object):Observable<Object> {
+      return this.http.post(this.baseUrl+'/admin/student/register',IStudent);
   }
-  registerGuide(guide: Object): Observable<Object> {
-    return this.http.post(this.baseUrl+'/admin/',guide);
+  registerGuide(IGuide: Object): Observable<Object> {
+    return this.http.post(this.baseUrl+'/admin/guides/register',IGuide);
+   /* .pipe(catchError(this.HandleError));*/
   }
-  getProjectList():Observable<any> {
-    return this.http.get(this.baseUrl+'/admin/');
+  getGuideList():Observable<IGuide[]>{
+    return this.http.get<IGuide[]>(this.baseUrl+'/admin/guides')
+          
   }
-  getStudentList():Observable<any>{
-    return this.http.get(this.baseUrl+'/admin/studentList');
+  getProjectList():Observable<IProject[]>{
+    return this.http.get<IProject[]>(this.baseUrl+'/admin/projects/list');
   }
+  getStudentList():Observable<IStudent[]>{
+    return this.http.get<IStudent[]>(this.baseUrl+'/admin/students');
+  }
+  getCourseList():Observable<any>{
+    return this.http.get(this.baseUrl+'/course/list');
+  }
+ /*private HandleError(errorResponse:HttpErrorResponse){
+   if(errorResponse.error instanceof ErrorEvent){
+     console.error('client Side Error :',errorResponse.error.message);
+   } else {
+        console.error('Server Side Error:',errorResponse );
+   }
+   return new ErrorObservable("There is problem with server");
+ }
+*/  
 }

@@ -1,4 +1,4 @@
-export interface Milestone{
+export interface IMilestone{
     id:number;
     startDate:Date;
     endDate:Date;

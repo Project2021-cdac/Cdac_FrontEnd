@@ -1,4 +1,4 @@
-export interface Task{
+export interface ITask{
     id:number;
     milestone:number;
     status:string;

@@ -1,4 +1,4 @@
-export interface Activity{
+export interface IActivity{
     id:number;
     createdOn:Date;
     activityDesription:string;
