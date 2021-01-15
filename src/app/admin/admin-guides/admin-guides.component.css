@@ -1,6 +1,6 @@
 .full-width-table {
   width: 100%;
 }
-.table-container {
-  margin: 20px;
+.toolbar-spacer {
+  flex: 1 1 auto;
 }

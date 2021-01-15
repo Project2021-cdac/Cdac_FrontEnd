@@ -1,0 +1,90 @@
+
+<h2 mat-dialog-title>Guide Registration</h2>
+<div mat-dialog-content>
+    <div> 
+        <form [formGroup]="regGuideForm" (ngSubmit)="submitForm()" novalidate>
+            <div class="row">
+                <div class="col">
+            <mat-form-field appearance="fill">
+                <input matInput placeholder="First Name" formControlName="fname">
+                <mat-error *ngIf="regGuideForm.controls['fname'].hasError('required')">
+                  Name is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+              </div>
+              <div class="col">
+              <mat-form-field appearance="fill">
+                <input matInput placeholder="Last Name" formControlName="lname">
+                <mat-error *ngIf="regGuideForm.controls['lname'].hasError('required')">
+                  Name is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col">
+            <mat-form-field appearance="fill">
+                <input matInput placeholder="Email" formControlName="email">
+                <mat-error *ngIf="regGuideForm.controls['password'].hasError('required')">
+                  Email is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+              </div>
+              <div class="col">
+              <mat-form-field class="full-width" appearance="fill">
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="regGuideForm.controls['password'].hasError('required')">
+                  Password is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col">
+              <mat-form-field appearance="fill">
+                <input matInput placeholder="Phone" formControlName="phone">
+                <mat-error *ngIf="regGuideForm.controls['phone'].hasError('required')">
+                  Phone is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill">
+                    <input matInput readonly [matDatepicker]="picker" placeholder="Date of birth" formControlName="dob"
+                    (dateChange)="date($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                 </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Course</mat-label>
+                <mat-select formControlName="course">
+                  <mat-option *ngFor="let c of courses" [value]="c.value">
+                    {{c.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Technology</mat-label>
+                <mat-select formControlName="techs" multiple>
+                  <mat-option *ngFor="let tech of techList" [value]="tech">{{tech}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            </div>
+              </form>
+      </div>
+      
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary">Register</button>
+</div>

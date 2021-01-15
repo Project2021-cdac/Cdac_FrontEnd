@@ -6,9 +6,6 @@ export interface UserAccount{
     lastName:string;
     email:string;
     password:string;
-    phoneNumbe:string;
+    phoneNumber:string;
     dateOfBirth:Date;
-
-
-
 }
