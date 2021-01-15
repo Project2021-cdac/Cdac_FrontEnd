@@ -1,13 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Project } from 'src/app/models/project-model';
+import { Observable } from 'rxjs';
+import { AdminService } from 'src/app/services/admin.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-projects',
   templateUrl: './admin-projects.component.html',
   styleUrls: ['./admin-projects.component.css']
 })
-export class AdminProjectsComponent {
+export class AdminProjectsComponent   {
+ /* project: Observable<Project[]>;
+  
+  constructor(private adminService:AdminService, private router: Router){
+    
+  }
+  ngOnInit() {
+    this.fetchProjectList();
+  }
+    fetchProjectList() {
+      this.project=this.adminService.getProjectList();
+    }
+    
+  */
   /** Based on the screen size, switch from standard to one column per row */
   projects = [{ teamId:'team1',title: 'Project Title 1'},
   { teamId:'team2',title: 'Project Title 2'},
@@ -28,5 +45,6 @@ export class AdminProjectsComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+ constructor(private breakpointObserver: BreakpointObserver) {}
 }
+//};
