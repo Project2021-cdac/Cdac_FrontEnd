@@ -1,7 +1,7 @@
 export interface UserAccount{
     id:number;
-    role:Role;
-    courseName:Course;
+    role:string;
+    courseName:string;
     firstName:string;
     lastName:string;
     email:string;
@@ -11,10 +11,4 @@ export interface UserAccount{
 
 
 
-}
-export enum Role{
-    ADMIN,GUIDE,STUDENT
-}
-export enum Course{
-    DAC, DIOT, DBDA, DAI
 }

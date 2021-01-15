@@ -9,9 +9,9 @@ export interface Project{
     projectDescription:string;
     startDate:Date;
     endDate:Date;
-    teamLead:Student;
-    guide:Guide;
-    technologies:Technology[];
+    teamLead:bigint;
+    guide:number;
+    technologies:string;
 
 
 

@@ -3,7 +3,7 @@ import { UserAccount } from "./User-Interface";
 
 export interface Student extends UserAccount{
     prn:bigint;
-    user:UserAccount;
-    project:Project;
+    user:number;
+    project:number;
 
 }

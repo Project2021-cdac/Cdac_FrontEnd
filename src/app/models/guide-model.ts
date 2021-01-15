@@ -5,6 +5,7 @@ export interface Guide extends UserAccount{
     id:number;
     inSession:boolean;
     user:UserAccount;
-    technologies:Set<Technology>;
+    technologies:Array<string>;
+    
 
 }
