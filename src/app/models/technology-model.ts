@@ -1,5 +1,5 @@
 
-export interface ITechnology{
+export interface Technology{
     id:number;
     technologyName:string;
     guides:number;

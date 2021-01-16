@@ -30,6 +30,12 @@ import { MatSortModule } from '@angular/material/sort';
 import { StudentTasksComponent } from './student/student-tasks/student-tasks.component';
 import { GuideDashboardComponent } from './guide/guide-dashboard/guide-dashboard.component';
 import { ErrorComponent } from './error/error.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { UploadExcelDialogComponent } from './admin/upload-excel-dialog/upload-excel-dialog.component';
+import { RegisterGuideDialogComponent } from './admin/register-guide-dialog/register-guide-dialog.component';
+import { CreateProjectDialogComponent } from './student/create-project-dialog/create-project-dialog.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -45,7 +51,10 @@ import { ErrorComponent } from './error/error.component';
     StudentActivityComponent,
     StudentTasksComponent,
     GuideDashboardComponent,
-    ErrorComponent
+    ErrorComponent,
+    UploadExcelDialogComponent,
+    RegisterGuideDialogComponent,
+    CreateProjectDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +66,7 @@ import { ErrorComponent } from './error/error.component';
     ReactiveFormsModule,
     MatToolbarModule,
     MatButtonModule,
+    MatDialogModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
@@ -65,7 +75,9 @@ import { ErrorComponent } from './error/error.component';
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent],

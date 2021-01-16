@@ -1,7 +1,7 @@
 
-import { IUserAccount } from "./User-Interface";
+import { UserAccount } from "./User-Interface";
 
-export interface IGuide extends IUserAccount{
+export interface Guide extends UserAccount{
     id:number;
     inSession:boolean;
     user:number;

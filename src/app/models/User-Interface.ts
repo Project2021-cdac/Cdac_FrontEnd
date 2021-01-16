@@ -1,6 +1,6 @@
 
 
-export interface IUserAccount{
+export interface UserAccount{
     id:number;
     role:string;
     courseName:string;
@@ -8,9 +8,6 @@ export interface IUserAccount{
     lastName:string;
     email:string;
     password:string;
-    phoneNumbe:string;
+    phoneNumber:string;
     dateOfBirth:Date;
-
-
-
 }

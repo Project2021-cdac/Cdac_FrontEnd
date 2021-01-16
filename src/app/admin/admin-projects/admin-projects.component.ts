@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { IProject } from 'src/app/models/project-model';
+import { Project } from 'src/app/models/project-model';
 import { Observable } from 'rxjs';
 import { AdminService } from 'src/app/services/admin.service';
 import { Router } from '@angular/router';

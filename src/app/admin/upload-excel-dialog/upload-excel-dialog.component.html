@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Upload Students List</h2>
+<div mat-dialog-content>
+    <div>  
+            <div mat-form-field>
+            <input type="file" [(ngModel)]="data.file" />
+            </div>
+      </div>
+      
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onSubmit()">Upload</button>
+</div>

@@ -1,4 +1,4 @@
-export interface ISession{
+export interface Session{
     id:number;
     startTime:Date;
     endTime:Date;
