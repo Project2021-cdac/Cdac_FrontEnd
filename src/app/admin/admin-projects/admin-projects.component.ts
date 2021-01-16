@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class AdminProjectsComponent   {
  /* project: Observable<Project[]>;
   
-  constructor(private adminService:AdminService, private router: Router){
+  constructor(private adminService:AdminService){
     
   }
   ngOnInit() {

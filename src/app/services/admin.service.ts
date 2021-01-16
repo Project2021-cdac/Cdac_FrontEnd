@@ -7,34 +7,45 @@ import { Project } from '../models/project-model';
 import { Student } from '../models/student-model';
 //import { ErrorObservable }  from 'rxjs/observable/ErrorObservable';
 import 'rxjs/add/operator/catch';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
 
-  private baseUrl='http://localhost:8080';
+  
   constructor(private http:HttpClient) { }
 
   registerStudent(Student :Object):Observable<Object> {
-      return this.http.post(this.baseUrl+'/admin/student/register',Student);
+      return this.http.post(`${environment.apiUrl}/admin/student/register`,Student);
   }
   registerGuide(Guide: Object): Observable<Object> {
-    return this.http.post(this.baseUrl+'/admin/guides/register',Guide);
+    return this.http.post(`${environment.apiUrl}/admin/guides/register`,Guide);
    /* .pipe(catchError(this.HandleError));*/
   }
   getGuideList():Observable<Guide[]>{
-    return this.http.get<Guide[]>(this.baseUrl+'/admin/guides')
+    return this.http.get<Guide[]>(`${environment.apiUrl}/admin/guides`);
           
   }
   getProjectList():Observable<Project[]>{
-    return this.http.get<Project[]>(this.baseUrl+'/admin/projects/list');
+    return this.http.get<Project[]>(`${environment.apiUrl}/admin/projects/list`);
   }
   getStudentList():Observable<Student[]>{
-    return this.http.get<Student[]>(this.baseUrl+'/admin/students');
+    return this.http.get<Student[]>(`${environment.apiUrl}/admin/students`);
   }
   getCourseList():Observable<any>{
-    return this.http.get(this.baseUrl+'/course/list');
+    return this.http.get(`${environment.apiUrl}/course/list`);
   }
+  getTechnologyList():Observable<any>{
+    return this.http.get(`${environment.apiUrl}/technology/list`);
+  }
+  getTeamSize():Observable<any>{
+    return this.http.get(`${environment.apiUrl}/admin/teamsize`);
+  }
+ /* setTeamSize(count:number):Observable<any>{
+    return this.http.put(`${environment.apiUrl}/admin/userid`)
+  }*/
+ //exception handling
  /*private HandleError(errorResponse:HttpErrorResponse){
    if(errorResponse.error instanceof ErrorEvent){
      console.error('client Side Error :',errorResponse.error.message);

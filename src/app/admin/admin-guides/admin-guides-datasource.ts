@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { AdminService } from 'src/app/services/admin.service';
 
 // TODO: Replace this with your own data model type
 export interface AdminGuidesItem {
@@ -35,7 +36,7 @@ export class AdminGuidesDataSource extends DataSource<AdminGuidesItem> {
   paginator: MatPaginator;
   sort: MatSort;
 
-  constructor() {
+  constructor(/*(suvidha)private adminService :AdminService*/) {
     super();
   }
 
@@ -57,7 +58,10 @@ export class AdminGuidesDataSource extends DataSource<AdminGuidesItem> {
       return this.getPagedData(this.getSortedData([...this.data]));
     }));
   }
-
+  //suvidha
+  /*Observable<Guide[]> {
+    return this.adminService.getGuideList();
+  }*/
   /**
    *  Called when the table is being destroyed. Use this function, to clean up
    * any open connections or free any held resources that were set up during connect.
