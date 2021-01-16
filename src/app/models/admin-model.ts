@@ -1,6 +1,6 @@
 import { UserAccount } from "./User-Interface";
 
-export interface IAdmin extends UserAccount{
+export interface Admin extends UserAccount{
     id:number;
     userAccount:number;
 

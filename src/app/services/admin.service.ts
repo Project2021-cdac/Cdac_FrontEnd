@@ -2,9 +2,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {catchError } from 'rxjs/operators';
-import {IGuide} from '../models/guide-model';
-import { IProject } from '../models/project-model';
-import { IStudent } from '../models/student-model';
+import {Guide} from '../models/guide-model';
+import { Project } from '../models/project-model';
+import { Student } from '../models/student-model';
 //import { ErrorObservable }  from 'rxjs/observable/ErrorObservable';
 import 'rxjs/add/operator/catch';
 @Injectable({
@@ -15,22 +15,22 @@ export class AdminService {
   private baseUrl='http://localhost:8080';
   constructor(private http:HttpClient) { }
 
-  registerStudent(IStudent :Object):Observable<Object> {
-      return this.http.post(this.baseUrl+'/admin/student/register',IStudent);
+  registerStudent(Student :Object):Observable<Object> {
+      return this.http.post(this.baseUrl+'/admin/student/register',Student);
   }
-  registerGuide(IGuide: Object): Observable<Object> {
-    return this.http.post(this.baseUrl+'/admin/guides/register',IGuide);
+  registerGuide(Guide: Object): Observable<Object> {
+    return this.http.post(this.baseUrl+'/admin/guides/register',Guide);
    /* .pipe(catchError(this.HandleError));*/
   }
-  getGuideList():Observable<IGuide[]>{
-    return this.http.get<IGuide[]>(this.baseUrl+'/admin/guides')
+  getGuideList():Observable<Guide[]>{
+    return this.http.get<Guide[]>(this.baseUrl+'/admin/guides')
           
   }
-  getProjectList():Observable<IProject[]>{
-    return this.http.get<IProject[]>(this.baseUrl+'/admin/projects/list');
+  getProjectList():Observable<Project[]>{
+    return this.http.get<Project[]>(this.baseUrl+'/admin/projects/list');
   }
-  getStudentList():Observable<IStudent[]>{
-    return this.http.get<IStudent[]>(this.baseUrl+'/admin/students');
+  getStudentList():Observable<Student[]>{
+    return this.http.get<Student[]>(this.baseUrl+'/admin/students');
   }
   getCourseList():Observable<any>{
     return this.http.get(this.baseUrl+'/course/list');
