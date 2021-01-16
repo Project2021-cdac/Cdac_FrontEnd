@@ -17,6 +17,9 @@ export class AppComponent {
         private router: Router,
         private loginService: LoginService
     ) {
-        this.loginService.currentUser.subscribe(x => {this.currentUser = x; this.role=x.role});
+      if(this.loginService.currentUserValue){
+      this.role = this.loginService.currentUserValue.role;
+      }
     }
+
 }

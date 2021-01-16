@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from './angular-material.module';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,7 +37,7 @@ import { RegisterGuideDialogComponent } from './admin/register-guide-dialog/regi
 import { CreateProjectDialogComponent } from './student/create-project-dialog/create-project-dialog.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+//import {SelectAutocompleteModule} from 'mat-select-autocomplete-angular9';
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,7 +78,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatPaginatorModule,
     MatSortModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    HttpClientModule
+//    SelectAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent],

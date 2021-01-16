@@ -53,8 +53,7 @@
             </div>
             <div class="col">
               <mat-form-field appearance="fill">
-                    <input matInput readonly [matDatepicker]="picker" placeholder="Date of birth" formControlName="dob"
-                    (dateChange)="date($event)">
+                    <input matInput readonly [matDatepicker]="picker" placeholder="Date of birth" formControlName="dob" [min]="minDate" [max]="maxDate">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                  </mat-form-field>

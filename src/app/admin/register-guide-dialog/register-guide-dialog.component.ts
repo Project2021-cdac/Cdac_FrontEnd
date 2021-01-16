@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import * as moment from 'moment';
 
 interface Course {
   value: string;
@@ -13,6 +14,8 @@ interface Course {
 })
 export class RegisterGuideDialogComponent implements OnInit {
   hide = true;
+  minDate = new Date(new Date().getFullYear() - 70,1,1);//set min date 70 years back(1950)
+  maxDate = new Date(this.minDate.getFullYear() + 50,1,1); // set max date 20 years back(2000)
   techList: string[] = ['SpringBoot', 'Angular', 'MySQL', 'MS.NET', 'C++', 'ASDM'];
   techs: string[] =[];
   courses: Course[] = [
@@ -33,19 +36,14 @@ export class RegisterGuideDialogComponent implements OnInit {
         Validators.required, Validators.minLength(12), Validators.maxLength(15)])],
     course: [''],
     techs: [this.techs],
-    dob: [null, [Validators.required]],
+    dob: [moment(), [Validators.required]],
   });
   constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<RegisterGuideDialogComponent>) { }
 
   ngOnInit(): void {
   }
 
-  date(e) {
-    var convertDate = new Date(e.target.value).toISOString().substring(0, 10);
-    this.regGuideForm.get('dob').setValue(convertDate, {
-      onlyself: true
-    })
-  }
+
 
   onCancel(): void { 
     this.dialogRef.close(); 

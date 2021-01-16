@@ -1,1 +1,74 @@
-<p>create-project-dialog works!</p>
+
+<h2 mat-dialog-title>Guide Registration</h2>
+<div mat-dialog-content>
+    <div> 
+        <form [formGroup]="createProjectForm" (ngSubmit)="submitForm()" novalidate>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <input type="number" matInput placeholder="Team Lead" formControlName="t_lead">
+                        <mat-error *ngIf="createProjectForm.controls['t_lead'].hasError('required')">
+                          Team Lead is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <input matInput placeholder="Title" formControlName="title">
+                        <mat-error *ngIf="createProjectForm.controls['title'].hasError('required')">
+                            Project Title is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <input matInput placeholder="Description" formControlName="desc">
+                        <mat-error *ngIf="createProjectForm.controls['desc'].hasError('required')">
+                          Description is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                          <input matInput readonly [matDatepicker]="picker" placeholder="Start Date" formControlName="stime" [min]="minsDate" [max]="maxsDate">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                       </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field appearance="fill">
+                            <input matInput readonly [matDatepicker]="picker" placeholder="End Date" formControlName="etime" [min]="mineDate" [max]="maxeDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+            </div>
+            <div class= "row">
+                <!--<div class="col">
+                    <mat-select-autocomplete
+                        [placeholder]="'Select Team'"
+                        [options]="studentList"
+                        [multiple]='true'
+                        ngDefaultControl
+                        [formControl]="createProjectForm.controls['team']">
+                    </mat-select-autocomplete>
+                </div>-->
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Technology</mat-label>
+                        <mat-select formControlName="techs" multiple>
+                          <mat-option *ngFor="let tech of techList" [value]="tech">{{tech}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            </form>
+            </div>
+            <div mat-dialog-actions align="end">
+                <button mat-button (click)="onCancel()">Cancel</button>
+                <button mat-button color="primary">Create</button>
+              </div>
