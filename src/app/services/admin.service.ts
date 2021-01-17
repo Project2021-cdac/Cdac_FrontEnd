@@ -1,11 +1,11 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {catchError } from 'rxjs/operators';
 import {Guide} from '../models/guide-model';
 import { Project } from '../models/project-model';
 import { Student } from '../models/student-model';
-//import { ErrorObservable }  from 'rxjs/observable/ErrorObservable';
+
 import 'rxjs/add/operator/catch';
 import { environment } from 'src/environments/environment';
 @Injectable({
@@ -16,12 +16,22 @@ export class AdminService {
   
   constructor(private http:HttpClient) { }
 
-  registerStudent(Student :Object):Observable<Object> {
-      return this.http.post(`${environment.apiUrl}/admin/student/register`,Student);
+  registerStudent(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', `${environment.apiUrl}/admin/student/register`, formData, {
+      reportProgress: true,
+      responseType: 'text'
+    });
+
+    return this.http.request(req);
   }
+ 
   registerGuide(Guide: Object): Observable<Object> {
     return this.http.post(`${environment.apiUrl}/admin/guides/register`,Guide);
-   /* .pipe(catchError(this.HandleError));*/
+  
   }
   getGuideList():Observable<Guide[]>{
     return this.http.get<Guide[]>(`${environment.apiUrl}/admin/guides`);

@@ -22,11 +22,11 @@ export class LoginComponent {
     private loginService: LoginService) {}
   
   get f() { return this.loginForm.controls; }
-  onSubmit() {
+  onSubmit(){
     if (this.loginForm.invalid) {
       return;
   }
-
+{
   this.loginService.login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe(
@@ -37,5 +37,8 @@ export class LoginComponent {
               alert(error);
           });
 
+        }
+  
+  this.router.navigate(['/admin']);
   }
 }

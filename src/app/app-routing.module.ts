@@ -11,6 +11,7 @@ import { StudentNavComponent } from './student/student-nav/student-nav.component
 import { StudentDashboardComponent } from './student/student-dashboard/student-dashboard.component';
 import { StudentActivityComponent } from './student/student-activity/student-activity.component';
 import { ErrorComponent } from './error/error.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
