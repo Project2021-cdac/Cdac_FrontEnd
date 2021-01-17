@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -9,8 +9,9 @@ import { LoginService } from '../services/login.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   hide = true;
+  role = '';
   loginForm = this.fb.group({
     email: [null, Validators.compose([
       Validators.required,Validators.email])],
@@ -20,6 +21,12 @@ export class LoginComponent {
 
   constructor(private fb: FormBuilder,private router: Router,
     private loginService: LoginService) {}
+
+  ngOnInit(): void {
+    //check if user logged in redirect
+    console.log("--------Inside Home component init-------");
+    this.loginService.redirectPath();
+  }
   
   get f() { return this.loginForm.controls; }
   onSubmit() {
@@ -31,7 +38,12 @@ export class LoginComponent {
       .pipe(first())
       .subscribe(
           data => {
-              this.router.navigate(['/']);
+              console.log('Login successful');
+              if(data){
+                this.router.navigate(['/'+data.role.toLowerCase()]).then(() => {
+                  window.location.reload();
+                });
+              }
           },
           error => {
               alert(error);

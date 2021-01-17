@@ -19,3 +19,11 @@
 .dashboard-card-content {
   text-align: center;
 }
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.progress-bar{
+  margin: 10px;
+}

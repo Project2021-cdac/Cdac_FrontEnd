@@ -1,15 +1,1 @@
-
-<div [ngSwitch]="role">
-    <div *ngSwitchCase="'STUDENT'">
-        <app-student-nav></app-student-nav>
-    </div>
-    <div *ngSwitchCase="'ADMIN'">
-        <app-admin-nav></app-admin-nav>
-    </div>
-    <div *ngSwitchCase="'GUIDE'">
-        <app-guide-nav></app-guide-nav>
-    </div>
-    <div *ngSwitchDefault >
-        <app-login></app-login>
-    </div>
-</div>
+<router-outlet></router-outlet>
