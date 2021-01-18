@@ -1,0 +1,23 @@
+
+    
+
+  <div mat-dialog-content style="width:600px;height:800px">
+    <form [formGroup]="form" >
+        <label formArrayName="projects" *ngFor="let proj of projFormArray.controls; let i = index">
+          <input type="checkbox" [formControlName]="i">
+         
+          <mat-card>
+            <mat-card-header>
+                <mat-card-title>{{availableList[i].projectTitle}}</mat-card-title>
+                <mat-card-subtitle><p>Technology - {{availableList[i].technologies}}</p></mat-card-subtitle>
+            </mat-card-header>
+                <mat-card-content>{{availableList[i].projectDescription}}
+                </mat-card-content>
+            </mat-card>
+        </label>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button type="submit" mat-button color="primary" [disabled]="!form.valid" (click)="submit()">Choose</button>
+  </div>

@@ -4,8 +4,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import * as moment from 'moment';
 
-
-
 interface Course {
   value: string;
   viewValue: string;
@@ -44,6 +42,7 @@ export class RegisterGuideDialogComponent implements OnInit {
   constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<RegisterGuideDialogComponent>) { }
 
   ngOnInit(): void {
+    //rest api calls to get tech list and course list
   }
 
 
@@ -56,6 +55,7 @@ export class RegisterGuideDialogComponent implements OnInit {
   submitForm() {
     console.log(this.regGuideForm.value);
     //rest api submit form data and close form
+    //submit as one user model and one string array(technology list)
     //this.dialogRef.close();
   }
 

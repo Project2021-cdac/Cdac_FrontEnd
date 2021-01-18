@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
+import { ChooseProjectDialogComponent } from '../choose-project-dialog/choose-project-dialog.component';
 
 @Component({
   selector: 'app-guide-dashboard',
@@ -30,5 +31,8 @@ export class GuideDashboardComponent {
 
 
   constructor(private breakpointObserver: BreakpointObserver,public dialog: MatDialog) {}
-  openDialog(){}
+  openDialog() {
+    console.log("inside choose proj open");
+    let dialogRef = this.dialog.open(ChooseProjectDialogComponent); 
+  }
 }
