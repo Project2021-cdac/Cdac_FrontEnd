@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpEvent, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {catchError } from 'rxjs/operators';
@@ -29,13 +29,14 @@ export class AdminService {
     return this.http.request(req);
   }
  
-  registerGuide(Guide: Object): Observable<Object> {
-    return this.http.post(`${environment.apiUrl}/admin/guides/register`,Guide);
+  registerGuide(Guide: Guide): Observable<Guide> {
+     
+    const body=JSON.stringify(Guide);
+    return this.http.post<Guide>(`${environment.apiUrl}/admin/guides/register`,body);
   
   }
   getGuideList():Observable<Guide[]>{
     return this.http.get<Guide[]>(`${environment.apiUrl}/admin/guides`);
-          
   }
   getProjectList():Observable<Project[]>{
     return this.http.get<Project[]>(`${environment.apiUrl}/admin/projects/list`);

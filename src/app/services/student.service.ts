@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Student } from '../models/student-model';
 import {  throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Project } from '../models/project-model';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,8 +17,10 @@ export class StudentService {
     return this.http.get<Student>(`${environment.apiUrl}/student`+prn);
   }
 
-  createProject(Project: Object):Observable<Object> {
-      return this.http.post(`${environment.apiUrl}/student/createproject`,Project);
+  createProject(Project: Project):Observable<Project> {
+     
+    const body=JSON.stringify(Project);
+      return this.http.post<Project>(`${environment.apiUrl}/student/createproject`,body);
 
   }
   getStudentsWithNoProject():Observable<Student[]>{

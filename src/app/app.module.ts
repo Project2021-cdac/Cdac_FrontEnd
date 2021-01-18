@@ -14,6 +14,8 @@ import { ErrorComponent } from './error/error.component';
 import { AdminModule } from './admin/admin.module';
 import { StudentModule } from './student/student.module';
 import { GuideModule } from './guide/guide.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 //import {SelectAutocompleteModule} from 'mat-select-autocomplete-angular9';
 @NgModule({
   declarations: [
@@ -35,7 +37,11 @@ import { GuideModule } from './guide/guide.module';
     LayoutModule
 //    SelectAutocompleteModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
