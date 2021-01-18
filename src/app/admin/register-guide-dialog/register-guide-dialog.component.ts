@@ -1,8 +1,11 @@
+import { formatCurrency } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import * as moment from 'moment';
+import { CreateGuide } from 'src/app/models/regGuide';
+import { AdminService } from 'src/app/services/admin.service';
 
 interface Course {
   value: string;
@@ -39,11 +42,23 @@ export class RegisterGuideDialogComponent implements OnInit {
     techs: [this.techs],
     dob: [moment(), [Validators.required]],
   });
-  constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<RegisterGuideDialogComponent>) { }
-
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<RegisterGuideDialogComponent>
+              ,private adminservice:AdminService) { }
+  guide: CreateGuide=new CreateGuide() ;
+  ngOnInit() {
     //rest api calls to get tech list and course list
+     /*this.adminservice.getCourseList().subscribe((data: any[])=>{
+      console.log(data);
+      this.courses = data;
+    })  ;
+
+    return this.adminservice.getTechnologyList().subscribe((data: any[])=>{
+      console.log(data);
+      this.techs = data;
+    })  ;*/
+
   }
+  
 
 
 
@@ -57,6 +72,11 @@ export class RegisterGuideDialogComponent implements OnInit {
     //rest api submit form data and close form
     //submit as one user model and one string array(technology list)
     //this.dialogRef.close();
-  }
+
+    //calling register guide service 
+   /* this.adminservice.registerGuide(this.guide)
+  .subscribe(data => console.log(data), error => console.log(error));
+    this.guide =new CreateGuide();
+  }*/
 
 }

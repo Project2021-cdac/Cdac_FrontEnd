@@ -1,7 +1,7 @@
 export interface Session{
     id:number;
-    startTime:Date;
-    endTime:Date;
+    startTime:string;
+    endTime:string;
     guide:number;
     project:number;
 }

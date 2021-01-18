@@ -3,11 +3,11 @@
 
 export interface Project{
     id:number;
-    projectTitle:string;
-    projectDescription:string;
-    startDate:Date;
-    endDate:Date;
-    teamLead:bigint;
+    title:string;
+    description:string;
+    startDate:string;
+    endDate:string;
+    teamLead:number;
     guide:number;
     technologies:string;
 

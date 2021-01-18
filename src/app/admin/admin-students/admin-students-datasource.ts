@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { AdminService } from 'src/app/services/admin.service';
 
 // TODO: Replace this with your own data model type
 export interface AdminStudentsItem {
@@ -11,7 +12,12 @@ export interface AdminStudentsItem {
   Email: string;
   Phone: string;
 }
-
+/*export interface Student {
+  Name: string;
+  PRN: number;
+  Email: string;
+  Phone: string;
+}*/
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: AdminStudentsItem[] = [
  {PRN:20024012001,Name:"Harry",Email:"Student1@gmail.com",Phone:"+91 9182736454"},
@@ -29,11 +35,13 @@ const EXAMPLE_DATA: AdminStudentsItem[] = [
  * (including sorting, pagination, and filtering).
  */
 export class AdminStudentsDataSource extends DataSource<AdminStudentsItem> {
+  //data: Student[] = [];
   data: AdminStudentsItem[] = EXAMPLE_DATA;
   paginator: MatPaginator;
   sort: MatSort;
 
-  constructor() {
+
+  constructor(/*private adminService :AdminService*/) {
     super();
   }
 
@@ -50,7 +58,9 @@ export class AdminStudentsDataSource extends DataSource<AdminStudentsItem> {
       this.paginator.page,
       this.sort.sortChange
     ];
-
+    /*Observable<Student[]> {
+      return this.adminService.getStudentList();
+    }*/
     return merge(...dataMutations).pipe(map(() => {
       return this.getPagedData(this.getSortedData([...this.data]));
     }));

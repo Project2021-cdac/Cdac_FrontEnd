@@ -1,8 +1,8 @@
 export interface Milestone{
     id:number;
-    startDate:Date;
-    endDate:Date;
-    milestoneCheckpoints:string;
+    startDate:string;
+    endDate:string;
+    milestoneCheckpoint:string;
     projectId:number;
 
 }

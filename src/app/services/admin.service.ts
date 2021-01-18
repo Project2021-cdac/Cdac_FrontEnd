@@ -8,6 +8,7 @@ import { Student } from '../models/student-model';
 
 import 'rxjs/add/operator/catch';
 import { environment } from 'src/environments/environment';
+import { ICreateGuide } from '../models/regGuide';
 @Injectable({
   providedIn: 'root'
 })
@@ -29,10 +30,10 @@ export class AdminService {
     return this.http.request(req);
   }
  
-  registerGuide(Guide: Guide): Observable<Guide> {
+  registerGuide(Guide: ICreateGuide): Observable<ICreateGuide> {
      
     const body=JSON.stringify(Guide);
-    return this.http.post<Guide>(`${environment.apiUrl}/admin/guides/register`,body);
+    return this.http.post<ICreateGuide>(`${environment.apiUrl}/admin/guides/register`,body);
   
   }
   getGuideList():Observable<Guide[]>{
