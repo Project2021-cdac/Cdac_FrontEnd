@@ -3,8 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
+import { Guide } from 'src/app/models/guide-model';
+import { AdminService } from 'src/app/services/admin.service';
 import { RegisterGuideDialogComponent } from '../register-guide-dialog/register-guide-dialog.component';
-import { AdminGuidesDataSource, AdminGuidesItem } from './admin-guides-datasource';
+import { AdminGuidesDataSource } from './admin-guides-datasource';
 
 @Component({
   selector: 'app-admin-guides',
@@ -12,21 +14,26 @@ import { AdminGuidesDataSource, AdminGuidesItem } from './admin-guides-datasourc
   styleUrls: ['./admin-guides.component.css']
 })
 export class AdminGuidesComponent implements AfterViewInit, OnInit {
+  guideData:Guide[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatTable) table: MatTable<AdminGuidesItem>;
+  @ViewChild(MatTable) table: MatTable<Guide>;
   dataSource: AdminGuidesDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
-  constructor(public dialog: MatDialog) {}
+  displayedColumns = ['id', 'firstName'];
+  constructor(public dialog: MatDialog,private adminService: AdminService) {}
 
   openDialog() {
     let dialogRef = this.dialog.open(RegisterGuideDialogComponent); 
   }
 
   ngOnInit() {
-    this.dataSource = new AdminGuidesDataSource();
+     //make api call to get data(--Rithika)
+     this.adminService.getGuideList().subscribe((result)=>{    
+      this.guideData  =  result;
+    })
+    this.dataSource = new AdminGuidesDataSource(this.guideData);
   }
 
   ngAfterViewInit() {
