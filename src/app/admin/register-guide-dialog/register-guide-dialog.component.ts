@@ -76,14 +76,19 @@ export class RegisterGuideDialogComponent implements OnInit {
     //this.dialogRef.close();
 
     //calling register guide service 
-   /*this.adminservice.registerGuide(this.guide,this.techs)
+   this.adminservice.registerGuide(this.guide,this.techs)
   .subscribe(data => {
     console.log("register success",data),
-    this.guide=data.guide;
+    this.guide.firstName=data.fname;
+    this.guide.lastName=data.lname;
+    this.guide.email=data.email;
+    //this.guide.password=data.password;
+    this.guide.phoneNumber=data.phone;
+    this.guide.dateOfBirth=data.dob;
     this.techs=data.techs
   },
    error => console.log("error",error));
-   */ 
+    
   }
   }
 
