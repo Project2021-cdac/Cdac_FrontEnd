@@ -4,20 +4,16 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { AdminService } from 'src/app/services/admin.service';
+import { Student } from 'src/app/models/student-model';
 
 // TODO: Replace this with your own data model type
-export interface AdminStudentsItem {
+/*export interface AdminStudentsItem {
   Name: string;
   PRN: number;
   Email: string;
   Phone: string;
 }
-/*export interface Student {
-  Name: string;
-  PRN: number;
-  Email: string;
-  Phone: string;
-}*/
+
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: AdminStudentsItem[] = [
  {PRN:20024012001,Name:"Harry",Email:"Student1@gmail.com",Phone:"+91 9182736454"},
@@ -28,20 +24,20 @@ const EXAMPLE_DATA: AdminStudentsItem[] = [
  {PRN:20024012006,Name:"Cooper",Email:"Student6@gmail.com",Phone:"+91 9182736454"},
  {PRN:20024012005,Name:"Betty",Email:"Student5@gmail.com",Phone:"+91 9182736454"}
 ];
-
+*/
 /**
  * Data source for the AdminStudents view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class AdminStudentsDataSource extends DataSource<AdminStudentsItem> {
-  //data: Student[] = [];
-  data: AdminStudentsItem[] = EXAMPLE_DATA;
+export class AdminStudentsDataSource extends DataSource<Student> {
+  
+  data: Student[] = this.studentList;
   paginator: MatPaginator;
   sort: MatSort;
 
 
-  constructor(/*private adminService :AdminService*/) {
+  constructor(private studentList :Student[]) {
     super();
   }
 
@@ -50,7 +46,7 @@ export class AdminStudentsDataSource extends DataSource<AdminStudentsItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<AdminStudentsItem[]> {
+  connect(): Observable<Student[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -58,9 +54,7 @@ export class AdminStudentsDataSource extends DataSource<AdminStudentsItem> {
       this.paginator.page,
       this.sort.sortChange
     ];
-    /*Observable<Student[]> {
-      return this.adminService.getStudentList();
-    }*/
+    
     return merge(...dataMutations).pipe(map(() => {
       return this.getPagedData(this.getSortedData([...this.data]));
     }));
@@ -76,7 +70,7 @@ export class AdminStudentsDataSource extends DataSource<AdminStudentsItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: AdminStudentsItem[]) {
+  private getPagedData(data: Student[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -85,7 +79,7 @@ export class AdminStudentsDataSource extends DataSource<AdminStudentsItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: AdminStudentsItem[]) {
+  private getSortedData(data: Student[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }
@@ -93,8 +87,10 @@ export class AdminStudentsDataSource extends DataSource<AdminStudentsItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'Name': return compare(a.Name, b.Name, isAsc);
-        case 'PRN': return compare(+a.PRN, +b.PRN, isAsc);
+        case 'PRN': return compare(+a.prn, +b.prn, isAsc);
+        case 'Name': return compare(a.firstName, b.firstName, isAsc);
+        case 'Email': return compare(a.email, b.email, isAsc);
+        case 'Phone': return compare(a.phoneNumber, b.phoneNumber, isAsc);
         default: return 0;
       }
     });

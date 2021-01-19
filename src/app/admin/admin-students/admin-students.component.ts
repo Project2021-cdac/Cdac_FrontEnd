@@ -2,13 +2,14 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { AdminStudentsDataSource, AdminStudentsItem } from './admin-students-datasource';
+import { AdminStudentsDataSource } from './admin-students-datasource';
 //import { AdminStudentsDataSource, Student } from './admin-students-datasource';
 import { MatDialog,MatDialogRef,MatDialogConfig } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { UploadExcelDialogComponent } from '../upload-excel-dialog/upload-excel-dialog.component';
 import { AdminService } from 'src/app/services/admin.service';
+import { Student } from 'src/app/models/student-model';
 
 @Component({
   selector: 'app-admin-students',
@@ -16,11 +17,11 @@ import { AdminService } from 'src/app/services/admin.service';
   styleUrls: ['./admin-students.component.css']
 })
 export class AdminStudentsComponent implements AfterViewInit, OnInit {
+  studentData:Student[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatTable) table: MatTable<AdminStudentsItem>;
- //@ViewChild(MatTable) table: MatTable<Student>;
- // dataSource: AdminStudentsDataSource;
+  @ViewChild(MatTable) table: MatTable<Student>;
+ 
  dataSource: AdminStudentsDataSource;
   file: File;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
@@ -36,17 +37,20 @@ export class AdminStudentsComponent implements AfterViewInit, OnInit {
       this.file = result.file; 
       //call api to upload here
       /*const formData = new FormData();
-    formData.append('file', this.file);
+    formData.append('file', this.file);*/
 
-    this.httpClient.post<any>(this.SERVER_URL, formData).subscribe(
-      (res) => console.log(res),
-      (err) => console.log(err)
-    );*/
+    this.adminService.registerStudent(this.file).subscribe(
+      (res) => {console.log("succesful" ,res);},
+      (err) =>{ console.log("error ",err);}
+    );
     });
   }
 
   ngOnInit() {
-    this.dataSource = new AdminStudentsDataSource(/*this.adminService*/);
+    /*this.adminService.getStudentList().subscribe((result)=>{    
+      this.studentData  =  result;
+    })*/
+    this.dataSource = new AdminStudentsDataSource(this.studentData);
   }
 
   ngAfterViewInit() {

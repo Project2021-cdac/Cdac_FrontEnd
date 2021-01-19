@@ -17,23 +17,22 @@ export class AdminService {
   
   constructor(private http:HttpClient) { }
 
-  registerStudent(file: File): Observable<HttpEvent<any>> {
+  registerStudent(file: File): Observable<HttpEvent<{}>> {
     const formData: FormData = new FormData();
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `${environment.apiUrl}/admin/student/register`, formData, {
-      reportProgress: true,
-      responseType: 'text'
-    });
+    const req = new HttpRequest('POST', `${environment.apiUrl}/admin/student/register`, formData);
 
     return this.http.request(req);
   }
  
-  registerGuide(Guide: CreateGuide): Observable<CreateGuide> {
-     
+  registerGuide(Guide: Guide,tech:string[]): Observable<any> {
+    const headers= new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*');
     const body=JSON.stringify(Guide);
-    return this.http.post<CreateGuide>(`${environment.apiUrl}/admin/guides/register`,body);
+    return this.http.post<any>(`${environment.apiUrl}/admin/guides/register`,{body,tech},{ 'headers': headers });
   
   }
   getGuideList():Observable<Guide[]>{
