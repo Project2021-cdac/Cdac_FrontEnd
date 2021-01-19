@@ -20,7 +20,11 @@ export class AdminService {
   registerStudent(file: File): Observable<HttpEvent<{}>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-    const req = new HttpRequest('POST', `${environment.apiUrl}/admin/students/register`, formData);
+
+    const headers= new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*');
+    const req = new HttpRequest('POST', `${environment.apiUrl}/admin/student/register`, formData,{ 'headers': headers });
     return this.http.request(req);
   }
  

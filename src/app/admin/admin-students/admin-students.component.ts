@@ -26,6 +26,7 @@ export class AdminStudentsComponent implements AfterViewInit, OnInit {
   file: File;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['PRN', 'Name', 'Email', 'Phone'];
+  errorMessage: any;
   constructor(public dialog: MatDialog,public adminService:AdminService) {}
 
   openDialog() {
@@ -47,9 +48,18 @@ export class AdminStudentsComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    /*this.adminService.getStudentList().subscribe((result)=>{    
-      this.studentData  =  result;
-    })*/
+    this.adminService.getStudentList().subscribe({    
+      next: data => {
+        this.studentData = data;
+        console.log(data);
+
+        
+    },
+    error: error => {
+        this.errorMessage = error.message;
+        console.error('There was an error!', error);
+    }
+})
     this.dataSource = new AdminStudentsDataSource(this.studentData);
   }
 
