@@ -58,7 +58,7 @@ export class CreateProjectDialogComponent implements OnInit {
   team: Student[]=[];
   teamControl = new FormControl([]);
   createProjectForm = this.fb.group({
-    t_lead:[0,[Validators.required]],
+    t_lead:[20024012001,[Validators.required]],
     title:['',Validators.compose([
       Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
     description:['',Validators.compose([
@@ -71,10 +71,7 @@ export class CreateProjectDialogComponent implements OnInit {
   constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<CreateProjectDialogComponent>) { }
 
   ngOnInit(): void {
-    console.log(this.minsDate);
-    console.log(this.maxsDate);
-    console.log(this.mineDate);
-    console.log(this.maxeDate);
+    //api call to get tech list, students with no project list
   }
 
   onCancel(): void { 

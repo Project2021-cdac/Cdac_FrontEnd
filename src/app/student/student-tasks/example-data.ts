@@ -1,5 +1,5 @@
 /** Example file/folder data. */
-export const files = [
+export const mileStones = [
   {
     name: 'Module Name 1',
     type: '',
@@ -27,4 +27,44 @@ export const files = [
       { name: 'Task 3', type: 'subject' }
     ]
   }
+];
+
+
+export const tasks = [
+  {
+  id:2443,
+  status:'COMPLETED',
+  createdOn:'12-01-2021',
+  createdBy:null,
+  description:'Complete project charter',
+  },
+  {
+    id:2443,
+    status:'COMPLETED',
+    createdOn:'14-01-2021',
+    createdBy:null,
+    description:'Complete project planning and design',
+    },
+    {
+      id:2443,
+      status:'COMPLETED',
+      createdOn:'15-01-2021',
+      createdBy:null,
+      description:'Create Er and UML diagram',
+      },
+      {
+        id:2443,
+        status:'CREATED',
+        createdOn:'17-01-2021',
+        createdBy:null,
+        description:'Project Student module',
+      },
+      {
+          id:2443,
+          status:'CREATED',
+          createdOn:'18-01-2021',
+          createdBy:null,
+          description:'Project Admin module',
+      }
+
 ];

@@ -12,6 +12,7 @@ import { AngularMaterialModule } from '../angular-material.module';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { CreateTaskDialogComponent } from './create-task-dialog/create-task-dialog.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
     StudentActivityComponent,
     StudentTasksComponent,
     CreateProjectDialogComponent,
-    Page404StudentComponent],
+    Page404StudentComponent,
+    CreateTaskDialogComponent],
   imports: [
     CommonModule,
     AngularMaterialModule,

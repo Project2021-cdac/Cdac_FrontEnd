@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { files } from './example-data';
+import { mileStones,tasks } from './example-data';
+import { Task } from 'src/app/models/task-model';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateTaskDialogComponent } from '../create-task-dialog/create-task-dialog.component';
 
 /** File node data with possible child nodes. */
-export interface FileNode {
+export interface MilestoneTreeNode {
   name: string;
   type: string;
-  children?: FileNode[];
+  children?: MilestoneTreeNode[];
 }
 
 /**
@@ -27,17 +30,17 @@ export interface FlatTreeNode {
   styleUrls: ['./student-tasks.component.css']
 })
 export class StudentTasksComponent {
-
+  tasksList:Task[] = [];
   /** The TreeControl controls the expand/collapse state of tree nodes.  */
   treeControl: FlatTreeControl<FlatTreeNode>;
 
   /** The TreeFlattener is used to generate the flat list of items from hierarchical data. */
-  treeFlattener: MatTreeFlattener<FileNode, FlatTreeNode>;
+  treeFlattener: MatTreeFlattener<MilestoneTreeNode, FlatTreeNode>;
 
   /** The MatTreeFlatDataSource connects the control and flattener to provide data. */
-  dataSource: MatTreeFlatDataSource<FileNode, FlatTreeNode>;
+  dataSource: MatTreeFlatDataSource<MilestoneTreeNode, FlatTreeNode>;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
       this.getLevel,
@@ -46,11 +49,12 @@ export class StudentTasksComponent {
 
     this.treeControl = new FlatTreeControl(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-    this.dataSource.data = files;
+    this.dataSource.data = mileStones;
+    this.tasksList = tasks;
   }
 
   /** Transform the data to something the tree can read. */
-  transformer(node: FileNode, level: number) {
+  transformer(node:MilestoneTreeNode, level: number) {
     return {
       name: node.name,
       type: node.type,
@@ -75,7 +79,19 @@ export class StudentTasksComponent {
   }
 
   /** Get the children for the node. */
-  getChildren(node: FileNode): FileNode[] | null | undefined {
+  getChildren(node: MilestoneTreeNode): MilestoneTreeNode[] | null | undefined {
     return node.children;
+  }
+
+  /* Check status string for input in checkbox*/
+  statusCheck(status: String):boolean{
+    return status=="COMPLETED"? true:false;
+  }
+  /* Trigger task complete */
+
+  /* Add task open dialog*/
+  openDialog(){
+    console.log("inside create tasks dialog open");
+    let dialogRef = this.dialog.open(CreateTaskDialogComponent); 
   }
 }

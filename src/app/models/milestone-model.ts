@@ -1,8 +1,9 @@
+import { Task } from "./task-model";
+
 export interface Milestone{
     id:number;
-    startDate:string;
-    endDate:string;
-    milestoneCheckpoint:string;
-    projectId:number;
-
+    startDate:number;
+    endDate:number;
+    milestoneCheckPoint:string;
+    tasks:Task[];
 }
