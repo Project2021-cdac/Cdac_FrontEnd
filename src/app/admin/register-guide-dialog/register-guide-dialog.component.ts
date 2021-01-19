@@ -48,16 +48,20 @@ export class RegisterGuideDialogComponent implements OnInit {
               ,private adminservice:AdminService) { }
   guide: Guide;
   ngOnInit() {
+    console.log(this.minDate);
+    console.log(this.maxDate);
     //rest api calls to get tech list and course list
      this.adminservice.getCourseList().subscribe((data: any[])=>{
       console.log(data);
       this.courses = data;
-    })  ;
+    });
 
-    return this.adminservice.getTechnologyList().subscribe((data: any[])=>{
+    this.adminservice.getTechnologyList().subscribe((data: any[])=>{
       console.log(data);
       this.techList = data;
-    })  ;
+    });
+
+   
 
   }
   

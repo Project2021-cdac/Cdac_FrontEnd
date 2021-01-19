@@ -19,11 +19,8 @@ export class AdminService {
 
   registerStudent(file: File): Observable<HttpEvent<{}>> {
     const formData: FormData = new FormData();
-
     formData.append('file', file);
-
-    const req = new HttpRequest('POST', `${environment.apiUrl}/admin/student/register`, formData);
-
+    const req = new HttpRequest('POST', `${environment.apiUrl}/admin/students/register`, formData);
     return this.http.request(req);
   }
  

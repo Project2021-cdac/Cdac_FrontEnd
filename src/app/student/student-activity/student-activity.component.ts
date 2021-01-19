@@ -17,6 +17,11 @@ export class StudentActivityComponent implements AfterViewInit, OnInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name'];
+  
+  getColor(num: number):String{
+  const colors = ['red', 'green', 'blue', 'orange', 'yellow'];
+  return '5px solid '+colors[Math.floor(num * colors.length)];
+  }
 
   ngOnInit() {
     this.dataSource = new StudentActivityDataSource();
