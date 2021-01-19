@@ -7,6 +7,7 @@ import { GuideDashboardComponent } from './guide-dashboard/guide-dashboard.compo
 import { GuideNavComponent } from './guide-nav/guide-nav.component';
 import { AngularMaterialModule } from '../angular-material.module';
 import { ChooseProjectDialogComponent } from './choose-project-dialog/choose-project-dialog.component';
+import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ChooseProjectDialogComponent } from './choose-project-dialog/choose-pro
     GuideNavComponent,
     GuideDashboardComponent,
     Page404GuideComponent,
-    ChooseProjectDialogComponent],
+    ChooseProjectDialogComponent,
+    ProjectDashboardComponent],
   imports: [
     CommonModule,
     AngularMaterialModule,

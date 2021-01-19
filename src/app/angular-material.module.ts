@@ -36,6 +36,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
+import {AvatarModule } from 'ngx-avatar';
 
 
 const materialModules = [
@@ -88,6 +89,7 @@ const materialModules = [
   MatSortModule,
   MatDatepickerModule,
   MatNativeDateModule,
+  AvatarModule,
   HttpClientModule
 ];
 

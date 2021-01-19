@@ -1,8 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTreeModule } from '@angular/material/tree';
 
 import { StudentTasksComponent } from './student-tasks.component';
 
@@ -14,10 +13,9 @@ describe('StudentTasksComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ StudentTasksComponent ],
       imports: [
-        NoopAnimationsModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatTableModule,
+        MatButtonModule,
+        MatIconModule,
+        MatTreeModule,
       ]
     }).compileComponents();
   }));

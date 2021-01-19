@@ -9,6 +9,9 @@ import { StudentActivityComponent } from './student-activity/student-activity.co
 import { StudentTasksComponent } from './student-tasks/student-tasks.component';
 import { CreateProjectDialogComponent } from './create-project-dialog/create-project-dialog.component';
 import { AngularMaterialModule } from '../angular-material.module';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -22,7 +25,10 @@ import { AngularMaterialModule } from '../angular-material.module';
   imports: [
     CommonModule,
     AngularMaterialModule,
-    StudentRoutingModule
+    StudentRoutingModule,
+    MatTreeModule,
+    MatIconModule,
+    MatButtonModule
   ]
 })
 export class StudentModule { }

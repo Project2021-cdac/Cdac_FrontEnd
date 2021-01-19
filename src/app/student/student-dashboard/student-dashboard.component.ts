@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateProjectDialogComponent } from '../create-project-dialog/create-project-dialog.component';
 
 @Component({
   selector: 'app-student-dashboard',
@@ -29,5 +31,9 @@ export class StudentDashboardComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver,public dialog: MatDialog) {}
+  openDialog() {
+    console.log("inside choose proj open");
+    let dialogRef = this.dialog.open(CreateProjectDialogComponent); 
+  }
 }

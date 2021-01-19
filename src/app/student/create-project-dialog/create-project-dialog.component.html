@@ -1,6 +1,6 @@
 
 <h2 mat-dialog-title>Guide Registration</h2>
-<div mat-dialog-content>
+<div mat-dialog-content style="width:800px;padding:30px">
     <div> 
         <form [formGroup]="createProjectForm" (ngSubmit)="submitForm()" novalidate>
             <div class="row">
@@ -24,8 +24,8 @@
             <div class="row">
                 <div class="col">
                     <mat-form-field appearance="fill">
-                        <input matInput placeholder="Description" formControlName="desc">
-                        <mat-error *ngIf="createProjectForm.controls['desc'].hasError('required')">
+                        <textarea matInput placeholder="Description" cols="20" rows="8" formControlName="description"></textarea>
+                        <mat-error *ngIf="createProjectForm.controls['description'].hasError('required')">
                           Description is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
@@ -41,9 +41,9 @@
                     </div>
                     <div class="col">
                         <mat-form-field appearance="fill">
-                            <input matInput readonly [matDatepicker]="picker" placeholder="End Date" formControlName="etime" [min]="mineDate" [max]="maxeDate">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
+                            <input matInput readonly [matDatepicker]="picker1" placeholder="End Date" formControlName="etime" [min]="mineDate" [max]="maxeDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
                     </div>
             </div>
@@ -66,6 +66,24 @@
                       </mat-form-field>
                 </div>
             </div>
+            <mat-form-field>
+                <mat-label>Team</mat-label>
+                <mat-select [formControl]="teamControl" multiple>
+              
+                  <mat-select-trigger>
+                    <mat-chip-list>
+                      <mat-chip *ngFor="let student of teamControl.value"
+                        [removable]="true" (removed)="onStudentRemoved(student)">
+                        {{ student.firstName }} 
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                      </mat-chip>
+                    </mat-chip-list>
+                  </mat-select-trigger>
+              
+                  <mat-option *ngFor="let student of studentsList" [value]="student">{{student.firstName}}({{student.prn}})</mat-option>
+              
+                </mat-select>
+              </mat-form-field>
             </form>
             </div>
             <div mat-dialog-actions align="end">

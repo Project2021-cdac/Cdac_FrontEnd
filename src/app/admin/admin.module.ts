@@ -11,6 +11,7 @@ import { Page404AdminComponent } from './page404-admin/page404-admin.component';
 import { RegisterGuideDialogComponent } from './register-guide-dialog/register-guide-dialog.component';
 import { UploadExcelDialogComponent } from './upload-excel-dialog/upload-excel-dialog.component';
 import { AngularMaterialModule } from '../angular-material.module';
+import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { AngularMaterialModule } from '../angular-material.module';
     Page404AdminComponent,
     UploadExcelDialogComponent,
     RegisterGuideDialogComponent,
+    ProjectDashboardComponent,
   ],
   imports: [
     CommonModule,
