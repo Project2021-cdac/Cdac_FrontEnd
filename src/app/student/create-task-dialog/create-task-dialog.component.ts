@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import * as moment from 'moment';
+import { Milestone } from 'src/app/models/milestone-model';
 
 @Component({
   selector: 'app-create-task-dialog',
@@ -8,6 +10,30 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./create-task-dialog.component.css']
 })
 export class CreateTaskDialogComponent implements OnInit {
+  studentId:number = 1234;
+  milesList:Milestone[] = [
+    {
+      id:123,
+      startDate:324234,
+      endDate:34234234,
+      milestoneCheckPoint:"Milestone 1",
+      tasks:[]
+    },
+    {
+      id:124,
+      startDate:324234,
+      endDate:34234234,
+      milestoneCheckPoint:"Milestone 2",
+      tasks:[]
+    },
+    {
+      id:125,
+      startDate:324234,
+      endDate:34234234,
+      milestoneCheckPoint:"Milestone 3",
+      tasks:[]
+    },
+  ];
   createTaskForm = this.fb.group({
     description:['',Validators.compose([
       Validators.required, Validators.minLength(50), Validators.maxLength(300)])],
@@ -25,9 +51,17 @@ export class CreateTaskDialogComponent implements OnInit {
  
 
   submitForm() {
-    console.log(this.createTaskForm.value);
-    //rest api submit form data and close form
     
+    const formData = this.fb.group({
+      status:'CREATED',
+      createdOn: moment().unix(),
+      createdBy:this.studentId,
+      description:this.createTaskForm.get('description').value,
+      milestoneid:this.createTaskForm.get('milestone').value
+    });
+    console.log(formData.value);
+    //rest api submit form data and close form
+
     this.dialogRef.close();
   }
 }

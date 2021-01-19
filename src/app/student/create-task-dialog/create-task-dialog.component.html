@@ -2,12 +2,12 @@
 <h2 mat-dialog-title>Create Task</h2>
 <div mat-dialog-content>
     <div> 
-        <form [formGroup]="createTaskForm" (ngSubmit)="submitForm()" novalidate>
+        <form [formGroup]="createTaskForm" novalidate>
             <div class="row">
                 <div class="col">
                     <mat-form-field appearance="fill">
                         <textarea matInput placeholder="Description" cols="20" rows="8" formControlName="description"></textarea>
-                        <mat-error *ngIf="createProjectForm.controls['description'].hasError('required')">
+                        <mat-error *ngIf="createTaskForm.controls['description'].hasError('required')">
                           Description is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
@@ -29,5 +29,5 @@
             </div>
             <div mat-dialog-actions align="end">
                 <button mat-button (click)="onCancel()">Cancel</button>
-                <button mat-button color="primary">Create</button>
+                <button mat-button (click)="submitForm()" color="primary">Create</button>
               </div>

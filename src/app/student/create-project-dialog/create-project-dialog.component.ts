@@ -58,7 +58,7 @@ export class CreateProjectDialogComponent implements OnInit {
   team: Student[]=[];
   teamControl = new FormControl([]);
   createProjectForm = this.fb.group({
-    t_lead:[20024012001,[Validators.required]],
+    t_lead:['',[Validators.required]],
     title:['',Validators.compose([
       Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
     description:['',Validators.compose([
