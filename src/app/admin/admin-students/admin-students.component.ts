@@ -36,6 +36,7 @@ export class AdminStudentsComponent implements AfterViewInit, OnInit {
   
     dialogRef.afterClosed().subscribe(result => { 
       this.file = result.file; 
+      console.log("FILE HERE AGAIN:::::" + this.file);
       //call api to upload here
       /*const formData = new FormData();
     formData.append('file', this.file);*/

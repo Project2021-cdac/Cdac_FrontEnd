@@ -9,22 +9,28 @@ import { Student } from '../models/student-model';
 import 'rxjs/add/operator/catch';
 import { environment } from 'src/environments/environment';
 import { CreateGuide } from '../models/regGuide';
+import { FormBuilder } from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
 
   
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
 
   registerStudent(file: File): Observable<HttpEvent<{}>> {
-    const formData: FormData = new FormData();
-    formData.append('file', file);
+    console.log("FILE HERE ###:::" + file);
+    var fileData = this.formBuilder.group({file:['']});
+    fileData.get('file').setValue(file);
+    // const formData: FormData = new FormData();
+    
+    // formData.append('file', file);
 
+    console.log(fileData);
     const headers= new HttpHeaders()
-    .set('content-type', 'application/json')
+    .set('content-type', 'multipart/form-data')
     .set('Access-Control-Allow-Origin', '*');
-    const req = new HttpRequest('POST', `${environment.apiUrl}/admin/students/register`, formData,{ 'headers': headers });
+    const req = new HttpRequest('POST', `${environment.apiUrl}/admin/students/register`,fileData,{ 'headers': headers });
     return this.http.request(req);
   }
  
