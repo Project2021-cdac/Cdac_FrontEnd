@@ -40,7 +40,11 @@ export class LoginComponent implements OnInit{
           data => {
               console.log('Login successful');
               if(data){
-                this.router.navigate(['/'+data.role.toLowerCase()]).then(() => {
+                var role ='';
+                if(data.role){
+                role = data.role.split('_')[1].toLowerCase();
+                }
+                this.router.navigate(['/'+role]).then(() => {
                   window.location.reload();
                 });
               }

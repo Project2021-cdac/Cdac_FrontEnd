@@ -28,6 +28,9 @@ export class LoginService {
     return (this.currentUserValue)?true:false;
   }
   public get getRole(): string{
+    if(this.currentUserValue.role){
+      return this.currentUserValue.role.split('_')[1];
+    }
     return this.currentUserValue.role;
   }
   public redirectPath(): void{
