@@ -9,30 +9,42 @@ import { Student } from '../models/student-model';
 import 'rxjs/add/operator/catch';
 import { environment } from 'src/environments/environment';
 import { CreateGuide } from '../models/regGuide';
+import { FormBuilder } from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
 
   
-  constructor(private http:HttpClient) { }
+  constructor(private fb: FormBuilder,private http:HttpClient) { }
 
   registerStudent(file: File): Observable<HttpEvent<{}>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
 
     const headers= new HttpHeaders()
-    .set('content-type', 'application/json')
+.set('content-type', 'multipart/form-data')
     .set('Access-Control-Allow-Origin', '*');
+    console.log(formData);
+   
     const req = new HttpRequest('POST', `${environment.apiUrl}/admin/students/register`, formData,{ 'headers': headers });
     return this.http.request(req);
   }
  
-  registerGuide(Guide: Guide): Observable<any> {
+  registerGuide(guide: Guide): Observable<any> {
+    
+    const formData = this.fb.group({
+      //status:'CREATED',
+      guide:guide,
+      technologies:guide.technologies,
+     
+      
+    });
     const headers= new HttpHeaders()
     .set('content-type', 'application/json')
     .set('Access-Control-Allow-Origin', '*');
-    const body=JSON.stringify(Guide);
+    const body=JSON.stringify(formData);
+    console.log(formData)
     return this.http.post<any>(`${environment.apiUrl}/admin/guides/register`,{body},{ 'headers': headers });
   
   }

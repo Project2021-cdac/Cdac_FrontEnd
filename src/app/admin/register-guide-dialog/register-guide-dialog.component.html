@@ -64,8 +64,8 @@
               <mat-form-field appearance="fill">
                 <mat-label>Course</mat-label>
                 <mat-select formControlName="course">
-                  <mat-option *ngFor="let c of courses" [value]="c.value">
-                    {{c.viewValue}}
+                  <mat-option *ngFor="let c of courses" [value]="c">
+                    {{c}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -85,5 +85,6 @@
 </div>
 <div mat-dialog-actions align="end">
   <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button color="primary">Register</button>
+  <button mat-button (click)="submitForm()">Register</button>
+  <!--<button mat-button color="primary">Register</button>-->
 </div>
