@@ -52,9 +52,7 @@ export class AdminStudentsComponent implements AfterViewInit, OnInit {
       next: data => {
         this.studentData = data;
         console.log(data);
-
-        
-    },
+      },
     error: error => {
         this.errorMessage = error.message;
         console.error('There was an error!', error);

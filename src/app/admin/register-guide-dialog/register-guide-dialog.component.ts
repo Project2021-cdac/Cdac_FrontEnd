@@ -24,7 +24,7 @@ export class RegisterGuideDialogComponent implements OnInit {
   maxDate = new Date(this.minDate.getFullYear() + 50,1,1); // set max date 20 years back(2000)
   techList: Technology[] = [];/*['SpringBoot', 'Angular', 'MySQL', 'MS.NET', 'C++', 'ASDM'];*/
   techs: string[] =[];
-  courses: Course[] = [];
+  courses : string[]=[];
   
     /*{value: 'course-0', viewValue: 'DAC'},
     {value: 'course-1', viewValue: 'DBDA'},
@@ -45,6 +45,7 @@ export class RegisterGuideDialogComponent implements OnInit {
     techs: [this.techs],
     dob: [moment(), [Validators.required]],
   });
+  errorMessage: any;
   constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<RegisterGuideDialogComponent>
               ,private adminservice:AdminService) { }
   guide: Guide;
@@ -52,10 +53,21 @@ export class RegisterGuideDialogComponent implements OnInit {
     console.log(this.minDate);
     console.log(this.maxDate);
     //rest api calls to get tech list and course list
-     this.adminservice.getCourseList().subscribe((data: any[])=>{
+     this.adminservice.getCourseList().subscribe({    
+      next: (data: any[]) => {
+        this.courses = data;
+        console.log(data);
+
+        
+    },
+    error: error => {
+        this.errorMessage = error.message;
+        console.error('There was an error!', error);
+    }
+})/*subscribe((data: any[])=>{
       console.log(data);
       this.courses = data;
-    });
+    });*/
 
     this.adminservice.getTechnologyList().subscribe((data: any[])=>{
       console.log(data);
@@ -81,16 +93,17 @@ export class RegisterGuideDialogComponent implements OnInit {
     //this.dialogRef.close();
 
     //calling register guide service 
-   this.adminservice.registerGuide(this.guide,this.techs)
+   return this.adminservice.registerGuide(this.regGuideForm.value)
   .subscribe(data => {
-    console.log("register success",data),
-    this.guide.firstName=data.fname;
-    this.guide.lastName=data.lname;
-    this.guide.email=data.email;
-    //this.guide.password=data.password;
-    this.guide.phoneNumber=data.phone;
-    this.guide.dateOfBirth=data.dob;
-    this.techs=data.techs
+    /*this.guide=data;*/
+    console.log("register success",data);
+    // this.guide.firstName=data.fname;
+    // this.guide.lastName=data.lname;
+    // this.guide.email=data.email;
+    // //this.guide.password=data.password;
+    // this.guide.phoneNumber=data.phone;
+    // this.guide.dateOfBirth=data.dob;
+    // this.techs=data.techs
   },
    error => console.log("error",error));
     

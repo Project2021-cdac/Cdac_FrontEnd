@@ -6,6 +6,9 @@ import { Student } from '../models/student-model';
 import {  throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Project } from '../models/project-model';
+import { Technology } from '../models/technology-model';
+import { Task } from '../models/task-model';
+import { Milestone } from '../models/milestone-model';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,20 +17,30 @@ export class StudentService {
 
   constructor(private http:HttpClient) { }
   getStudent(prn:bigint):Observable<Student>{
-    return this.http.get<Student>(`${environment.apiUrl}/student`+prn);
+    return this.http.get<Student>(`${environment.apiUrl}/student/`+prn);
   }
 
-  createProject(Project: Project):Observable<Project> {
+  createProject(project: Project,tecnhology:Technology[],student: Student[]):Observable<any> {
      
-    const body=JSON.stringify(Project);
-      return this.http.post<Project>(`${environment.apiUrl}/student/createproject`,body);
+    const projBody=JSON.stringify(project);
+    const techBody=JSON.stringify(tecnhology);
+    const studBody=JSON.stringify(student);
+
+      return this.http.post<any>(`${environment.apiUrl}/student/createproject`,{projBody,techBody,studBody});
 
   }
   getStudentsWithNoProject():Observable<Student[]>{
-    return this.http.get<Student[]>('${environment.apiUrl}/student/noproject')
+    return this.http.get<Student[]>(`${environment.apiUrl}/student/noproject`)
     .pipe(catchError(this.handleError));
   }
 
+  createTask(task:Task,pid:number,mid:number):Observable<any>{
+      const taskBody=JSON.stringify(task);
+    return this.http.post<any>(`${environment.apiUrl}/student/createtask/`+pid,{taskBody,mid});
+  }
+  getMilestone(pid:number):Observable<Milestone[]>{
+    return this.http.get<Milestone[]>(`${environment.apiUrl}/student/milestones/`+pid);
+  }
   handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {

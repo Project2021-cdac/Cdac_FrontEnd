@@ -28,12 +28,12 @@ export class AdminService {
     return this.http.request(req);
   }
  
-  registerGuide(Guide: Guide,tech:string[]): Observable<any> {
+  registerGuide(Guide: Guide): Observable<any> {
     const headers= new HttpHeaders()
     .set('content-type', 'application/json')
     .set('Access-Control-Allow-Origin', '*');
     const body=JSON.stringify(Guide);
-    return this.http.post<any>(`${environment.apiUrl}/admin/guides/register`,{body,tech},{ 'headers': headers });
+    return this.http.post<any>(`${environment.apiUrl}/admin/guides/register`,{body},{ 'headers': headers });
   
   }
   getGuideList():Observable<Guide[]>{
@@ -46,10 +46,16 @@ export class AdminService {
     return this.http.get<Student[]>(`${environment.apiUrl}/admin/students`);
   }
   getCourseList():Observable<any>{
-    return this.http.get(`${environment.apiUrl}/course/list`);
+    const headers= new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*');
+    return this.http.get(`${environment.apiUrl}/course/list`,{ 'headers': headers });
   }
   getTechnologyList():Observable<any>{
-    return this.http.get(`${environment.apiUrl}/technology/list`);
+    const headers= new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*');
+    return this.http.get(`${environment.apiUrl}/technology/list`,{ 'headers': headers });
   }
   getTeamSize():Observable<any>{
     return this.http.get(`${environment.apiUrl}/admin/teamsize`);
