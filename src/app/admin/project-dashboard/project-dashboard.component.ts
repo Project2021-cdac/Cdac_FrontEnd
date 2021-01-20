@@ -7,9 +7,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { ActivatedRoute } from '@angular/router';
+import { Project } from 'src/app/models/project-model';
 import { mileStones } from './example-data';
 import { ProjectActivityItem, ProjectDataSource } from './project-dashboard-datasource';
-
+import { AdminService } from '../../services/admin.service';
 /** File node data with possible child nodes. */
 export interface MilestoneTreeNode {
   name: string;
@@ -41,7 +43,8 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['avatar','id', 'name','status','date'];
   
- 
+  public id: number;
+  project:Project;
 
   ngOnInit() {
     this.dataSource = new ProjectDataSource();
@@ -63,7 +66,13 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
    /** The MatTreeFlatDataSource connects the control and flattener to provide data. */
    tdataSource: MatTreeFlatDataSource<MilestoneTreeNode, FlatTreeNode>;
  
-   constructor() {
+   constructor(private activatedRoute: ActivatedRoute, private adminService: AdminService) {
+     //getting project id from route
+     this.id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+     console.log(this.id);
+     // Find the project that correspond with the id provided in route.
+      this.project = this.adminService.projects.find(proj => proj.id === this.id);
+
      this.treeFlattener = new MatTreeFlattener(
        this.transformer,
        this.getLevel,

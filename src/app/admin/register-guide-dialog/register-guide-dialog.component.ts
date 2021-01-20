@@ -20,7 +20,7 @@ export class RegisterGuideDialogComponent implements OnInit {
   minDate = new Date(new Date().getFullYear() - 70,1,1);//set min date 70 years back(1950)
   maxDate = new Date(this.minDate.getFullYear() + 50,1,1); // set max date 20 years back(2000)
   techList: Technology[] = [];/*['SpringBoot', 'Angular', 'MySQL', 'MS.NET', 'C++', 'ASDM'];*/
-  techs: number[] =[];
+  techs: string[] =[];
   courses : string[]=[];
   
     /*{value: 'course-0', viewValue: 'DAC'},
@@ -37,9 +37,9 @@ export class RegisterGuideDialogComponent implements OnInit {
     password: [null, Validators.compose([
       Validators.required, Validators.minLength(5), Validators.maxLength(9)])],
     phone: [null, Validators.compose([
-        Validators.required, Validators.minLength(12), Validators.maxLength(15)])],
+        Validators.required, Validators.minLength(10), Validators.maxLength(10)])],
     course: [''],
-    dob: [moment(), [Validators.required]],
+    dob: ['', [Validators.required]],
   });
   techGuideForm = this.fb.group({
     techs: [this.techs],
@@ -49,7 +49,7 @@ export class RegisterGuideDialogComponent implements OnInit {
               ,private adminservice:AdminService) { }
   guide: Guide;
   ngOnInit() {
-    console.log(this.minDate);
+    console.log((moment(this.minDate).format('yyyy-MM-DD')));
     console.log(this.maxDate);
     //rest api calls to get tech list and course list
      this.adminservice.getCourseList().subscribe({    
@@ -86,13 +86,14 @@ export class RegisterGuideDialogComponent implements OnInit {
  
 
   submitForm() {
+    this.regGuideForm.setValue({'dob':moment(this.regGuideForm.get('dob').value).format('yyyy-MM-DD')});
     console.log(this.regGuideForm.value);
     //rest api submit form data and close form
     //submit as one user model and one string array(technology list)
     //this.dialogRef.close();
     const formData = this.fb.group({
       guide:this.regGuideForm.value,
-     technologies:this.techGuideForm.value,
+     technologies:this.techGuideForm.get('techs').value,
       
     });
     //calling register guide service 

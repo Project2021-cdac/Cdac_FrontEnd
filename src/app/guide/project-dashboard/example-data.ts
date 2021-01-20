@@ -80,3 +80,36 @@ export const project =
     "guide":null,
     "technologies":"Spring,Mysql,Angular"
 };
+
+export const projects = [
+  {
+    "id":1233,
+    "title":"title1",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "startDate":"12-11-2020",
+    "endDate":"13-12-2020",
+    "teamLead":20024012432,
+    "guide":null,
+    "technologies":"Spring,Mysql,Angular"
+},
+{
+    "id":1234,
+    "title":"title2",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "startDate":"12-11-2020",
+    "endDate":"13-12-2020",
+    "teamLead":20024012432,
+    "guide":null,
+    "technologies":"Spring,Mysql,Angular"
+},
+{
+    "id":1235,
+    "title":"title3",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "startDate":"12-11-2020",
+    "endDate":"13-12-2020",
+    "teamLead":20024012432,
+    "guide":null,
+    "technologies":"Spring,Mysql,Angular"
+}
+];

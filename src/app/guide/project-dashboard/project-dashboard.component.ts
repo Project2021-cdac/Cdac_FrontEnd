@@ -4,6 +4,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { ActivatedRoute } from '@angular/router';
+import { Project } from 'src/app/models/project-model';
+import { GuideService } from 'src/app/services/guide.service';
 import { mileStones } from './example-data';
 import { ProjectActivityItem, ProjectDashboardDataSource } from './project-dashboard-datasource';
 
@@ -38,7 +41,9 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['avatar','id', 'name','status','date'];
   
- 
+  inSession:boolean = false;
+  public id: number;
+  project:Project;
 
   ngOnInit() {
     this.dataSource = new ProjectDashboardDataSource();
@@ -59,8 +64,14 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
    /** The MatTreeFlatDataSource connects the control and flattener to provide data. */
    tdataSource: MatTreeFlatDataSource<MilestoneTreeNode, FlatTreeNode>;
  
-   constructor() {
-     this.treeFlattener = new MatTreeFlattener(
+   constructor(private activatedRoute: ActivatedRoute, private guideService: GuideService) {
+     //getting project id from route
+     this.id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+     console.log(this.id);
+     // Find the project that correspond with the id provided in route.
+      this.project = this.guideService.projects.find(proj => proj.id === this.id);
+    
+    this.treeFlattener = new MatTreeFlattener(
        this.transformer,
        this.getLevel,
        this.isExpandable,
@@ -100,5 +111,14 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
    getChildren(node: MilestoneTreeNode): MilestoneTreeNode[] | null | undefined {
      return node.children;
    }
- 
+
+   //onSession start clicked
+   onStart(){
+    this.inSession = true;
+   }
+   //onSession ended
+   onEnd(){
+     this.inSession = false;
+
+   }
 }

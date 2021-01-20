@@ -11,7 +11,7 @@ const routes: Routes = [
     path: '', component: GuideNavComponent, children: [
       { path:'home', component: GuideDashboardComponent},
       { path: '', redirectTo: 'home', pathMatch: 'full'},
-      { path:'project', component: ProjectDashboardComponent},
+      { path:'project/:id', component: ProjectDashboardComponent},
       { path: '**', component: Page404GuideComponent }
     ]
   }

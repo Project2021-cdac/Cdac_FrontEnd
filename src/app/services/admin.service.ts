@@ -10,11 +10,12 @@ import 'rxjs/add/operator/catch';
 import { environment } from 'src/environments/environment';
 import { CreateGuide } from '../models/regGuide';
 import { FormBuilder } from '@angular/forms';
+import { projects } from '../admin/project-dashboard/example-data';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-
+  projects:Project[] = projects;
   
   constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
 

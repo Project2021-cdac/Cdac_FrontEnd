@@ -6,10 +6,10 @@
   </mat-toolbar>
   <mat-grid-list cols="{{ ( cards | async )?.columns }}" rowHeight="150px">
     <mat-grid-tile *ngFor="let project of projects" [colspan]="1" [rowspan]="1">
-      <mat-card class="dashboard-card">
+      <mat-card class="dashboard-card" [routerLink]="['/guide/project', project.id]">
         <mat-card-header>
           <mat-card-title>
-           {{project.teamId}}
+           Group - {{project.id}}
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -23,7 +23,7 @@
           <div>{{project.title}}</div>
         </mat-card-content>
         <mat-card-footer class="progress-bar">
-          <mat-progress-bar mode="determinate" value="{{project.progress}}"></mat-progress-bar>
+          <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
         </mat-card-footer>
       </mat-card>
     </mat-grid-tile>

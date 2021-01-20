@@ -2,10 +2,10 @@
   <h1 class="mat-h1">Projects List</h1>
   <mat-grid-list cols="{{ ( cards | async )?.columns }}" rowHeight="150px">
     <mat-grid-tile *ngFor="let project of projects" [colspan]="1" [rowspan]="1">
-      <mat-card class="dashboard-card">
+      <mat-card class="dashboard-card" [routerLink]="['/admin/projects', project.id]">
         <mat-card-header>
           <mat-card-title>
-           {{project.id}}
+           Group : {{project.id}}
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
