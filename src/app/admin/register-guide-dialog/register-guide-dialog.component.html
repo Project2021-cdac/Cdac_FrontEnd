@@ -79,6 +79,47 @@
             </mat-select>
           </mat-form-field>
         </div>
+<<<<<<< HEAD
+=======
+        <div class="row">
+          <div class="col">
+              <mat-form-field appearance="fill">
+                <input matInput placeholder="Phone" formControlName="phone">
+                <mat-error *ngIf="regGuideForm.controls['phone'].hasError('required')">
+                  Phone is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill">
+                    <input matInput readonly [matDatepicker]="picker" placeholder="Date of birth" formControlName="dob" [min]="minDate" [max]="maxDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                 </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Course</mat-label>
+                <mat-select formControlName="course">
+                  <mat-option *ngFor="let c of courses" [value]="c">
+                    {{c}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Technology</mat-label>
+                <mat-select formControlName="techs" multiple>
+                  <mat-option *ngFor="let tech of techList" [value]="tech.name">{{tech.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            </div>
+              </form>
+>>>>>>> 49b363bc5d005052cf300f73c987438af74182d8
       </div>
     </form>
   </div>
@@ -86,5 +127,10 @@
 </div>
 <div mat-dialog-actions align="end">
   <button mat-button (click)="onCancel()">Cancel</button>
+<<<<<<< HEAD
   <button mat-button (click)="submitForm()" color="primary">Register</button>
+=======
+  <button mat-button (click)="submitForm()">Register</button>
+  <!--<button mat-button color="primary">Register</button>-->
+>>>>>>> 49b363bc5d005052cf300f73c987438af74182d8
 </div>

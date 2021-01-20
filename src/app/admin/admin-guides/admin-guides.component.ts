@@ -36,6 +36,7 @@ export class AdminGuidesComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
+    
      //make api call to get data(--Rithika)
      this.adminService.getGuideList().subscribe((result)=>{    
      // this.guideData  =  result;
