@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import * as moment from 'moment';
 import { Guide } from 'src/app/models/guide-model';
+import { Technology } from 'src/app/models/technology-model';
 
 import { AdminService } from 'src/app/services/admin.service';
 
@@ -21,7 +22,7 @@ export class RegisterGuideDialogComponent implements OnInit {
   hide = true;
   minDate = new Date(new Date().getFullYear() - 70,1,1);//set min date 70 years back(1950)
   maxDate = new Date(this.minDate.getFullYear() + 50,1,1); // set max date 20 years back(2000)
-  techList: string[] = [];/*['SpringBoot', 'Angular', 'MySQL', 'MS.NET', 'C++', 'ASDM'];*/
+  techList: Technology[] = [];/*['SpringBoot', 'Angular', 'MySQL', 'MS.NET', 'C++', 'ASDM'];*/
   techs: string[] =[];
   courses: Course[] = [];
   

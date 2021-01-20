@@ -7,6 +7,7 @@ import { AdminProjectsComponent } from './admin-projects/admin-projects.componen
 import { AdminStudentsComponent } from './admin-students/admin-students.component';
 import { AdminComponent } from './admin.component';
 import { Page404AdminComponent } from './page404-admin/page404-admin.component';
+import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full'},
       { path:'students', component: AdminStudentsComponent },
       { path:'projects', component: AdminProjectsComponent },
+      { path:'project', component: ProjectDashboardComponent},
       { path:'guides', component: AdminGuidesComponent },
       { path: '**', component: Page404AdminComponent }
     ]

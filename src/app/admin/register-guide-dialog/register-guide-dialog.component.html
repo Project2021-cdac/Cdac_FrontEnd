@@ -74,7 +74,7 @@
               <mat-form-field appearance="fill">
                 <mat-label>Technology</mat-label>
                 <mat-select formControlName="techs" multiple>
-                  <mat-option *ngFor="let tech of techList" [value]="tech">{{tech}}</mat-option>
+                  <mat-option *ngFor="let tech of techList" [value]="tech.name">{{tech.name}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>

@@ -24,7 +24,7 @@ export class AdminService {
     const headers= new HttpHeaders()
     .set('content-type', 'application/json')
     .set('Access-Control-Allow-Origin', '*');
-    const req = new HttpRequest('POST', `${environment.apiUrl}/admin/student/register`, formData,{ 'headers': headers });
+    const req = new HttpRequest('POST', `${environment.apiUrl}/admin/students/register`, formData,{ 'headers': headers });
     return this.http.request(req);
   }
  

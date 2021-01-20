@@ -33,12 +33,16 @@ import { Guide } from 'src/app/models/guide-model';
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class AdminGuidesDataSource extends DataSource<Guide> {
-  data: Guide[] = this.guidesList;
+interface GuideDummy {
+  id:number,
+  firstName: string
+}
+export class AdminGuidesDataSource extends DataSource<GuideDummy> {
+  data: GuideDummy[] = this.guidesList;
   paginator: MatPaginator;
   sort: MatSort;
 
-  constructor(private guidesList :Guide[]) {
+  constructor(private guidesList :GuideDummy[]) {
     super();
   }
 
@@ -47,7 +51,7 @@ export class AdminGuidesDataSource extends DataSource<Guide> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<Guide[]> {
+  connect(): Observable<GuideDummy[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -71,7 +75,7 @@ export class AdminGuidesDataSource extends DataSource<Guide> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: Guide[]) {
+  private getPagedData(data: GuideDummy[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -80,7 +84,7 @@ export class AdminGuidesDataSource extends DataSource<Guide> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: Guide[]) {
+  private getSortedData(data: GuideDummy[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }
@@ -88,7 +92,7 @@ export class AdminGuidesDataSource extends DataSource<Guide> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'name': return compare(a.firstName, b.firstName, isAsc);
+        case 'firstName': return compare(a.firstName, b.firstName, isAsc);
         case 'id': return compare(+a.id, +b.id, isAsc);
         default: return 0;
       }

@@ -4,12 +4,14 @@ import { GuideDashboardComponent } from './guide-dashboard/guide-dashboard.compo
 import { GuideNavComponent } from './guide-nav/guide-nav.component';
 import { GuideComponent } from './guide.component';
 import { Page404GuideComponent } from './page404-guide/page404-guide.component';
+import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
 
 const routes: Routes = [
   {
     path: '', component: GuideNavComponent, children: [
       { path:'home', component: GuideDashboardComponent},
       { path: '', redirectTo: 'home', pathMatch: 'full'},
+      { path:'project', component: ProjectDashboardComponent},
       { path: '**', component: Page404GuideComponent }
     ]
   }

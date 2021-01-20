@@ -5,13 +5,13 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
-export interface StudentActivityItem {
+export interface ProjectActivityItem {
   name: string;
   id: number;
 }
 
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: StudentActivityItem[] = [
+const EXAMPLE_DATA: ProjectActivityItem[] = [
   {id: 1, name: 'Hydrogen Peroxide'},
   {id: 2, name: 'Helium Gas'},
   {id: 3, name: 'Lithium Ion'},
@@ -35,12 +35,12 @@ const EXAMPLE_DATA: StudentActivityItem[] = [
 ];
 
 /**
- * Data source for the StudentActivity view. This class should
+ * Data source for the Activity view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class StudentActivityDataSource extends DataSource<StudentActivityItem> {
-  data: StudentActivityItem[] = EXAMPLE_DATA;
+export class ProjectDashboardDataSource extends DataSource<ProjectActivityItem> {
+  data: ProjectActivityItem[] = EXAMPLE_DATA;
   paginator: MatPaginator;
   sort: MatSort;
 
@@ -53,7 +53,7 @@ export class StudentActivityDataSource extends DataSource<StudentActivityItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<StudentActivityItem[]> {
+  connect(): Observable<ProjectActivityItem[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -77,7 +77,7 @@ export class StudentActivityDataSource extends DataSource<StudentActivityItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: StudentActivityItem[]) {
+  private getPagedData(data: ProjectActivityItem[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -86,7 +86,7 @@ export class StudentActivityDataSource extends DataSource<StudentActivityItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: StudentActivityItem[]) {
+  private getSortedData(data: ProjectActivityItem[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }
