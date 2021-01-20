@@ -72,7 +72,8 @@ export class AdminService {
   getTeamSize():Observable<any>{
     return this.http.get(`${environment.apiUrl}/admin/teamsize`);
   }
- /* setTeamSize(count:number):Observable<any>{
+
+  /* setTeamSize(count:number):Observable<any>{
     return this.http.put(`${environment.apiUrl}/admin/userid`)
   }*/
  //exception handling

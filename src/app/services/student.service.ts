@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -20,10 +20,10 @@ export class StudentService {
     return this.http.get<Student>(`${environment.apiUrl}/student/`+prn);
   }
 
-  createProject(project: Project,tecnhology:Technology[],student: Student[]):Observable<any> {
+  createProject(project: Project,technology:Technology[],student: Student[]):Observable<any> {
      
     const projBody=JSON.stringify(project);
-    const techBody=JSON.stringify(tecnhology);
+    const techBody=JSON.stringify(technology);
     const studBody=JSON.stringify(student);
 
       return this.http.post<any>(`${environment.apiUrl}/student/createproject`,{projBody,techBody,studBody});
@@ -35,11 +35,13 @@ export class StudentService {
   }
 
   createTask(task:Task,pid:number,mid:number):Observable<any>{
-      const taskBody=JSON.stringify(task);
-    return this.http.post<any>(`${environment.apiUrl}/student/createtask/`+pid,{taskBody,mid});
+      const params=new HttpParams().set('id',"pid");
+    const taskBody=JSON.stringify(task);
+    return this.http.post<any>(`${environment.apiUrl}/student/createtask`,{taskBody,mid},{'params' :params});
   }
   getMilestone(pid:number):Observable<Milestone[]>{
-    return this.http.get<Milestone[]>(`${environment.apiUrl}/student/milestones/`+pid);
+    const params=new HttpParams().set('id',"pid");
+    return this.http.get<Milestone[]>(`${environment.apiUrl}/student/milestones`,{'params' :params});
   }
   handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';

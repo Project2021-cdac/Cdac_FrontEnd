@@ -97,13 +97,7 @@ export class RegisterGuideDialogComponent implements OnInit {
   .subscribe(data => {
     /*this.guide=data;*/
     console.log("register success",data);
-    // this.guide.firstName=data.fname;
-    // this.guide.lastName=data.lname;
-    // this.guide.email=data.email;
-    // //this.guide.password=data.password;
-    // this.guide.phoneNumber=data.phone;
-    // this.guide.dateOfBirth=data.dob;
-    // this.techs=data.techs
+    
   },
    error => console.log("error",error));
     
