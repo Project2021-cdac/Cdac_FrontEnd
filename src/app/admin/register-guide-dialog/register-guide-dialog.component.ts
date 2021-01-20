@@ -11,7 +11,7 @@ import { AdminService } from 'src/app/services/admin.service';
 
 interface Course {
   value: string;
-  viewValue: string;
+  //viewValue: string;
 }
 @Component({
   selector: 'app-register-guide-dialog',
@@ -24,7 +24,7 @@ export class RegisterGuideDialogComponent implements OnInit {
   maxDate = new Date(this.minDate.getFullYear() + 50,1,1); // set max date 20 years back(2000)
   techList: Technology[] = [];/*['SpringBoot', 'Angular', 'MySQL', 'MS.NET', 'C++', 'ASDM'];*/
   techs: string[] =[];
-  courses : string[]=[];
+  courses :Course[]=[];
   
     /*{value: 'course-0', viewValue: 'DAC'},
     {value: 'course-1', viewValue: 'DBDA'},
@@ -90,7 +90,7 @@ export class RegisterGuideDialogComponent implements OnInit {
     console.log(this.regGuideForm.value);
     //rest api submit form data and close form
     //submit as one user model and one string array(technology list)
-    //this.dialogRef.close();
+    this.dialogRef.close();
 
     //calling register guide service 
    return this.adminservice.registerGuide(this.regGuideForm.value)
