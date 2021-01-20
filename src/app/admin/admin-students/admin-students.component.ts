@@ -36,7 +36,7 @@ export class AdminStudentsComponent implements AfterViewInit, OnInit {
   
     dialogRef.afterClosed().subscribe(result => { 
       this.file = result.file; 
-
+      console.log("FILE HERE AGAIN:::::" + this.file);
     this.adminService.registerStudent(this.file).subscribe(
       (res) => {console.log("succesful" ,res);},
       (err) =>{ console.log("error ",err);}

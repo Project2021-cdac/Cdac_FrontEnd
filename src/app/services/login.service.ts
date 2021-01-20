@@ -49,11 +49,14 @@ export class LoginService {
           .pipe(map(user => {
               // login successful if there's a jwt token in the response
               if (user) {
+                console.log(user.token);
+                console.log(user.userAccount);
+
                   // store user details and jwt token in local storage to keep user logged in between page refreshes
+                  localStorage.setItem('currentUser', JSON.stringify(user.userAccount));
                   localStorage.setItem('token', user.token);
-                  localStorage.setItem('currentUser', JSON.stringify(user.UserAccount));
+                  console.log(user);
                   this.currentUserSubject.next(user);
-                  
               }
 
               return user;
