@@ -31,20 +31,13 @@ export class AdminService {
     return this.http.request(req);
   }
  
-  registerGuide(guide: Guide): Observable<any> {
-    
-    const formData = this.fb.group({
-      //status:'CREATED',
-      guide:guide,
-      technologies:guide.technologies,
-     
-      
-    });
+  registerGuide(data: any): Observable<any> {
+   
     const headers= new HttpHeaders()
     .set('content-type', 'application/json')
     .set('Access-Control-Allow-Origin', '*');
-    const body=JSON.stringify(formData);
-    console.log(formData)
+    const body=JSON.stringify(data);
+    console.log(data)
     return this.http.post<any>(`${environment.apiUrl}/admin/guides/register`,{body},{ 'headers': headers });
   
   }

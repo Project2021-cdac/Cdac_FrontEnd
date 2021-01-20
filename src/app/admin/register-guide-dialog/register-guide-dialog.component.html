@@ -71,12 +71,14 @@
               </mat-form-field>
             </div>
             <div class="col">
+              <form [formGroup]="techGuideForm" (ngSubmit)="submitForm()" novalidate>
               <mat-form-field appearance="fill">
                 <mat-label>Technology</mat-label>
                 <mat-select formControlName="techs" multiple>
-                  <mat-option *ngFor="let tech of techList" [value]="tech.name">{{tech.name}}</mat-option>
+                  <mat-option *ngFor="let tech of techList" [value]="tech.id">{{tech.name}}</mat-option>
                 </mat-select>
               </mat-form-field>
+            </form>
             </div>
             </div>
               </form>

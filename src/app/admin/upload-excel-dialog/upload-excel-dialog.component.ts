@@ -16,6 +16,7 @@ export class UploadExcelDialogComponent implements OnInit {
     this.dialogRef.close(); 
   }
   onSubmit(): void { 
+    
     this.dialogRef.close(this.data); 
   } 
 

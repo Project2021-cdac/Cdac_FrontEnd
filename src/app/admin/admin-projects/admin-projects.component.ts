@@ -4,6 +4,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Project } from 'src/app/models/project-model';
 import { Observable } from 'rxjs';
 import { AdminService } from 'src/app/services/admin.service';
+import { projects } from '../project-dashboard/example-data';
 
 
 @Component({
@@ -12,28 +13,27 @@ import { AdminService } from 'src/app/services/admin.service';
   styleUrls: ['./admin-projects.component.css']
 })
 export class AdminProjectsComponent   {
-  public projects= [];
+  projects:Project[]= projects;
   errorMessage: any;
-    constructor(private adminService:AdminService,private breakpointObserver: BreakpointObserver){
-    
-  }
+  
+  constructor(private adminService:AdminService,private breakpointObserver: BreakpointObserver){}
+
   ngOnInit() {
     this.fetchProjectList();
   }
-    fetchProjectList() {
+  
+  fetchProjectList() {
        this.adminService.getProjectList().subscribe({    
         next: data => {
           this.projects = data;
           console.log(data);
-  
-          
-      },
-      error: error => {
+        },
+       error: error => {
           this.errorMessage = error.message;
           console.error('There was an error!', error);
-      }
-  })
-    }
+        }
+    })
+  }
     
   
   /** Based on the screen size, switch from standard to one column per row */

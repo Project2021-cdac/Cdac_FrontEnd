@@ -16,7 +16,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full'},
       { path:'students', component: AdminStudentsComponent },
       { path:'projects', component: AdminProjectsComponent },
-      { path:'project', component: ProjectDashboardComponent},
+      { path:'projects/:id', component: ProjectDashboardComponent},
       { path:'guides', component: AdminGuidesComponent },
       { path: '**', component: Page404AdminComponent }
     ]
