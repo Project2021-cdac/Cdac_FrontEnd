@@ -71,8 +71,8 @@ export const tasks = [
 export const project = 
   {
     "id":1233,
-    "projectTitle":"title1",
-    "projectDescription":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "title":"title1",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "startDate":"12-11-2020",
     "endDate":"13-12-2020",
     "teamLead":20024012432,
@@ -83,8 +83,8 @@ export const project =
 export const projects = [
   {
     "id":1233,
-    "projectTitle":"title1",
-    "projectDescription":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "title":"title1",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "startDate":"12-11-2020",
     "endDate":"13-12-2020",
     "teamLead":20024012432,
@@ -93,8 +93,8 @@ export const projects = [
 },
 {
     "id":1234,
-    "projectTitle":"title2",
-    "projectDescription":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "title":"title2",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "startDate":"12-11-2020",
     "endDate":"13-12-2020",
     "teamLead":20024012432,
@@ -103,8 +103,8 @@ export const projects = [
 },
 {
     "id":1235,
-    "projectTitle":"title3",
-    "projectDescription":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "title":"title3",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "startDate":"12-11-2020",
     "endDate":"13-12-2020",
     "teamLead":20024012432,

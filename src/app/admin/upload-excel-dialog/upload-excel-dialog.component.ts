@@ -16,6 +16,9 @@ export class UploadExcelDialogComponent implements OnInit {
     this.dialogRef.close(); 
   }
   onSubmit(): void { 
+    console.log("FILE HERE:::" + this.data.file.split('.'));
+    console.log(this.data);
+
     this.dialogRef.close(this.data); 
   } 
 

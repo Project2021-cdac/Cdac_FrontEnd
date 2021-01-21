@@ -28,6 +28,9 @@ export class LoginService {
     return (this.currentUserValue)?true:false;
   }
   public get getRole(): string{
+    if(this.currentUserValue.role){
+      return this.currentUserValue.role.split('_')[1];
+    }
     return this.currentUserValue.role;
   }
   public redirectPath(): void{
@@ -46,11 +49,14 @@ export class LoginService {
           .pipe(map(user => {
               // login successful if there's a jwt token in the response
               if (user) {
+                console.log(user.token);
+                console.log(user.userAccount);
+
                   // store user details and jwt token in local storage to keep user logged in between page refreshes
+                  localStorage.setItem('currentUser', JSON.stringify(user.userAccount));
                   localStorage.setItem('token', user.token);
-                  localStorage.setItem('currentUser', JSON.stringify(user.UserAccount));
+                  console.log(user);
                   this.currentUserSubject.next(user);
-                  
               }
 
               return user;
@@ -60,6 +66,7 @@ export class LoginService {
   logout() {
       // remove user from local storage to log user out
       localStorage.removeItem('currentUser');
+      localStorage.removeItem('token');
       this.currentUserSubject.next(null);
       window.location.reload();
 

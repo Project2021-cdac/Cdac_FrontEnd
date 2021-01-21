@@ -10,41 +10,38 @@ import 'rxjs/add/operator/catch';
 import { environment } from 'src/environments/environment';
 import { CreateGuide } from '../models/regGuide';
 import { FormBuilder } from '@angular/forms';
+import { projects } from '../admin/project-dashboard/example-data';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-
+  projects:Project[] = projects;
   
-  constructor(private fb: FormBuilder,private http:HttpClient) { }
+  constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
 
   registerStudent(file: File): Observable<HttpEvent<{}>> {
-    const formData: FormData = new FormData();
-    formData.append('file', file);
+    console.log("FILE HERE ###:::" + file);
+    var fileData = this.formBuilder.group({file:['']});
+    fileData.get('file').setValue(file);
+    // const formData: FormData = new FormData();
+    
+    // formData.append('file', file);
 
+    console.log(fileData);
     const headers= new HttpHeaders()
-.set('content-type', 'multipart/form-data')
+    .set('content-type', 'multipart/form-data')
     .set('Access-Control-Allow-Origin', '*');
-    console.log(formData);
-   
-    const req = new HttpRequest('POST', `${environment.apiUrl}/admin/students/register`, formData,{ 'headers': headers });
+    const req = new HttpRequest('POST', `${environment.apiUrl}/admin/students/register`,fileData,{ 'headers': headers });
     return this.http.request(req);
   }
  
-  registerGuide(guide: Guide): Observable<any> {
-    
-    const formData = this.fb.group({
-      //status:'CREATED',
-      guide:guide,
-      technologies:guide.technologies,
-     
-      
-    });
+
+  registerGuide(data: any): Observable<any> {
     const headers= new HttpHeaders()
     .set('content-type', 'application/json')
     .set('Access-Control-Allow-Origin', '*');
-    const body=JSON.stringify(formData);
-    console.log(formData)
+    const body=JSON.stringify(data);
+    console.log(data);
     return this.http.post<any>(`${environment.apiUrl}/admin/guides/register`,{body},{ 'headers': headers });
   
   }
