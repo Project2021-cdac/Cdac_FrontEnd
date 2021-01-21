@@ -3,7 +3,10 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 //import { SelectAutocompleteComponent } from 'mat-select-autocomplete-angular9';
 import * as moment from 'moment';
+import { Project } from 'src/app/models/project-model';
 import { Student } from 'src/app/models/student-model';
+import { AdminService } from 'src/app/services/admin.service';
+import { StudentService } from 'src/app/services/student.service';
 
 @Component({
   selector: 'app-create-project-dialog',
@@ -17,6 +20,7 @@ export class CreateProjectDialogComponent implements OnInit {
   maxeDate = new Date(this.minsDate.getFullYear(),this.minsDate.getMonth(),this.minsDate.getDate() + 60); // set max edate 60 days from now
   techList: string[] = ['SpringBoot', 'Angular', 'MySQL', 'MS.NET', 'C++', 'ASDM'];
   techs: string[] =[];
+  project :Project;
   studentsList: Student[] = [{
     "prn":200240120078,
     "id":6546,
@@ -68,10 +72,20 @@ export class CreateProjectDialogComponent implements OnInit {
     team: [this.team],
     techs: [this.techs]
   });
-  constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<CreateProjectDialogComponent>) { }
-
+  constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<CreateProjectDialogComponent>,
+              private studentService : StudentService,private adminService : AdminService) { }
+  
   ngOnInit(): void {
     //api call to get tech list, students with no project list
+    this.adminService.getTechnologyList().subscribe((data: any[])=>{
+      console.log(data);
+      this.techList = data;
+    });
+    this.studentService.getStudentsWithNoProject().subscribe((data: any[])=>{
+      console.log(data);
+      this.studentsList = data;
+    });
+
   }
 
   onCancel(): void { 
@@ -82,6 +96,19 @@ export class CreateProjectDialogComponent implements OnInit {
   submitForm() {
     console.log(this.createProjectForm.value);
     //rest api submit form data and close form
+    /*const formData = this.fb.group({
+      project:this.createProjectForm.value,
+     technologies:this.createProjectForm.get('techs').value,
+      student:this.createProjectForm.get('teamControl').value,//doubt for student 
+
+    });
+    this.studentService.createProject(formData.value)
+  .subscribe(data => {
+    
+    console.log("project created",data);
+    
+  },
+   error => console.log("error",error));*/
     this.dialogRef.close();
   }
 

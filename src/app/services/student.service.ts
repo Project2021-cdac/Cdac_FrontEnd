@@ -1,12 +1,10 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Student } from '../models/student-model';
 import {  throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Project } from '../models/project-model';
-import { Technology } from '../models/technology-model';
 import { Task } from '../models/task-model';
 import { Milestone } from '../models/milestone-model';
 @Injectable({
@@ -20,13 +18,14 @@ export class StudentService {
     return this.http.get<Student>(`${environment.apiUrl}/student/`+prn);
   }
 
-  createProject(project: Project,technology:Technology[],student: Student[]):Observable<any> {
+  createProject(data:any):Observable<any> {
      
-    const projBody=JSON.stringify(project);
-    const techBody=JSON.stringify(technology);
-    const studBody=JSON.stringify(student);
-
-      return this.http.post<any>(`${environment.apiUrl}/student/createproject`,{projBody,techBody,studBody});
+    const headers= new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*');
+    const body=JSON.stringify(data);
+    console.log(data);
+      return this.http.post<any>(`${environment.apiUrl}/student/createproject`,{body},{ 'headers': headers });
 
   }
   getStudentsWithNoProject():Observable<Student[]>{
@@ -34,10 +33,10 @@ export class StudentService {
     .pipe(catchError(this.handleError));
   }
 
-  createTask(task:Task,pid:number,mid:number):Observable<any>{
+  createTask(data:any):Observable<any>{
       const params=new HttpParams().set('id',"pid");
-    const taskBody=JSON.stringify(task);
-    return this.http.post<any>(`${environment.apiUrl}/student/createtask`,{taskBody,mid},{'params' :params});
+    const taskBody=JSON.stringify(data);
+    return this.http.post<any>(`${environment.apiUrl}/student/createtask`,taskBody,{'params' :params});
   }
   getMilestone(pid:number):Observable<Milestone[]>{
     const params=new HttpParams().set('id',"pid");

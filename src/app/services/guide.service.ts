@@ -5,6 +5,7 @@ import { Project } from '../models/project-model';
 import {  throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { projects } from '../guide/project-dashboard/example-data';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +13,8 @@ export class GuideService {
   projects:Project[] = projects;
 
   constructor(private http:HttpClient) {
-   
+    this.getAvailableProj();
+    
    }
 
    getAvailableProj():Observable<Project[]>{

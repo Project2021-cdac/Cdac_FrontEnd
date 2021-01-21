@@ -38,7 +38,8 @@ export class ChooseProjectDialogComponent implements OnInit {
     return this.form.controls.projects as FormArray;
   }
   projIds: number[] =[];
-  constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<ChooseProjectDialogComponent>,private guideService:GuideService) { }
+  constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<ChooseProjectDialogComponent>
+              ,private guideService:GuideService) { }
 
   private addCheckboxes() {
     this.availableList.forEach(() =>
@@ -65,8 +66,15 @@ export class ChooseProjectDialogComponent implements OnInit {
     this.projIds = this.form.value.projects
     .map((checked, i) => (checked ? this.availableList[i].id : null))
     .filter(v => v !== null);
-
+    //api to choose project from list(post)
+    /*this.guideService.chooseProject(gid,this.projIds).subscribe(data => {
+      this.projIds=data;
+      console.log(" project selected ",data);
+      
+    },
+     error => console.log("error",error));*/
   console.log(this.projIds);
+
     this.dialogRef.close();
   }
 

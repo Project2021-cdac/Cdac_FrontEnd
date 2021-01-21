@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { Milestone } from 'src/app/models/milestone-model';
+import { StudentService } from 'src/app/services/student.service';
 
 @Component({
   selector: 'app-create-task-dialog',
@@ -39,10 +40,16 @@ export class CreateTaskDialogComponent implements OnInit {
       Validators.required, Validators.minLength(50), Validators.maxLength(300)])],
     milestone: ['',Validators.required]
   });
-  constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<CreateTaskDialogComponent>) { }
+  constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<CreateTaskDialogComponent>,
+              private studentService:StudentService) { }
 
   ngOnInit(): void {
-    //get milestones names and ids from api 
+    //get milestones names and ids from api
+    //this.studentService.getMilestone(pid/*project id*(how to get project id?*/).subscribe((data: any[])=>{
+      //console.log(data);
+      //this.milesList = data;
+    //});
+
   }
 
   onCancel(): void { 
@@ -61,7 +68,10 @@ export class CreateTaskDialogComponent implements OnInit {
     });
     console.log(formData.value);
     //rest api submit form data and close form
-
+    this.studentService.createTask(formData.value).subscribe((data: any[])=>{
+      console.log(data);
+      //this.techList = data;
+    }, error => console.log("error",error));
     this.dialogRef.close();
   }
 }

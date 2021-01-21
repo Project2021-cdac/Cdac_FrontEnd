@@ -5,7 +5,6 @@ import {catchError } from 'rxjs/operators';
 import {Guide} from '../models/guide-model';
 import { Project } from '../models/project-model';
 import { Student } from '../models/student-model';
-
 import 'rxjs/add/operator/catch';
 import { environment } from 'src/environments/environment';
 import { CreateGuide } from '../models/regGuide';
@@ -15,9 +14,11 @@ import { projects } from '../admin/project-dashboard/example-data';
   providedIn: 'root'
 })
 export class AdminService {
-  projects:Project[] = projects;
-  
-  constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
+  //projects:Project[] = projects;//error
+  constructor(private http:HttpClient, private formBuilder: FormBuilder) {
+    //fun to get project list
+     this.getProjectList();
+   }
 
   registerStudent(file: File): Observable<HttpEvent<{}>> {
     console.log("FILE HERE ###:::" + file);

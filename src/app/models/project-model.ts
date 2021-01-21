@@ -1,3 +1,4 @@
+import { Technology } from "./technology-model";
 
 
 
@@ -9,7 +10,7 @@ export interface Project{
     endDate:string;
     teamLead:number;
     guide:number;
-    technologies:string;
+    technologies:Technology[];
 
 
 
