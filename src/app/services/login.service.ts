@@ -25,6 +25,7 @@ export class LoginService {
       return this.currentUserSubject.value;
   }
   public get isLoggedIn(): boolean{
+    console.log("---INSIDE  LOGIN CHECK----"+this.currentUserValue);
     return (this.currentUserValue)?true:false;
   }
   public get getRole(): string{
@@ -47,6 +48,8 @@ export class LoginService {
       console.log('Getting inside login service');
       return this.http.post<any>(`${environment.apiUrl}/user/login`, { email, password })
           .pipe(map(user => {
+            console.log("----LOGIN REPLY FROM SERVER-------");
+            console.log(user);
               // login successful if there's a jwt token in the response
               if (user) {
                 console.log(user.token);

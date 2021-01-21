@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,7 +9,7 @@ import { CreateProjectDialogComponent } from '../create-project-dialog/create-pr
   templateUrl: './student-dashboard.component.html',
   styleUrls: ['./student-dashboard.component.css']
 })
-export class StudentDashboardComponent {
+export class StudentDashboardComponent implements OnInit{
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -32,6 +32,10 @@ export class StudentDashboardComponent {
   );
 
   constructor(private breakpointObserver: BreakpointObserver,public dialog: MatDialog) {}
+  ngOnInit(): void {
+    //get student data by using user id 
+    //check whether project = null then openDialog()
+  }
   openDialog() {
     console.log("inside choose proj open");
     let dialogRef = this.dialog.open(CreateProjectDialogComponent); 

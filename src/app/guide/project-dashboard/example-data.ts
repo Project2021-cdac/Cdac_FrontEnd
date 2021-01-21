@@ -78,7 +78,7 @@ export const project =
     "endDate":"13-12-2020",
     "teamLead":20024012432,
     "guide":null,
-    "technologies":"Spring,Mysql,Angular"
+    "technologies":[{"id":123,"name":"Spring"},{"id":124,"name":"Mysql"},{"id":125,"name":"Angular"}]
 };
 
 export const projects = [
@@ -90,7 +90,7 @@ export const projects = [
     "endDate":"13-12-2020",
     "teamLead":20024012432,
     "guide":null,
-    "technologies":"Spring,Mysql,Angular"
+    "technologies":[{"id":123,"name":"Spring"},{"id":124,"name":"Mysql"},{"id":125,"name":"Angular"}]
 },
 {
     "id":1234,
@@ -100,7 +100,7 @@ export const projects = [
     "endDate":"13-12-2020",
     "teamLead":20024012432,
     "guide":null,
-    "technologies":"Spring,Mysql,Angular"
+    "technologies":[{"id":123,"name":"Spring"},{"id":124,"name":"Mysql"},{"id":125,"name":"Angular"}]
 },
 {
     "id":1235,
@@ -110,6 +110,6 @@ export const projects = [
     "endDate":"13-12-2020",
     "teamLead":20024012432,
     "guide":null,
-    "technologies":"Spring,Mysql,Angular"
+    "technologies":[{"id":123,"name":"Spring"},{"id":124,"name":"Mysql"},{"id":125,"name":"Angular"}]
 }
 ];

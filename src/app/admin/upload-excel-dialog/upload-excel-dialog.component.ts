@@ -1,5 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { first } from 'rxjs/operators';
+import { HttpResponse } from '@angular/common/http';
+import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
   selector: 'app-upload-excel-dialog',
@@ -7,22 +12,50 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./upload-excel-dialog.component.css']
 })
 export class UploadExcelDialogComponent implements OnInit {
-
-  constructor( 
-    public dialogRef: MatDialogRef<UploadExcelDialogComponent>, 
-    @Inject(MAT_DIALOG_DATA) public data: any) { } 
-  
+  show:boolean = true;
+  fileToUpload: File = null;
+  constructor( public dialogRef: MatDialogRef<UploadExcelDialogComponent>,private adminService:AdminService,private snackBar: MatSnackBar) { } 
+  handleFileInput(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.fileToUpload = (target.files as FileList)[0];
+  }
   onCancel(): void { 
     this.dialogRef.close(); 
   }
   onSubmit(): void { 
-    console.log("FILE HERE:::" + this.data.file.split('.'));
-    console.log(this.data);
+    console.log("::::INSIDE FILE SUBMIT:::" );
+    this.show=false;
+    this.adminService.registerStudent(this.fileToUpload).pipe(first()).subscribe(
+      (res: HttpResponse<any>) => {console.log("succesful" ,res.status);
+                this.snackBar.open(res.body, 'Ok', {
+                  duration: 2000,
+                });
+                this.dialogRef.close();   
+              },
 
-    this.dialogRef.close(this.data); 
+    );
   } 
 
   ngOnInit(): void {
   }
 
+}
+
+
+function requiredFileType( type: string ) {
+  return function (control: FormControl) {
+    const file = control.value;
+    if ( file ) {
+      const extension = file.name.split('.')[1].toLowerCase();
+      if ( type.toLowerCase() !== extension.toLowerCase() ) {
+        return {
+          requiredFileType: true
+        };
+      }
+      
+      return null;
+    }
+
+    return null;
+  };
 }

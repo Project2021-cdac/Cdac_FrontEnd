@@ -13,7 +13,7 @@ import { GuideService } from 'src/app/services/guide.service';
   styleUrls: ['./guide-dashboard.component.css']
 })
 export class GuideDashboardComponent implements OnInit {
-   //projects : Project[] = projects;
+  projects : Project[] = projects;
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {

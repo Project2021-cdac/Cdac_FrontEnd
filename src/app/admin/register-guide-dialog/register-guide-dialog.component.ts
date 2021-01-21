@@ -1,6 +1,6 @@
 import { formatCurrency } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import * as moment from 'moment';
@@ -20,13 +20,10 @@ export class RegisterGuideDialogComponent implements OnInit {
   minDate = new Date(new Date().getFullYear() - 70,1,1);//set min date 70 years back(1950)
   maxDate = new Date(this.minDate.getFullYear() + 50,1,1); // set max date 20 years back(2000)
   techList: Technology[] = [];/*['SpringBoot', 'Angular', 'MySQL', 'MS.NET', 'C++', 'ASDM'];*/
-  techs: string[] =[];
+  techs: number[]=[];
   courses : string[]=[];
-  
-    /*{value: 'course-0', viewValue: 'DAC'},
-    {value: 'course-1', viewValue: 'DBDA'},
-    {value: 'course-2', viewValue: 'HPC'}
-  ];*/
+  technologies: string[] =[];
+
   regGuideForm = this.fb.group({
     fname: [null, Validators.compose([
       Validators.required, Validators.minLength(5), Validators.maxLength(9)])],
@@ -42,8 +39,8 @@ export class RegisterGuideDialogComponent implements OnInit {
     dob: ['', [Validators.required]],
   });
   techGuideForm = this.fb.group({
-    techs: [this.techs],
-  })
+    techs: [''],
+  });
   errorMessage: any;
   constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<RegisterGuideDialogComponent>
               ,private adminservice:AdminService) { }
@@ -86,25 +83,47 @@ export class RegisterGuideDialogComponent implements OnInit {
  
 
   submitForm() {
-    this.regGuideForm.setValue({'dob':moment(this.regGuideForm.get('dob').value).format('yyyy-MM-DD')});
+    console.log("------INSIDE SUBMIT FORM--------");
+    this.regGuideForm.setValue({
+      'fname':this.regGuideForm.get('fname').value,
+      'lname':this.regGuideForm.get('lname').value,
+      'email':this.regGuideForm.get('email').value,
+      'password':this.regGuideForm.get('password').value,
+      'phone':this.regGuideForm.get('phone').value,
+      'course':this.regGuideForm.get('course').value,
+      'dob':moment(this.regGuideForm.get('dob').value).format('yyyy-MM-DD')
+    });
     console.log(this.regGuideForm.value);
+    console.log(this.techGuideForm.value);
+    this.techGuideForm.get('techs').value.forEach(tech=>this.technologies.push(tech.toString()));
+    console.log(this.technologies);
     //rest api submit form data and close form
     //submit as one user model and one string array(technology list)
     //this.dialogRef.close();
-    const formData = this.fb.group({
-      guide:this.regGuideForm.value,
-     technologies:this.techGuideForm.get('techs').value,
-      
-    });
+    var data =
+    {
+      "guidedata":{
+          "firstName":this.regGuideForm.get('fname').value,
+          "lastName":this.regGuideForm.get('lname').value,
+          "email":this.regGuideForm.get('email').value,
+          "password":this.regGuideForm.get('password').value,
+          "phoneNumber":this.regGuideForm.get('phone').value,
+          "dateOfBirth":this.regGuideForm.get('dob').value,
+          "courseName":this.regGuideForm.get('course').value
+      },
+      "technologylist":this.technologies
+    };
+    this.dialogRef.close();
+    console.log("----DATA BEFORE FUCN------"+data);
     //calling register guide service 
-   return this.adminservice.registerGuide(formData.value)
+   return this.adminservice.registerGuide(data)
   .subscribe(data => {
     /*this.guide=data;*/
     console.log("register success",data);
     
   },
    error => console.log("error",error));
-   this.dialogRef.close();
+  
   }
   }
 

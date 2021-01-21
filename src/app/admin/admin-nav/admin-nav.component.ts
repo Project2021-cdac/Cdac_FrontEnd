@@ -21,7 +21,7 @@ export class AdminNavComponent implements OnInit{
   constructor(private breakpointObserver: BreakpointObserver,public loginService: LoginService,private router:Router) {}
   ngOnInit(): void {
     console.log("-----Init Admin Nav-----");
-    //this.loginService.redirectPath();
+    this.loginService.redirectPath();
   }
   logout(){
         this.loginService.logout();

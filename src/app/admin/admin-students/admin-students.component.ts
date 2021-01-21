@@ -7,6 +7,7 @@ import { AdminStudentsDataSource } from './admin-students-datasource';
 import { MatDialog,MatDialogRef,MatDialogConfig } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+
 import { UploadExcelDialogComponent } from '../upload-excel-dialog/upload-excel-dialog.component';
 import { AdminService } from 'src/app/services/admin.service';
 import { Student } from 'src/app/models/student-model';
@@ -21,47 +22,42 @@ export class AdminStudentsComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<Student>;
- 
- dataSource: AdminStudentsDataSource;
+  dataSource: AdminStudentsDataSource;
   file: File;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['PRN', 'Name', 'Email', 'Phone'];
+  displayedColumns = ['prn', 'userAccount.firstName', 'userAccount.email', 'userAccount.phoneNumber'];
   errorMessage: any;
   constructor(public dialog: MatDialog,public adminService:AdminService) {}
 
   openDialog() {
-    let dialogRef = this.dialog.open(UploadExcelDialogComponent, {  
-      data: { file: this.file } 
-    }); 
+    let dialogRef = this.dialog.open(UploadExcelDialogComponent); 
   
     dialogRef.afterClosed().subscribe(result => { 
-      this.file = result.file; 
-      console.log("FILE HERE AGAIN:::::" + this.file);
-    this.adminService.registerStudent(this.file).subscribe(
-      (res) => {console.log("succesful" ,res);},
-      (err) =>{ console.log("error ",err);}
-    );
+      
+      console.log("FILE Uploaded refreshing..list");
+      this.ngOnInit();
+   
     });
   }
 
   ngOnInit() {
-    this.adminService.getStudentList().subscribe({    
-      next: data => {
+    this.adminService.getStudentList().subscribe(
+      (data: any[]) => {
+        console.log(data.length);
         this.studentData = data;
-        console.log(data);
-      },
-    error: error => {
-        this.errorMessage = error.message;
-        console.error('There was an error!', error);
-    }
-})
-    this.dataSource = new AdminStudentsDataSource(this.studentData);
+        console.log(this.studentData.length);
+        console.log("----INSIDE STUDENTS INIT METHOD------"+this.studentData.length);
+        this.dataSource = new AdminStudentsDataSource(this.studentData);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.table.dataSource = this.dataSource;
+      });
+     
   }
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+    console.log("----INSIDE AFTER METHOD------");
+    
   }
 }
 

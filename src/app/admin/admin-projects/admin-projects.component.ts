@@ -13,7 +13,7 @@ import { projects } from '../project-dashboard/example-data';
   styleUrls: ['./admin-projects.component.css']
 })
 export class AdminProjectsComponent   {
-  projects:Project[]= projects;
+  projects:Project[]= [];
   errorMessage: any;
   
   constructor(private adminService:AdminService,private breakpointObserver: BreakpointObserver){}
@@ -26,6 +26,7 @@ export class AdminProjectsComponent   {
        this.adminService.getProjectList().subscribe({    
         next: data => {
           this.projects = data;
+          this.adminService.projects=data;
           console.log(data);
         },
        error: error => {
@@ -35,13 +36,6 @@ export class AdminProjectsComponent   {
     })
   }
     
-  
-  /** Based on the screen size, switch from standard to one column per row */
- /* projects = [{ teamId:'team1',title: 'Project Title 1'},
-  { teamId:'team2',title: 'Project Title 2'},
-  { teamId:'team3',title: 'Project Title 3'},
-  { teamId:'team6',title: 'Project Title 4'},
-  { teamId:'team9',title: 'Project Titl eProject Title Project TitleProject Title 5'}];*/
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
@@ -49,13 +43,11 @@ export class AdminProjectsComponent   {
           columns :1
         };
       }
-
       return {
         columns:4,
       };
     })
   );
 
- //constructor(private breakpointObserver: BreakpointObserver) {}
+ 
 }
-//};

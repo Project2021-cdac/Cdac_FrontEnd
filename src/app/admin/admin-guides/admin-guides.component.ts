@@ -21,14 +21,14 @@ interface GuideDummy {
 
 
 export class AdminGuidesComponent implements AfterViewInit, OnInit {
-  guideData:GuideDummy[] = [{id:6546,firstName:"jhgjkjh"},{id:465,firstName:"jhgjhhgjh"},{id:65465,firstName:"jhgjh"}];
+  guideData:Guide[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<GuideDummy>;
   dataSource: AdminGuidesDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'firstName'];
+  displayedColumns = ['name','email','phone','tech'];
   constructor(public dialog: MatDialog,private adminService: AdminService) {}
 
   openDialog() {
@@ -39,15 +39,19 @@ export class AdminGuidesComponent implements AfterViewInit, OnInit {
     
      //make api call to get data(--Rithika)
      this.adminService.getGuideList().subscribe((result)=>{    
-     // this.guideData  =  result;
+      this.guideData  =  result;
+      console.log("-------Getting Guide Data --------");
+      console.log(result);
+      this.dataSource = new AdminGuidesDataSource(this.guideData);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.table.dataSource = this.dataSource;
     });
-    this.dataSource = new AdminGuidesDataSource(this.guideData);
+  
   }
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+    
   }
 
 }

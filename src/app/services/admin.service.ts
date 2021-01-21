@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpEvent, HttpHeaders, HttpRequest } fr
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import {Guide} from '../models/guide-model';
 import { Project } from '../models/project-model';
 import { Student } from '../models/student-model';
@@ -14,26 +15,22 @@ import { projects } from '../admin/project-dashboard/example-data';
   providedIn: 'root'
 })
 export class AdminService {
-  //projects:Project[] = projects;//error
+  projects:Project[] = [];
   constructor(private http:HttpClient, private formBuilder: FormBuilder) {
     //fun to get project list
      this.getProjectList();
    }
 
-  registerStudent(file: File): Observable<HttpEvent<{}>> {
-    console.log("FILE HERE ###:::" + file);
-    var fileData = this.formBuilder.group({file:['']});
-    fileData.get('file').setValue(file);
-    // const formData: FormData = new FormData();
-    
-    // formData.append('file', file);
-
-    console.log(fileData);
+  registerStudent(file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
     const headers= new HttpHeaders()
-    .set('content-type', 'multipart/form-data')
     .set('Access-Control-Allow-Origin', '*');
-    const req = new HttpRequest('POST', `${environment.apiUrl}/admin/students/register`,fileData,{ 'headers': headers });
-    return this.http.request(req);
+    const req = new HttpRequest('POST', `${environment.apiUrl}/admin/students/register`,formData,{ 'headers': headers });
+    return this.http.request(req) .pipe(map(res => {
+      console.log("------RESPONSE FROM SERVER-------");
+      return res;
+          }));
   }
  
 
@@ -41,9 +38,9 @@ export class AdminService {
     const headers= new HttpHeaders()
     .set('content-type', 'application/json')
     .set('Access-Control-Allow-Origin', '*');
-    const body=JSON.stringify(data);
-    console.log(data);
-    return this.http.post<any>(`${environment.apiUrl}/admin/guides/register`,{body},{ 'headers': headers });
+    const guidedata=data.guidedata;
+    const technologylist=data.technologylist;
+    return this.http.post<any>(`${environment.apiUrl}/admin/guides/register`,{ guidedata,technologylist },{ 'headers': headers });
   
   }
   getGuideList():Observable<Guide[]>{
@@ -53,7 +50,10 @@ export class AdminService {
     return this.http.get<Project[]>(`${environment.apiUrl}/admin/projects/list`);
   }
   getStudentList():Observable<Student[]>{
-    return this.http.get<Student[]>(`${environment.apiUrl}/admin/students`);
+    return this.http.get<Student[]>(`${environment.apiUrl}/admin/students`).pipe(map(res => {
+      console.log("------RESPONSE FROM SERVER-------");
+      return res;
+          }));
   }
   getCourseList():Observable<any>{
     const headers= new HttpHeaders()

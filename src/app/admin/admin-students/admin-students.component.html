@@ -7,27 +7,27 @@
 
   <table mat-table class="full-width-table" matSort aria-label="Elements">
     <!-- Id Column -->
-    <ng-container matColumnDef="PRN">
+    <ng-container matColumnDef="prn">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>PRN</th>
-      <td mat-cell *matCellDef="let row">{{row.PRN}}</td>
+      <td mat-cell *matCellDef="let row">{{row.prn}}</td>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="Name">
+    <ng-container matColumnDef="userAccount.firstName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-      <td mat-cell *matCellDef="let row">{{row.Name}}</td>
+      <td mat-cell *matCellDef="let row">{{row.userAccount.firstName}} {{row.userAccount.lastName}}</td>
     </ng-container>
 
     <!-- Email Column -->
-    <ng-container matColumnDef="Email">
+    <ng-container matColumnDef="userAccount.email">
       <th mat-header-cell *matHeaderCellDef>Email</th>
-      <td mat-cell *matCellDef="let row">{{row.Email}}</td>
+      <td mat-cell *matCellDef="let row">{{row.userAccount.email}}</td>
     </ng-container>
 
     <!-- Contact Column -->
-    <ng-container matColumnDef="Phone">
+    <ng-container matColumnDef="userAccount.phoneNumber">
       <th mat-header-cell *matHeaderCellDef>Phone</th>
-      <td mat-cell *matCellDef="let row">{{row.Phone}}</td>
+      <td mat-cell *matCellDef="let row">{{row.userAccount.phoneNumber}}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

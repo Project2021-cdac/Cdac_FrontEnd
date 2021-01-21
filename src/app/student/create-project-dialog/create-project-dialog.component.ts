@@ -21,44 +21,7 @@ export class CreateProjectDialogComponent implements OnInit {
   techList: string[] = ['SpringBoot', 'Angular', 'MySQL', 'MS.NET', 'C++', 'ASDM'];
   techs: string[] =[];
   project :Project;
-  studentsList: Student[] = [{
-    "prn":200240120078,
-    "id":6546,
-    "role":'',
-    "courseName":'',
-    "firstName":'Ruthvick',
-    "lastName":'',
-    "email":'',
-    "phoneNumber":'',
-    "dateOfBirth":'',
-    "userAccount":87857,
-    "project":775
-  },
-  {
-    "prn":200240120088,
-    "id":6546,
-    "role":'',
-    "courseName":'',
-    "firstName":'Thimothy',
-    "lastName":'',
-    "email":'',
-    "phoneNumber":'',
-    "dateOfBirth":'',
-    "userAccount":87857,
-    "project":775
-  },{
-    "prn":200240120098,
-    "id":6546,
-    "role":'',
-    "courseName":'',
-    "firstName":'Sangeetha',
-    "lastName":'',
-    "email":'',
-    "phoneNumber":'',
-    "dateOfBirth":'',
-    "userAccount":87857,
-    "project":775
-  }];
+  studentsList: Student[] = [];
   team: Student[]=[];
   teamControl = new FormControl([]);
   createProjectForm = this.fb.group({
@@ -67,8 +30,8 @@ export class CreateProjectDialogComponent implements OnInit {
       Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
     description:['',Validators.compose([
       Validators.required, Validators.minLength(50), Validators.maxLength(300)])],
-    stime: [moment().unix(), [Validators.required]],
-    etime: [moment().unix(), [Validators.required]],
+    stime: [moment(), [Validators.required]],
+    etime: [moment(), [Validators.required]],
     team: [this.team],
     techs: [this.techs]
   });
@@ -95,6 +58,18 @@ export class CreateProjectDialogComponent implements OnInit {
 
   submitForm() {
     console.log(this.createProjectForm.value);
+    var data = 
+      {
+        "projectTitle": this.createProjectForm.get('title').value,
+        "projectDescription":this.createProjectForm.get('description').value,
+        "startDate": moment(this.createProjectForm.get('stime').value).format('X'),
+        "endDate":  moment(this.createProjectForm.get('etime').value).format('X'),
+        "teamLead": this.createProjectForm.get('t_lead').value.toString(),
+        "technologies":this.createProjectForm.get('techs').value.map(String),
+        "studentPrns": this.createProjectForm.get('team').value.map(String)
+    }
+    console.log(data);
+
     //rest api submit form data and close form
     /*const formData = this.fb.group({
       project:this.createProjectForm.value,

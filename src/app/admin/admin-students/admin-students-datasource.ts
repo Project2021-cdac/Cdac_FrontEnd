@@ -6,30 +6,7 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 import { AdminService } from 'src/app/services/admin.service';
 import { Student } from 'src/app/models/student-model';
 
-// TODO: Replace this with your own data model type
-/*export interface AdminStudentsItem {
-  Name: string;
-  PRN: number;
-  Email: string;
-  Phone: string;
-}
 
-// TODO: replace this with real data from your application
-const EXAMPLE_DATA: AdminStudentsItem[] = [
- {PRN:20024012001,Name:"Harry",Email:"Student1@gmail.com",Phone:"+91 9182736454"},
- {PRN:20024012002,Name:"Steve",Email:"Student2@gmail.com",Phone:"+91 9182736454"},
- {PRN:20024012004,Name:"Ram",Email:"Student4@gmail.com",Phone:"+91 9182736454"},
- {PRN:20024012007,Name:"Anthony",Email:"Student7@gmail.com",Phone:"+91 9182736454"},
- {PRN:20024012003,Name:"Peter",Email:"Student3@gmail.com",Phone:"+91 9182736454"},
- {PRN:20024012006,Name:"Cooper",Email:"Student6@gmail.com",Phone:"+91 9182736454"},
- {PRN:20024012005,Name:"Betty",Email:"Student5@gmail.com",Phone:"+91 9182736454"}
-];
-*/
-/**
- * Data source for the AdminStudents view. This class should
- * encapsulate all logic for fetching and manipulating the displayed data
- * (including sorting, pagination, and filtering).
- */
 export class AdminStudentsDataSource extends DataSource<Student> {
   
   data: Student[] = this.studentList;
@@ -87,10 +64,8 @@ export class AdminStudentsDataSource extends DataSource<Student> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'PRN': return compare(+a.prn, +b.prn, isAsc);
-        case 'Name': return compare(a.firstName, b.firstName, isAsc);
-        case 'Email': return compare(a.email, b.email, isAsc);
-        case 'Phone': return compare(a.phoneNumber, b.phoneNumber, isAsc);
+        case 'prn': return compare(+a.prn, +b.prn, isAsc);
+        case 'userAccount.firstName': return compare(a.userAccount.firstName, b.userAccount.firstName, isAsc);
         default: return 0;
       }
     });
