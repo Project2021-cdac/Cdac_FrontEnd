@@ -1,16 +1,17 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Project } from '../models/project-model';
 import {  throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { projects } from '../guide/project-dashboard/example-data';
 import { environment } from 'src/environments/environment';
+import { Guide } from '../models/guide-model';
+import { Project } from '../models/project-model';
 @Injectable({
   providedIn: 'root'
 })
 export class GuideService {
-  projects:Project[] = projects;
+  projects:Project[];
+  guideDetails:Guide;
 
   constructor(private http:HttpClient) {
     this.getAvailableProj();

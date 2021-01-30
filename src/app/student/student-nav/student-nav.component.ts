@@ -20,7 +20,7 @@ export class StudentNavComponent implements OnInit{
   constructor(private breakpointObserver: BreakpointObserver,public loginService: LoginService) {}
   ngOnInit(): void {
     console.log("-----Init Student Nav-----");
-    //this.loginService.redirectPath();
+    this.loginService.redirectPath();
   }
   logout(){
     this.loginService.logout();

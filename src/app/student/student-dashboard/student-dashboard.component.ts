@@ -3,6 +3,8 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProjectDialogComponent } from '../create-project-dialog/create-project-dialog.component';
+import { StudentService } from 'src/app/services/student.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-student-dashboard',
@@ -31,10 +33,19 @@ export class StudentDashboardComponent implements OnInit{
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver,public dialog: MatDialog) {}
+  constructor(private breakpointObserver: BreakpointObserver,public dialog: MatDialog,private studentService: StudentService,private loginService:LoginService) {}
   ngOnInit(): void {
     //get student data by using user id 
+    console.log("---------INSIDE STUDENT INIT---------");
+    console.log(this.loginService.studentDetails);
     //check whether project = null then openDialog()
+    //if(this.loginService.studentDetails.project){
+    //  console.log("----project exists---");
+    //}else{
+    //  console.log("------no project show dialog --------");
+    //  this.openDialog();
+   // }
+    
   }
   openDialog() {
     console.log("inside choose proj open");

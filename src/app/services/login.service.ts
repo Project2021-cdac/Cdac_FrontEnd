@@ -4,13 +4,16 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Guide } from '../models/guide-model';
+import { Student } from '../models/student-model';
 import { UserAccount } from '../models/User-Interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-
+  studentDetails:Student;
+  guideDetails:Guide;
 
 
   private currentUserSubject: BehaviorSubject<UserAccount>;
@@ -29,6 +32,9 @@ export class LoginService {
     return (this.currentUserValue)?true:false;
   }
   public get getRole(): string{
+    console.log("---INSIDE  Role CHECK----"+this.currentUserValue);
+    console.log("---INSIDE  Role CHECK----"+JSON.stringify(this.currentUserValue));
+    console.log("---INSIDE  Role CHECK----"+this.currentUserValue.role);
     if(this.currentUserValue.role){
       return this.currentUserValue.role.split('_')[1];
     }
@@ -53,13 +59,13 @@ export class LoginService {
               // login successful if there's a jwt token in the response
               if (user) {
                 console.log(user.token);
-                console.log(user.userAccount);
+                console.log(user.user.userAccount);
 
                   // store user details and jwt token in local storage to keep user logged in between page refreshes
-                  localStorage.setItem('currentUser', JSON.stringify(user.userAccount));
+                  localStorage.setItem('currentUser', JSON.stringify(user.user.userAccount));
                   localStorage.setItem('token', user.token);
                   console.log(user);
-                  this.currentUserSubject.next(user);
+                  this.currentUserSubject.next(user.user.userAccount);
               }
 
               return user;

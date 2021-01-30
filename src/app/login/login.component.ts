@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit{
     email: [null, Validators.compose([
       Validators.required,Validators.email])],
     password: [null, Validators.compose([
-      Validators.required, Validators.minLength(5), Validators.maxLength(9)])],
+      Validators.required, Validators.minLength(4), Validators.maxLength(9)])],
   });
 
   constructor(private fb: FormBuilder,private router: Router,
@@ -32,21 +32,31 @@ export class LoginComponent implements OnInit{
   onSubmit(){
     if (this.loginForm.invalid) {
       return;
-  }
+  }else
 {
   this.loginService.login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe(
           data => {
               console.log('Login successful');
+              console.log(data);
+              console.log(JSON.parse(localStorage.getItem('currentUser')));
+              console.log(this.loginService.getRole);
               if(data){
                 var role ='';
-                if(data.role){
-                role = data.role.split('_')[1].toLowerCase();
+                if(this.loginService.getRole){
+                role = this.loginService.getRole.toLowerCase();
+                if(role=="student"){
+                this.loginService.studentDetails=data.user;
                 }
-                this.router.navigate(['/'+role]).then(() => {
-                  window.location.reload();
-                });
+                if(role=="guide"){
+                  this.loginService.guideDetails=data.user;
+                }
+                this.router.navigate(['/'+role]);
+                }
+                //this.router.navigate(['/'+role]).then(() => {
+                //  window.location.reload();
+                //});
               }
           },
           error => {
@@ -54,7 +64,5 @@ export class LoginComponent implements OnInit{
           });
 
         }
-  
-  this.router.navigate(['/admin']);
   }
 }

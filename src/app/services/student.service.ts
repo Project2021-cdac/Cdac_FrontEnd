@@ -11,7 +11,7 @@ import { Milestone } from '../models/milestone-model';
   providedIn: 'root'
 })
 export class StudentService {
-
+  studentDetails:Student;
 
   constructor(private http:HttpClient) { }
   getStudent(prn:bigint):Observable<Student>{
@@ -19,7 +19,6 @@ export class StudentService {
   }
 
   createProject(data:any):Observable<any> {
-     
     const headers= new HttpHeaders()
     .set('content-type', 'application/json')
     .set('Access-Control-Allow-Origin', '*');
