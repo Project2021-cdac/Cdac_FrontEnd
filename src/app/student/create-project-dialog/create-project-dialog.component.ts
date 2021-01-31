@@ -23,6 +23,8 @@ export class CreateProjectDialogComponent implements OnInit {
   project :Project;
   studentsList: Student[] = [];
   team: Student[]=[];
+  technologies: string[] =[];
+  teamList :Student[]=[];
   teamControl = new FormControl([]);
   createProjectForm = this.fb.group({
     t_lead:['',[Validators.required]],
@@ -39,11 +41,12 @@ export class CreateProjectDialogComponent implements OnInit {
               private studentService : StudentService,private adminService : AdminService) { }
   
   ngOnInit(): void {
-    //api call to get tech list, students with no project list
+    //api call to get tech list
     this.adminService.getTechnologyList().subscribe((data: any[])=>{
       console.log(data);
       this.techList = data;
     });
+    //api call to get students with no project list
     this.studentService.getStudentsWithNoProject().subscribe((data: any[])=>{
       console.log(data);
       this.studentsList = data;
@@ -57,6 +60,16 @@ export class CreateProjectDialogComponent implements OnInit {
  
 
   submitForm() {
+    console.log("------INSIDE CREATE PROJECT--------");
+    this.createProjectForm.setValue({//suvidha
+      't_lead':this.createProjectForm.get('t_lead').value,
+      'title':this.createProjectForm.get('title').value,
+      'description' : this.createProjectForm.get('description').value,
+      'stime':this.createProjectForm.get('stime').value,
+      'etime':this.createProjectForm.get('etime').value,
+      'team':this.createProjectForm.get('team').value.forEach(teams=>this.teamList.push(teams.toString())),
+      'techs':this.createProjectForm.get('techs').value.forEach(tech=>this.technologies.push(tech.toString())),
+    })//---
     console.log(this.createProjectForm.value);
     var data = 
       {
@@ -70,23 +83,19 @@ export class CreateProjectDialogComponent implements OnInit {
     }
     console.log(data);
 
-    //rest api submit form data and close form
-    /*const formData = this.fb.group({
-      project:this.createProjectForm.value,
-     technologies:this.createProjectForm.get('techs').value,
-      student:this.createProjectForm.get('teamControl').value,//doubt for student 
 
-    });
-    this.studentService.createProject(formData.value)
+    //rest api submit form data and close form(suvidha)
+    this.dialogRef.close();
+    this.studentService.createProject(data)
   .subscribe(data => {
     
     console.log("project created",data);
     
   },
-   error => console.log("error",error));*/
-    this.dialogRef.close();
+   error => console.log("error",error));
+    
   }
-
+  
   onStudentRemoved(student: Student) {
     const sList = this.team as Student[];
     this.removeFirst(sList, student);
