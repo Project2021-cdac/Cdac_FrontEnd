@@ -26,14 +26,22 @@ export class UploadExcelDialogComponent implements OnInit {
   onSubmit(): void { 
     console.log("::::INSIDE FILE SUBMIT:::" );
     this.show=false;
-    this.adminService.registerStudent(this.fileToUpload).pipe(first()).subscribe(
-      (res: HttpResponse<any>) => {console.log("succesful" ,res.status);
-                this.snackBar.open(res.body, 'Ok', {
-                  duration: 2000,
+    this.adminService.registerStudent(this.fileToUpload).subscribe(
+      res => {
+        if(res.status){
+        console.log("succesful" ,res.status);
+        this.snackBar.open(res.body, 'Ok', {
+        duration: 5000,
+        });
+        this.dialogRef.close();   
+        }},
+      error => {
+        console.log("failed" ,error);
+                this.snackBar.open(error.error.text, 'Ok', {
+                  duration: 5000,
                 });
-                this.dialogRef.close();   
-              },
-
+                this.dialogRef.close();  
+      }
     );
     
     /*this.adminService.registerStudent(this.fileToUpload).subscribe(
