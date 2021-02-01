@@ -40,7 +40,6 @@
                           <mat-error *ngIf="createProjectForm.controls['description'].hasError('maxlength')">
                             Maximum 300 characters <strong>allowed</strong>
                           </mat-error>
-                          <mat-error *ngIf="createProjectForm.controls['description'].invalid">{{getDescMessage()}}</mat-error>
                     </mat-form-field>
                 </div>
             </div>
