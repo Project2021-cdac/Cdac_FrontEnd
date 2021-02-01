@@ -14,12 +14,16 @@ export class GuideService {
   guideDetails:Guide;
 
   constructor(private http:HttpClient) {
-    this.getAvailableProj();
+    this.getAvailableProj().subscribe((data: any)=>{
+      console.log(data);
+      
+    });
+
     
    }
 
    getAvailableProj():Observable<Project[]>{
-    return this.http.get<Project[]>('${environment.apiUrl}/student/noproject')
+    return this.http.get<Project[]>(`${environment.apiUrl}/guide/availableprojects`)
     .pipe(catchError(this.handleError));
   }
   chooseProject(gid :number,pid:number):Observable<any>{
