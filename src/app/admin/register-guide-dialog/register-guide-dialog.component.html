@@ -7,7 +7,13 @@
           <mat-form-field appearance="fill">
             <input matInput placeholder="First Name" formControlName="fname">
             <mat-error *ngIf="regGuideForm.controls['fname'].hasError('required')">
-              Name is <strong>required</strong>
+              FirstName is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="regGuideForm.controls['fname'].hasError('minlength')">
+              Minimum 5 characters <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="regGuideForm.controls['fname'].hasError('maxlength')">
+              Maximum 9 characters <strong>allowed</strong>
             </mat-error>
           </mat-form-field>
         </div>
@@ -15,7 +21,13 @@
           <mat-form-field appearance="fill">
             <input matInput placeholder="Last Name" formControlName="lname">
             <mat-error *ngIf="regGuideForm.controls['lname'].hasError('required')">
-              Name is <strong>required</strong>
+              LastName is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="regGuideForm.controls['lname'].hasError('minlength')">
+              Minimum 5 characters <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="regGuideForm.controls['lname'].hasError('maxlength')">
+              Maximum 9 characters <strong>allowed</strong>
             </mat-error>
           </mat-form-field>
         </div>
@@ -24,7 +36,7 @@
         <div class="col">
           <mat-form-field appearance="fill">
             <input matInput placeholder="Email" formControlName="email">
-            <mat-error *ngIf="regGuideForm.controls['password'].hasError('required')">
+            <mat-error *ngIf="regGuideForm.controls['email'].hasError('required')">
               Email is <strong>required</strong>
             </mat-error>
           </mat-form-field>
@@ -39,6 +51,12 @@
             <mat-error *ngIf="regGuideForm.controls['password'].hasError('required')">
               Password is <strong>required</strong>
             </mat-error>
+            <mat-error *ngIf="regGuideForm.controls['password'].hasError('minlength')">
+              Minimum 4 characters <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="regGuideForm.controls['password'].hasError('maxlength')">
+              Maximum 9 characters <strong>allowed</strong>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -48,6 +66,9 @@
             <input matInput placeholder="Phone" formControlName="phone">
             <mat-error *ngIf="regGuideForm.controls['phone'].hasError('required')">
               Phone is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="regGuideForm.controls['phone'].hasError('pattern')">
+              Number is <strong>not valid</strong>
             </mat-error>
           </mat-form-field>
         </div>
@@ -89,6 +110,4 @@
 <div mat-dialog-actions align="end">
   <button mat-button (click)="onCancel()">Cancel</button>
   <button mat-button (click)="submitForm()" color="primary">Register</button>
-
-
 </div>

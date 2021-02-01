@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { LoginService } from '../services/login.service';
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit{
   });
 
   constructor(private fb: FormBuilder,private router: Router,
-    private loginService: LoginService) {}
+    private loginService: LoginService,private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     //check if user logged in redirect
@@ -60,7 +61,11 @@ export class LoginComponent implements OnInit{
               }
           },
           error => {
-              alert(error);
+              //alert(error);
+              console.log(JSON.stringify(error));
+              this.snackBar.open(error.error, 'Ok', {
+                duration: 5000,
+              });
           });
 
         }

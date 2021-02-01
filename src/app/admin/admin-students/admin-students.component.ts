@@ -41,8 +41,10 @@ export class AdminStudentsComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
+    console.log("----INSIDE STUDENTS INIT METHOD------");
     this.adminService.getStudentList().subscribe(
       (data: any[]) => {
+        if(data){
         console.log(data.length);
         this.studentData = data;
         console.log(this.studentData.length);
@@ -51,6 +53,7 @@ export class AdminStudentsComponent implements AfterViewInit, OnInit {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.table.dataSource = this.dataSource;
+      }
       });
      
   }

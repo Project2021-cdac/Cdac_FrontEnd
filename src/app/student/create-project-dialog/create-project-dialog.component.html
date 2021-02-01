@@ -18,6 +18,12 @@
                         <mat-error *ngIf="createProjectForm.controls['title'].hasError('required')">
                             Project Title is <strong>required</strong>
                         </mat-error>
+                        <mat-error *ngIf="createProjectForm.controls['title'].hasError('minlength')">
+                            Minimum 5 characters <strong>required</strong>
+                          </mat-error>
+                          <mat-error *ngIf="createProjectForm.controls['title'].hasError('maxlength')">
+                            Maximum 50 characters <strong>allowed</strong>
+                          </mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -28,6 +34,13 @@
                         <mat-error *ngIf="createProjectForm.controls['description'].hasError('required')">
                           Description is <strong>required</strong>
                         </mat-error>
+                        <mat-error *ngIf="createProjectForm.controls['description'].hasError('minlength')">
+                            Minimum 5 characters <strong>required</strong>
+                          </mat-error>
+                          <mat-error *ngIf="createProjectForm.controls['description'].hasError('maxlength')">
+                            Maximum 300 characters <strong>allowed</strong>
+                          </mat-error>
+                          <mat-error *ngIf="createProjectForm.controls['description'].invalid">{{getDescMessage()}}</mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -87,6 +100,6 @@
             </form>
             </div>
             <div mat-dialog-actions align="end">
-                <button mat-button (click)="onCancel()">Cancel</button>
-                <button mat-button color="primary">Create</button>
+               
+                <button mat-button color="primary" [disabled]="createProjectForm.invalid">Create</button>
               </div>

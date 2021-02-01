@@ -34,7 +34,7 @@ export class RegisterGuideDialogComponent implements OnInit {
     password: [null, Validators.compose([
       Validators.required, Validators.minLength(4), Validators.maxLength(9)])],
     phone: [null, Validators.compose([
-        Validators.required, Validators.minLength(10), Validators.maxLength(10)])],
+        Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")])],
     course: [''],
     dob: ['', [Validators.required]],
   });
