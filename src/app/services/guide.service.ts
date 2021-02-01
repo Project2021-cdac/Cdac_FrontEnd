@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {  throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Guide } from '../models/guide-model';
 import { Project } from '../models/project-model';
@@ -28,7 +28,10 @@ export class GuideService {
   }
   guideProjectList(gid:number):Observable<any>{
     const params=new HttpParams().set('guideid',"gid");
-    return this.http.get<any>(`${environment.apiUrl}/guide/projects`,{'params' :params});
+    return this.http.get<any>(`${environment.apiUrl}/guide/projects`,{'params' :params}).pipe(map(res => {
+      console.log("------RESPONSE FROM SERVER(Project list)-------");
+      return res;
+          }));
   }
   showProject(pid:number):Observable<any>{
     const params=new HttpParams().set('projectid',"gid");

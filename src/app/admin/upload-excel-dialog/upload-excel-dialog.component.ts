@@ -14,6 +14,7 @@ import { AdminService } from 'src/app/services/admin.service';
 export class UploadExcelDialogComponent implements OnInit {
   show:boolean = true;
   fileToUpload: File = null;
+  message = '';
   constructor( public dialogRef: MatDialogRef<UploadExcelDialogComponent>,private adminService:AdminService,private snackBar: MatSnackBar) { } 
   handleFileInput(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -34,6 +35,18 @@ export class UploadExcelDialogComponent implements OnInit {
               },
 
     );
+    
+    /*this.adminService.registerStudent(this.fileToUpload).subscribe(
+      event=>{
+        if(event instanceof HttpResponse){
+          this.message=event.body.message;
+          console.log("--message : ",this.message);
+        }
+      },
+        err=>{
+          this.message='could not  upload the file';
+          console.log("--message : ",this.message);
+        });*/
   } 
 
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {catchError } from 'rxjs/operators';
@@ -44,10 +44,16 @@ export class AdminService {
   
   }
   getGuideList():Observable<Guide[]>{
-    return this.http.get<Guide[]>(`${environment.apiUrl}/admin/guides`);
+    return this.http.get<Guide[]>(`${environment.apiUrl}/admin/guides`).pipe(map(res => {
+      console.log("------Guide List from server-------");
+      return res;
+          }));
   }
   getProjectList():Observable<Project[]>{
-    return this.http.get<Project[]>(`${environment.apiUrl}/admin/projects/list`);
+    return this.http.get<Project[]>(`${environment.apiUrl}/admin/projects/list`).pipe(map(res => {
+      console.log("------PROJECT LIST FROM SERVER-------");
+      return res;
+          }));
   }
   getStudentList():Observable<Student[]>{
     return this.http.get<Student[]>(`${environment.apiUrl}/admin/students`).pipe(map(res => {
@@ -71,9 +77,10 @@ export class AdminService {
     return this.http.get(`${environment.apiUrl}/admin/teamsize`);
   }
 
-  /* setTeamSize(count:number):Observable<any>{
-    return this.http.put(`${environment.apiUrl}/admin/userid`)
-  }*/
+  setTeamSize(count:number,userid:number):Observable<any>{
+    const params=new HttpParams().set('size','count');
+    return this.http.put(`${environment.apiUrl}/admin/${userid}/teamsize?`,{'params' :params});
+  }
  //exception handling
  /*private HandleError(errorResponse:HttpErrorResponse){
    if(errorResponse.error instanceof ErrorEvent){
