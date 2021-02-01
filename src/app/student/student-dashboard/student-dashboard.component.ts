@@ -39,7 +39,8 @@ export class StudentDashboardComponent implements OnInit{
     console.log("---------INSIDE STUDENT INIT---------");
     console.log(this.loginService.studentDetails);
     //check whether project = null then openDialog()
-    if(this.loginService.studentDetails.project){
+    this.studentService.studentDetails= this.loginService.studentDetails;
+    if(this.studentService.studentDetails.project!= null){
       console.log("----project exists---");
     }else{
       console.log("------no project show dialog --------");

@@ -15,6 +15,7 @@ import { projects } from '../admin/project-dashboard/example-data';
   providedIn: 'root'
 })
 export class AdminService {
+  course:String;
   projects:Project[] = [];
   constructor(private http:HttpClient, private formBuilder: FormBuilder) {
     //fun to get project list
@@ -41,19 +42,19 @@ export class AdminService {
   
   }
   getGuideList():Observable<Guide[]>{
-    return this.http.get<Guide[]>(`${environment.apiUrl}/admin/guides`).pipe(map(res => {
+    return this.http.get<Guide[]>(`${environment.apiUrl}/admin/guides/${this.course}`).pipe(map(res => {
       console.log("------Guide List from server-------");
       return res;
           }));
   }
   getProjectList():Observable<Project[]>{
-    return this.http.get<Project[]>(`${environment.apiUrl}/admin/projects/list`).pipe(map(res => {
+    return this.http.get<Project[]>(`${environment.apiUrl}/admin/projects/list/${this.course}`).pipe(map(res => {
       console.log("------PROJECT LIST FROM SERVER-------");
       return res;
           }));
   }
   getStudentList():Observable<Student[]>{
-    return this.http.get<Student[]>(`${environment.apiUrl}/admin/students`).pipe(map(res => {
+    return this.http.get<Student[]>(`${environment.apiUrl}/admin/students/${this.course}`).pipe(map(res => {
       console.log("------RESPONSE FROM SERVER-------");
       return res;
           }));

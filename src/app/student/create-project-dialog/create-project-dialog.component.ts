@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 //import { SelectAutocompleteComponent } from 'mat-select-autocomplete-angular9';
 import * as moment from 'moment';
 import { Project } from 'src/app/models/project-model';
 import { Student } from 'src/app/models/student-model';
+import { Technology } from 'src/app/models/technology-model';
 import { AdminService } from 'src/app/services/admin.service';
 import { StudentService } from 'src/app/services/student.service';
 
@@ -18,16 +19,16 @@ export class CreateProjectDialogComponent implements OnInit {
   maxsDate = new Date(this.minsDate.getFullYear(),this.minsDate.getMonth(),this.minsDate.getDate() + 15); // set max start date 15 days from now 
   mineDate = new Date(this.minsDate.getFullYear(),this.minsDate.getMonth(),this.minsDate.getDate() + 16);//set end date 16 days from now
   maxeDate = new Date(this.minsDate.getFullYear(),this.minsDate.getMonth(),this.minsDate.getDate() + 60); // set max edate 60 days from now
-  techList: string[] = ['SpringBoot', 'Angular', 'MySQL', 'MS.NET', 'C++', 'ASDM'];
-  techs: string[] =[];
+  techList: Technology[] = [];
+  techs: Number[] =[];
   project :Project;
   studentsList: Student[] = [];
-  team: Student[]=[];
+  team: Number[]=[];
   technologies: string[] =[];
   teamList :Student[]=[];
   teamControl = new FormControl([]);
   createProjectForm = this.fb.group({
-    t_lead:['',[Validators.required]],
+    t_lead:['',Validators.compose([Validators.required,this.checktleadInput(this.studentsList)])],
     title:['',Validators.compose([
       Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
     description:['',Validators.compose([
@@ -37,6 +38,7 @@ export class CreateProjectDialogComponent implements OnInit {
     team: [this.team],
     techs: [this.techs]
   });
+
   constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<CreateProjectDialogComponent>,
               private studentService : StudentService,private adminService : AdminService) { }
   
@@ -62,27 +64,20 @@ export class CreateProjectDialogComponent implements OnInit {
 
   submitForm() {
     console.log("------INSIDE CREATE PROJECT--------");
-    this.createProjectForm.setValue({//suvidha
-      't_lead':this.createProjectForm.get('t_lead').value,
-      'title':this.createProjectForm.get('title').value,
-      'description' : this.createProjectForm.get('description').value,
-      'stime':this.createProjectForm.get('stime').value,
-      'etime':this.createProjectForm.get('etime').value,
-      'team':this.createProjectForm.get('team').value.forEach(teams=>this.teamList.push(teams.toString())),
-      'techs':this.createProjectForm.get('techs').value.forEach(tech=>this.technologies.push(tech.toString())),
-    })//---
-    console.log(this.createProjectForm.value);
+    console.log(this.createProjectForm.get('techs').value);
+    console.log(this.teamControl.value);
     var data = 
       {
         "projectTitle": this.createProjectForm.get('title').value,
         "projectDescription":this.createProjectForm.get('description').value,
-        "startDate": moment(this.createProjectForm.get('stime').value).format('X'),
-        "endDate":  moment(this.createProjectForm.get('etime').value).format('X'),
+        "startDate": moment(this.createProjectForm.get('stime').value).format('yyyy-MM-DD'),
+        "endDate":  moment(this.createProjectForm.get('etime').value).format('yyyy-MM-DD'),
         "teamLead": this.createProjectForm.get('t_lead').value.toString(),
         "technologies":this.createProjectForm.get('techs').value.map(String),
-        "studentPrns": this.createProjectForm.get('team').value.map(String)
+        "studentPrns": this.teamControl.value.map(String)
     }
     console.log(data);
+    console.log(JSON.stringify(data));
 
 
     //rest api submit form data and close form(suvidha)
@@ -97,8 +92,8 @@ export class CreateProjectDialogComponent implements OnInit {
     
   }
   
-  onStudentRemoved(student: Student) {
-    const sList = this.team as Student[];
+  onStudentRemoved(student: Number) {
+    const sList = this.team as Number[];
     this.removeFirst(sList, student);
     this.teamControl.setValue(sList); // To trigger change detection
   }
@@ -110,5 +105,15 @@ export class CreateProjectDialogComponent implements OnInit {
     }
   }
   
+  public checktleadInput(sList): ValidatorFn{
+    return (control: AbstractControl): ValidationErrors | null =>{
+    const selected = control.value? control.value : 0;
+    console.log(selected);
+    const count = sList.find(x => x.prn == selected);
+    console.log(count);
+    return count? null : { match: true };
+    }
+  }
+
 
 }

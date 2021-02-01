@@ -29,8 +29,8 @@ export class UploadExcelDialogComponent implements OnInit {
     this.adminService.registerStudent(this.fileToUpload).subscribe(
       res => {
         if(res.status){
-        console.log("succesful" ,res.status);
-        this.snackBar.open(res.body, 'Ok', {
+        console.log("succesful" ,res.body);
+        this.snackBar.open(res.body.responseMessage, 'Ok', {
         duration: 5000,
         });
         this.dialogRef.close();   

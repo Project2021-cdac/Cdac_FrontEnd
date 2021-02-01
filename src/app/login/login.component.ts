@@ -47,6 +47,9 @@ export class LoginComponent implements OnInit{
                 var role ='';
                 if(this.loginService.getRole){
                 role = this.loginService.getRole.toLowerCase();
+                if(role=="admin"){
+                  this.loginService.adminDetails=data.user;
+                }
                 if(role=="student"){
                 this.loginService.studentDetails=data.user;
                 }

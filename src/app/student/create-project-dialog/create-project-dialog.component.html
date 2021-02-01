@@ -10,6 +10,9 @@
                         <mat-error *ngIf="createProjectForm.controls['t_lead'].hasError('required')">
                           Team Lead is <strong>required</strong>
                         </mat-error>
+                        <mat-error *ngIf="createProjectForm.controls['t_lead'].hasError('match')">
+                            Team Lead is <strong>not valid</strong>
+                          </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col">
@@ -73,7 +76,7 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Technology</mat-label>
                         <mat-select formControlName="techs" multiple>
-                          <mat-option *ngFor="let tech of techList" [value]="tech">{{tech}}</mat-option>
+                          <mat-option *ngFor="let tech of techList" [value]="tech.id">{{tech.name}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                 </div>
@@ -86,13 +89,13 @@
                     <mat-chip-list>
                       <mat-chip *ngFor="let student of teamControl.value"
                         [removable]="true" (removed)="onStudentRemoved(student)">
-                        {{ student.firstName }} 
+                        {{ student }}
                         <mat-icon matChipRemove>cancel</mat-icon>
                       </mat-chip>
                     </mat-chip-list>
                   </mat-select-trigger>
               
-                  <mat-option *ngFor="let student of studentsList" [value]="student">{{student.firstName}}({{student.prn}})</mat-option>
+                  <mat-option *ngFor="let student of studentsList" [value]="student.prn">{{student.userAccount.firstName}} {{student.userAccount.lastName}}({{student.prn}})</mat-option>
               
                 </mat-select>
               </mat-form-field>
@@ -100,5 +103,5 @@
             </div>
             <div mat-dialog-actions align="end">
                
-                <button mat-button color="primary" [disabled]="createProjectForm.invalid">Create</button>
+                <button mat-button color="primary" [disabled]="createProjectForm.invalid" (click)="submitForm()">Create</button>
               </div>

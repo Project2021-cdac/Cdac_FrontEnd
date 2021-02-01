@@ -11,6 +11,8 @@ import { HttpClient } from '@angular/common/http';
 import { UploadExcelDialogComponent } from '../upload-excel-dialog/upload-excel-dialog.component';
 import { AdminService } from 'src/app/services/admin.service';
 import { Student } from 'src/app/models/student-model';
+import { Admin } from 'src/app/models/admin-model';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-admin-students',
@@ -27,7 +29,7 @@ export class AdminStudentsComponent implements AfterViewInit, OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['prn', 'userAccount.firstName', 'userAccount.email', 'userAccount.phoneNumber'];
   errorMessage: any;
-  constructor(public dialog: MatDialog,public adminService:AdminService) {}
+  constructor(public dialog: MatDialog,public adminService:AdminService,public loginService:LoginService) {}
 
   openDialog() {
     let dialogRef = this.dialog.open(UploadExcelDialogComponent); 

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Admin } from '../models/admin-model';
 import { Guide } from '../models/guide-model';
 import { Student } from '../models/student-model';
 import { UserAccount } from '../models/User-Interface';
@@ -14,6 +15,7 @@ import { UserAccount } from '../models/User-Interface';
 export class LoginService {
   studentDetails:Student;
   guideDetails:Guide;
+  adminDetails:Admin;
 
 
   private currentUserSubject: BehaviorSubject<UserAccount>;

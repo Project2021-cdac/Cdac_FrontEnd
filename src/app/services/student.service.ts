@@ -23,12 +23,11 @@ export class StudentService {
     .set('content-type', 'application/json')
     .set('Access-Control-Allow-Origin', '*');
     const body=JSON.stringify(data);
-    console.log(data);
-      return this.http.post<any>(`${environment.apiUrl}/student/createproject`,{body},{ 'headers': headers });
+    return this.http.post<any>(`${environment.apiUrl}/student/createproject`,body,{ 'headers': headers });
 
   }
   getStudentsWithNoProject():Observable<Student[]>{
-    return this.http.get<Student[]>(`${environment.apiUrl}/student/noproject`)
+    return this.http.get<Student[]>(`${environment.apiUrl}/student/noproject/${this.studentDetails.userAccount.courseName}`)
     .pipe(catchError(this.handleError));
   }
 
