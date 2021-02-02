@@ -17,13 +17,7 @@ import { projects } from '../admin/project-dashboard/example-data';
 export class AdminService {
   course:String;
   projects:Project[] = [];
-  constructor(private http:HttpClient, private formBuilder: FormBuilder) {
-    //function to get project list
-     this.getProjectList().subscribe((data: any)=>{
-      console.log(data);
-      
-    });
-   }
+  constructor(private http:HttpClient, private formBuilder: FormBuilder) {}
 
   registerStudent(file: File): Observable<any> {
     const formData: FormData = new FormData();
@@ -75,7 +69,7 @@ export class AdminService {
     return this.http.get(`${environment.apiUrl}/technology/list`,{ 'headers': headers });
   }
   getTeamSize():Observable<any>{
-    return this.http.get(`${environment.apiUrl}/admin/teamsize`);
+    return this.http.get(`${environment.apiUrl}/admin/teamsize/${this.course}`);
   }
 
   setTeamSize(count:number,userid:number):Observable<any>{

@@ -14,12 +14,10 @@ export class GuideService {
   guideDetails:Guide;
 
   constructor(private http:HttpClient) {
-    this.getAvailableProj().subscribe((data: any)=>{
-      console.log(data);
+   // this.getAvailableProj().subscribe((data: any)=>{
+   //   console.log(data);
       
-    });
-
-    
+   // });
    }
 
    getAvailableProj():Observable<Project[]>{
