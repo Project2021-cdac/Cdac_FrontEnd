@@ -3,6 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { MatDialogRef } from '@angular/material/dialog';
 import { Project } from 'src/app/models/project-model';
 import { GuideService } from 'src/app/services/guide.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-choose-project-dialog',
@@ -39,7 +40,7 @@ export class ChooseProjectDialogComponent implements OnInit {
   }
   projIds: number[] =[];
   constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<ChooseProjectDialogComponent>
-              ,private guideService:GuideService) { }
+              ,private guideService:GuideService,private loginService :LoginService) { }
 
   private addCheckboxes() {
     this.availableList.forEach(() =>
@@ -47,12 +48,13 @@ export class ChooseProjectDialogComponent implements OnInit {
     );
   }
   ngOnInit(): void {
-
+    console.log(this.loginService.guideDetails);
+    this.guideService.guideDetails=this.loginService.guideDetails;
     //get avaliabe projects list from api to show in form
-    //this.guideService.getAvailableProj().subscribe((data: any[])=>{
-    //  console.log(data);
-    //  this.availableList = data;
-    //})  
+    this.guideService.getAvailableProj().subscribe((data: any[])=>{
+      console.log(data);
+      this.availableList = data;
+    })  
     this.addCheckboxes();
   }
 
@@ -66,8 +68,8 @@ export class ChooseProjectDialogComponent implements OnInit {
     this.projIds = this.form.value.projects
     .map((checked, i) => (checked ? this.availableList[i].id : null))
     .filter(v => v !== null);
-    //api to choose project from list(post)
-    /*this.guideService.chooseProject(gid,this.projIds).subscribe(data => {
+    //api to choose project from list(post)(suvidha----doubt (show to pass single select project id))
+   /* this.guideService.chooseProject(this.guideService.guideDetails.id,this.projIds[]).subscribe(data => {
       this.projIds=data;
       console.log(" project selected ",data);
       

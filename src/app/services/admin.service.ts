@@ -18,8 +18,11 @@ export class AdminService {
   course:String;
   projects:Project[] = [];
   constructor(private http:HttpClient, private formBuilder: FormBuilder) {
-    //fun to get project list
-     this.getProjectList();
+    //function to get project list
+     this.getProjectList().subscribe((data: any)=>{
+      console.log(data);
+      
+    });
    }
 
   registerStudent(file: File): Observable<any> {

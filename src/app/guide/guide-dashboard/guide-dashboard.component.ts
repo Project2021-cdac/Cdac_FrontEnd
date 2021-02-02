@@ -6,6 +6,7 @@ import { ChooseProjectDialogComponent } from '../choose-project-dialog/choose-pr
 import { Project } from 'src/app/models/project-model';
 import { projects } from '../../guide/project-dashboard/example-data';
 import { GuideService } from 'src/app/services/guide.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-guide-dashboard',
@@ -30,10 +31,13 @@ export class GuideDashboardComponent implements OnInit {
   errorMessage: any;
 
 
-  constructor(private breakpointObserver: BreakpointObserver,public dialog: MatDialog,private guideService:GuideService) {}
+  constructor(private breakpointObserver: BreakpointObserver,public dialog: MatDialog,private guideService:GuideService
+                           , private loginService:LoginService) {}
   ngOnInit(){
+    console.log(this.loginService.guideDetails);
+    this.guideService.guideDetails=this.loginService.guideDetails;
     //call api which will show project list assosciated with guide
- /*   this.guideService.guideProjectList(gid).subscribe({    
+    this.guideService.guideProjectList(this.guideService.guideDetails.id).subscribe({    
       next: (data: any[]) => {
         this.projects = data;
         console.log(data);
@@ -44,7 +48,7 @@ export class GuideDashboardComponent implements OnInit {
         this.errorMessage = error.message;
         console.error('There was an error!', error);
     }
-})*/
+})
 }
   openDialog() {
     console.log("inside choose proj open");
