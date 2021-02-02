@@ -83,7 +83,7 @@
             </div>
             <mat-form-field>
                 <mat-label>Team</mat-label>
-                <mat-select [formControl]="teamControl" multiple>
+                <mat-select [disabled]="createProjectForm.controls['t_lead'].invalid" [formControl]="teamControl" multiple>
               
                   <mat-select-trigger>
                     <mat-chip-list>
@@ -95,7 +95,7 @@
                     </mat-chip-list>
                   </mat-select-trigger>
               
-                  <mat-option *ngFor="let student of studentsList" [value]="student.prn">{{student.userAccount.firstName}} {{student.userAccount.lastName}}({{student.prn}})</mat-option>
+                  <mat-option *ngFor="let student of studentsList" [value]="student.prn" [disabled]="student.prn === createProjectForm.controls['t_lead'].value">{{student.userAccount.firstName}} {{student.userAccount.lastName}}({{student.prn}})</mat-option>
               
                 </mat-select>
               </mat-form-field>

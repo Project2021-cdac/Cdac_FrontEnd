@@ -7,6 +7,7 @@ import { Project } from 'src/app/models/project-model';
 import { Student } from 'src/app/models/student-model';
 import { Technology } from 'src/app/models/technology-model';
 import { AdminService } from 'src/app/services/admin.service';
+import { LoginService } from 'src/app/services/login.service';
 import { StudentService } from 'src/app/services/student.service';
 
 @Component({
@@ -27,8 +28,9 @@ export class CreateProjectDialogComponent implements OnInit {
   technologies: string[] =[];
   teamList :Student[]=[];
   teamControl = new FormControl([]);
+  maxTeamsize;
   createProjectForm = this.fb.group({
-    t_lead:['',Validators.compose([Validators.required,this.checktleadInput(this.studentsList)])],
+    t_lead:['',Validators.compose([Validators.required,this.checktleadInput()])],
     title:['',Validators.compose([
       Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
     description:['',Validators.compose([
@@ -40,9 +42,11 @@ export class CreateProjectDialogComponent implements OnInit {
   });
 
   constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<CreateProjectDialogComponent>,
-              private studentService : StudentService,private adminService : AdminService) { }
+              private studentService : StudentService,private adminService : AdminService,private loginService: LoginService) { }
   
   ngOnInit(): void {
+    console.log("------------INSIDE CREATE PROJECT INIT ------------------");
+    console.log(this.loginService.studentDetails);
     //api call to get tech list
     this.adminService.getTechnologyList().subscribe((data: any[])=>{
       console.log(data);
@@ -52,6 +56,11 @@ export class CreateProjectDialogComponent implements OnInit {
     this.studentService.getStudentsWithNoProject().subscribe((data: any[])=>{
       console.log(data);
       this.studentsList = data;
+    });
+    //api call to get team size
+    this.adminService.getTeamSize(this.loginService.studentDetails.userAccount.courseName).subscribe((data: any[])=>{
+      console.log(data);
+      this.techList = data;
     });
 
   }
@@ -65,6 +74,7 @@ export class CreateProjectDialogComponent implements OnInit {
   submitForm() {
     console.log("------INSIDE CREATE PROJECT--------");
     console.log(this.createProjectForm.get('techs').value);
+    console.log(this.teamControl.value.push(this.createProjectForm.get('t_lead').value));
     console.log(this.teamControl.value);
     var data = 
       {
@@ -105,13 +115,13 @@ export class CreateProjectDialogComponent implements OnInit {
     }
   }
   
-  public checktleadInput(sList): ValidatorFn{
+  public checktleadInput(): ValidatorFn{
     return (control: AbstractControl): ValidationErrors | null =>{
     const selected = control.value? control.value : 0;
     console.log(selected);
-    const count = sList.find(x => x.prn == selected);
+    const count = this.studentsList.find(x => x.prn == selected);
     console.log(count);
-    return count? null : { match: true };
+    return count? null : { match: true, required: false};
     }
   }
 

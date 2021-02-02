@@ -4,6 +4,8 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { AdminService } from 'src/app/services/admin.service';
 import { LoginService } from 'src/app/services/login.service';
 import { Admin } from 'src/app/models/admin-model';
+import { MatDialog } from '@angular/material/dialog';
+import { EditTeamSizeComponent } from '../edit-team-size/edit-team-size.component';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -18,27 +20,38 @@ export class AdminDashboardComponent implements OnInit{
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'DAC', cols: 1, rows: 3 ,text:this.text},
-         // { title: 'Graph 2', cols: 1, rows: 1 },
-         // { title: 'List 1', cols: 1, rows: 1 },
+         
+          { title: 'Course', cols: 2, rows: 1 ,text:'CDAC'},
+          { title: 'TeamSize', cols: 2, rows: 1 ,text:'5'},
+          { title: 'About', cols: 2, rows: 2 ,text:this.text},
          // { title: 'List 2', cols: 1, rows: 1 }
         ];
       }
 
       return [
-        { title: 'DAC', cols: 2, rows: 1 ,text:this.text},
-       // { title: 'Graph 2', cols: 1, rows: 1 },
-       // { title: 'List 1', cols: 1, rows: 2 },
+        { title: 'Course', cols: 1, rows: 1 ,text:'CDAC'},
+        { title: 'TeamSize', cols: 1, rows: 1 ,text:'5'},
+        { title: 'About', cols: 2, rows: 2 ,text:this.text},
        // { title: 'List 2', cols: 1, rows: 1 }
       ];
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver,private adminService: AdminService,private loginService: LoginService) {}
+  constructor(public dialog: MatDialog,private breakpointObserver: BreakpointObserver,private adminService: AdminService,private loginService: LoginService) {}
   ngOnInit(): void {
     this.adminData = this.loginService.adminDetails;
     console.log(this.adminData.userAccount.courseName);
     this.adminService.course = this.adminData.userAccount.courseName;
+    //get team size
+  }
+
+  openDialog() {
+    let dialogRef = this.dialog.open(EditTeamSizeComponent); 
+  
+    dialogRef.afterClosed().subscribe(result => { 
+      console.log("size changed getting team size");
+      this.ngOnInit();
+    });
   }
 
 }

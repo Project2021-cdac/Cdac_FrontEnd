@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Edit Team Size</h2>
+<div mat-dialog-content>
+    <div> 
+            <div mat-form-field >
+              <div class="form-group">
+                <input type="number"
+                       id="size">
+            </div>
+            </div>
+      </div>
+      
+</div>
+<div mat-dialog-actions align="end" >
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onSubmit()">Edit</button>
+</div>

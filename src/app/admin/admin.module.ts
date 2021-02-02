@@ -12,6 +12,7 @@ import { RegisterGuideDialogComponent } from './register-guide-dialog/register-g
 import { UploadExcelDialogComponent } from './upload-excel-dialog/upload-excel-dialog.component';
 import { AngularMaterialModule } from '../angular-material.module';
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
+import { EditTeamSizeComponent } from './edit-team-size/edit-team-size.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { ProjectDashboardComponent } from './project-dashboard/project-dashboard
     UploadExcelDialogComponent,
     RegisterGuideDialogComponent,
     ProjectDashboardComponent,
+    EditTeamSizeComponent,
   ],
   imports: [
     CommonModule,

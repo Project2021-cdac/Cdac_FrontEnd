@@ -68,8 +68,8 @@ export class AdminService {
     .set('Access-Control-Allow-Origin', '*');
     return this.http.get(`${environment.apiUrl}/technology/list`,{ 'headers': headers });
   }
-  getTeamSize():Observable<any>{
-    return this.http.get(`${environment.apiUrl}/admin/teamsize/${this.course}`);
+  getTeamSize(course:String):Observable<any>{
+    return this.http.get(`${environment.apiUrl}/admin/teamsize/${course}`);
   }
 
   setTeamSize(count:number,userid:number):Observable<any>{
