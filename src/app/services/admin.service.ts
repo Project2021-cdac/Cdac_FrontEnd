@@ -74,7 +74,7 @@ export class AdminService {
 
   setTeamSize(count:number,userid:number):Observable<any>{
     const params=new HttpParams().set('size','count');
-    return this.http.put(`${environment.apiUrl}/admin/${userid}/teamsize?`,{'params' :params});
+    return this.http.post(`${environment.apiUrl}/admin/${userid}/teamsize?`,{'params' :params});
   }
  //exception handling
  /*private HandleError(errorResponse:HttpErrorResponse){

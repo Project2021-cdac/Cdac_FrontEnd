@@ -14,28 +14,10 @@ import { EditTeamSizeComponent } from '../edit-team-size/edit-team-size.componen
 })
 export class AdminDashboardComponent implements OnInit{
   adminData: Admin;
+  maxTeamSize='';
   text="Our project management information system (CPMS) is how information needed to asses a project is organized. It collects and uses project information through one or more students. What we do is help a project team to plan, execute and close their project.Our main objective is to record and report relevant information and the status of various tasks of the project in such a manner as to bring the most critical activities directly to the attention of concerned guides at appropriate level.";
   /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-         
-          { title: 'Course', cols: 2, rows: 1 ,text:'CDAC'},
-          { title: 'TeamSize', cols: 2, rows: 1 ,text:'5'},
-          { title: 'About', cols: 2, rows: 2 ,text:this.text},
-         // { title: 'List 2', cols: 1, rows: 1 }
-        ];
-      }
-
-      return [
-        { title: 'Course', cols: 1, rows: 1 ,text:'CDAC'},
-        { title: 'TeamSize', cols: 1, rows: 1 ,text:'5'},
-        { title: 'About', cols: 2, rows: 2 ,text:this.text},
-       // { title: 'List 2', cols: 1, rows: 1 }
-      ];
-    })
-  );
+  cards;
 
   constructor(public dialog: MatDialog,private breakpointObserver: BreakpointObserver,private adminService: AdminService,private loginService: LoginService) {}
   ngOnInit(): void {
@@ -43,6 +25,31 @@ export class AdminDashboardComponent implements OnInit{
     console.log(this.adminData.userAccount.courseName);
     this.adminService.course = this.adminData.userAccount.courseName;
     //get team size
+    //api call to get team size
+    this.adminService.getTeamSize(this.loginService.adminDetails.userAccount.courseName).subscribe((data)=>{
+      console.log(data);
+      this.maxTeamSize = String(data);
+      this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+        map(({ matches }) => {
+          if (matches) {
+            return [
+             
+              { title: 'Course', cols: 2, rows: 1 ,text:'CDAC'},
+              { title: 'TeamSize', cols: 2, rows: 1 ,text:this.maxTeamSize},
+              { title: 'About', cols: 2, rows: 2 ,text:this.text},
+             // { title: 'List 2', cols: 1, rows: 1 }
+            ];
+          }
+    
+          return [
+            { title: 'Course', cols: 1, rows: 1 ,text:'CDAC'},
+            { title: 'TeamSize', cols: 1, rows: 1 ,text:this.maxTeamSize},
+            { title: 'About', cols: 2, rows: 2 ,text:this.text},
+           // { title: 'List 2', cols: 1, rows: 1 }
+          ];
+        })
+      );
+    });
   }
 
   openDialog() {

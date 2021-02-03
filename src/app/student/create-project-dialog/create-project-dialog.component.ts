@@ -24,9 +24,7 @@ export class CreateProjectDialogComponent implements OnInit {
   techs: Number[] =[];
   project :Project;
   studentsList: Student[] = [];
-  team: Number[]=[];
   technologies: string[] =[];
-  teamList :Student[]=[];
   teamControl = new FormControl([]);
   maxTeamsize;
   createProjectForm = this.fb.group({
@@ -37,7 +35,6 @@ export class CreateProjectDialogComponent implements OnInit {
       Validators.required, Validators.minLength(50), Validators.maxLength(300)])],
     stime: [moment(), [Validators.required]],
     etime: [moment(), [Validators.required]],
-    team: [this.team],
     techs: [this.techs]
   });
 
@@ -60,9 +57,25 @@ export class CreateProjectDialogComponent implements OnInit {
     //api call to get team size
     this.adminService.getTeamSize(this.loginService.studentDetails.userAccount.courseName).subscribe((data: any[])=>{
       console.log(data);
-      this.techList = data;
+     // this.maxTeamsize = data;
     });
-
+    //
+    this.teamControl.valueChanges.subscribe(val => {console.log("TEAM CHANGED "+val);
+     
+        });    //check if current student added in team
+     //handling self add to team
+     this.createProjectForm.get('t_lead').valueChanges.subscribe(val => {
+      console.log("step 1");
+     //check if valid prn
+     if(this.createProjectForm.get('t_lead').valid){
+      if( this.loginService.studentDetails.prn != val){
+        console.log("step 2");
+        //add only if not exists
+        this.teamControl.value.indexOf(val) === -1 ? this.teamControl.setValue([this.loginService.studentDetails.prn]):null;
+        console.log(this.teamControl.value);
+      }
+    }
+    });
   }
 
   onCancel(): void { 
@@ -103,7 +116,7 @@ export class CreateProjectDialogComponent implements OnInit {
   }
   
   onStudentRemoved(student: Number) {
-    const sList = this.team as Number[];
+    const sList = this.teamControl.value as Number[];
     this.removeFirst(sList, student);
     this.teamControl.setValue(sList); // To trigger change detection
   }
