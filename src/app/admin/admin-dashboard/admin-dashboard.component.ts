@@ -4,7 +4,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { AdminService } from 'src/app/services/admin.service';
 import { LoginService } from 'src/app/services/login.service';
 import { Admin } from 'src/app/models/admin-model';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditTeamSizeComponent } from '../edit-team-size/edit-team-size.component';
 
 @Component({
@@ -53,7 +53,16 @@ export class AdminDashboardComponent implements OnInit{
   }
 
   openDialog() {
-    let dialogRef = this.dialog.open(EditTeamSizeComponent); 
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+        size: this.maxTeamSize,
+        course: this.loginService.adminDetails.userAccount.courseName
+    };
+    let dialogRef = this.dialog.open(EditTeamSizeComponent,dialogConfig); 
   
     dialogRef.afterClosed().subscribe(result => { 
       console.log("size changed getting team size");

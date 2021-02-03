@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AdminService } from 'src/app/services/admin.service';
 
@@ -9,33 +10,39 @@ import { AdminService } from 'src/app/services/admin.service';
   styleUrls: ['./edit-team-size.component.css']
 })
 export class EditTeamSizeComponent implements OnInit {
-
-  constructor( public dialogRef: MatDialogRef<EditTeamSizeComponent>,private adminService:AdminService,private snackBar: MatSnackBar) { }
+  size;
+  course;
+  form: FormGroup;
+  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<EditTeamSizeComponent>,private adminService:AdminService,private snackBar: MatSnackBar,@Inject(MAT_DIALOG_DATA) data) { 
+    this.course = data.course;
+    this.size = data.size;
+  }
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      size: [this.size, [Validators.required]],
+  });
   }
   onCancel(): void { 
     this.dialogRef.close(); 
   }
   onSubmit(): void { 
     console.log("::::INSIDE TeamSize SUBMIT:::" );
-    
-   /* this.adminService.registerStudent(this.fileToUpload).subscribe(
-      res => {
-        if(res.status){
-        console.log("succesful" ,res.body);
-        this.snackBar.open(res.body.responseMessage, 'Ok', {
-        duration: 5000,
-        });
+    console.log("------"+String(this.form.get('size').value)+" ==== "+this.course);
+    this.adminService.setTeamSize(this.form.get('size').value,this.course).pipe().subscribe(
+      () => {
+        //if(res.status){
+        //console.log("succesful" ,res.status);
         this.dialogRef.close();   
-        }},
+      //  }
+      },
       error => {
         console.log("failed" ,error);
-                this.snackBar.open(error.error.text, 'Ok', {
+                this.snackBar.open('Some problem in updating team size, try again.', 'Ok', {
                   duration: 5000,
                 });
                 this.dialogRef.close();  
       }
-    );*/
+    );
     }
 }

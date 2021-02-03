@@ -72,9 +72,11 @@ export class AdminService {
     return this.http.get(`${environment.apiUrl}/admin/teamsize/${course}`);
   }
 
-  setTeamSize(count:number,userid:number):Observable<any>{
-    const params=new HttpParams().set('size','count');
-    return this.http.post(`${environment.apiUrl}/admin/${userid}/teamsize?`,{'params' :params});
+  setTeamSize(count:number,course:string):Observable<any>{
+    console.log("------"+String(count)+" ==== "+course);
+   // const params=new HttpParams().set('size',String(count));
+   // console.log(params.toString());
+    return this.http.post(`${environment.apiUrl}/admin/${course}/setsize/${count}`,{});
   }
  //exception handling
  /*private HandleError(errorResponse:HttpErrorResponse){

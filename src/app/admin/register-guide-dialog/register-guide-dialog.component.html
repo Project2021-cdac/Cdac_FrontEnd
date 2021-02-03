@@ -109,5 +109,5 @@
 </div>
 <div mat-dialog-actions align="end">
   <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button (click)="submitForm()" color="primary">Register</button>
+  <button mat-button (click)="submitForm()" [disabled]="regGuideForm.invalid" color="primary">Register</button>
 </div>
