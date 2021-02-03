@@ -25,7 +25,7 @@ export class StudentService {
     .set('content-type', 'application/json')
     .set('Access-Control-Allow-Origin', '*');
     const body=JSON.stringify(data);
-    return this.http.post<any>(`${environment.apiUrl}/student/createproject`,body,{ 'headers': headers });
+    return this.http.post<any>(`${environment.apiUrl}/student/createproject/${this.studentDetails.userAccount.courseName}`,body,{ 'headers': headers });
 
   }
   getStudentsWithNoProject():Observable<Student[]>{

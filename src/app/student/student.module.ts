@@ -13,6 +13,7 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CreateTaskDialogComponent } from './create-task-dialog/create-task-dialog.component';
+import { ChangePswdComponent } from './change-pswd/change-pswd.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { CreateTaskDialogComponent } from './create-task-dialog/create-task-dial
     StudentTasksComponent,
     CreateProjectDialogComponent,
     Page404StudentComponent,
-    CreateTaskDialogComponent],
+    CreateTaskDialogComponent,
+    ChangePswdComponent],
   imports: [
     CommonModule,
     AngularMaterialModule,
