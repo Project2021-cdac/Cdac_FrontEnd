@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { Milestone } from 'src/app/models/milestone-model';
+import { LoginService } from 'src/app/services/login.service';
 import { StudentService } from 'src/app/services/student.service';
 
 @Component({
@@ -41,14 +42,16 @@ export class CreateTaskDialogComponent implements OnInit {
     milestone: ['',Validators.required]
   });
   constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<CreateTaskDialogComponent>,
-              private studentService:StudentService) { }
+              private studentService:StudentService ,private loginService:LoginService) { }
 
   ngOnInit(): void {
+    
+    
     //get milestones names and ids from api
-    //this.studentService.getMilestone(pid/*project id*(how to get project id?*/).subscribe((data: any[])=>{
-      //console.log(data);
-      //this.milesList = data;
-    //});
+    this.studentService.getMilestone().subscribe((data: any[])=>{
+      console.log("inside get Milestone  ",data);
+      this.milesList = data;
+    });
 
   }
 

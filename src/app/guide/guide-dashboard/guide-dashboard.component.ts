@@ -34,6 +34,17 @@ export class GuideDashboardComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver,public dialog: MatDialog,private guideService:GuideService
                            , private loginService:LoginService) {}
   ngOnInit(){
+    this.guideService.getAvailableProj().subscribe({    
+      next: (data: any[]) => {
+   //     this.projects = data;
+        console.log( "proejct ",data);
+        
+    },
+    error: error => {
+        this.errorMessage = error.message;
+        console.error('There was an error!', error);
+    }
+  })
     console.log("------------------INside guide dashboards------------------------");
     console.log(this.loginService.guideDetails);
     this.guideService.guideDetails=this.loginService.guideDetails;

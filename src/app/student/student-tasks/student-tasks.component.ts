@@ -51,6 +51,7 @@ export class StudentTasksComponent {
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
     this.dataSource.data = mileStones;
     this.tasksList = tasks;
+  
   }
 
   /** Transform the data to something the tree can read. */
