@@ -15,7 +15,7 @@ export class GuideService {
 
   constructor(private http:HttpClient) {}
 
-   getAvailableProj():Observable<Project[]>{
+  getAvailableProj():Observable<Project[]>{
     return this.http.get<Project[]>(`${environment.apiUrl}/guide/availableprojects/${this.guideDetails.userAccount.courseName}`)
     .pipe(catchError(this.handleError));
   }
@@ -31,16 +31,16 @@ export class GuideService {
           }));
   }
   showProject(pid:number):Observable<any>{
-    const params=new HttpParams().set('projectid',String(pid));
+    const params=new HttpParams().set('projectId',String(pid));
     return this.http.get<any>(`${environment.apiUrl}/guide/project`,{'params' :params});
   }
   startsession(pid:number):Observable<any>{
     //const params=new HttpParams().set('projectid',String(pid));
-    return this.http.post<any>(`${environment.apiUrl}/guide/startsession?projectid=${pid}`,{});
+    return this.http.post<any>(`${environment.apiUrl}/guide/startsession?projectId=${pid}`,{});
   }
   endsession(sessionid:number):Observable<any>{
    //const params=new HttpParams().set('sessionid',String(sessionid));
-    return this.http.post<any>(`${environment.apiUrl}/guide/endsession?sessionid=${sessionid}`,{});
+    return this.http.post<any>(`${environment.apiUrl}/guide/endsession?sessionId=${sessionid}`,{});
   }
 
   handleError(error: HttpErrorResponse) {

@@ -53,6 +53,12 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
      // Find the project that correspond with the id provided in route.
       this.project = this.guideService.projects.find(proj => proj.id === this.id);
       console.log(JSON.stringify(this.project));
+      //get activity milestone of the project
+      this.guideService.showProject(this.id).subscribe(data=>{
+        console.log(JSON.stringify(data));
+      },error=>{
+
+      })
     this.treeFlattener = new MatTreeFlattener(
        this.transformer,
        this.getLevel,

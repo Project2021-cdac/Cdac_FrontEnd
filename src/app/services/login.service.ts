@@ -119,9 +119,9 @@ export class LoginService {
 
   }
 
-    changePswd(newPassword:string,email:string):Observable<any>{
-      console.log("------"+newPassword+" ==== "+email);
-      return this.http.post(`${environment.apiUrl}/user/changepassword`,{newPassword,email});
+    changePswd(password:string,email:string):Observable<any>{
+      console.log("------"+password+" ==== "+email);
+      return this.http.post(`${environment.apiUrl}/user/changepassword`,{password,email});
     }
   
 }
