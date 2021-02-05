@@ -13,22 +13,41 @@ import { UserAccount } from '../models/User-Interface';
   providedIn: 'root'
 })
 export class LoginService {
-  studentDetails:Student;
-  guideDetails:Guide;
-  adminDetails:Admin;
-
-
+  
   private currentUserSubject: BehaviorSubject<UserAccount>;
   public currentUser: Observable<UserAccount>;
+  private currentStudentSubject: BehaviorSubject<Student>;
+  public studentDetails: Observable<Student>;
+  private currentGuideSubject: BehaviorSubject<Guide>;
+  public guideDetails: Observable<Guide>;
+
 
   constructor(private http: HttpClient,private router: Router) {
       this.currentUserSubject = new BehaviorSubject<UserAccount>(JSON.parse(localStorage.getItem('currentUser')));
       this.currentUser = this.currentUserSubject.asObservable();
+      
+      this.currentStudentSubject = new BehaviorSubject<Student>(JSON.parse(localStorage.getItem('student')));
+      this.studentDetails = this.currentStudentSubject.asObservable();
+      
+      
+      this.currentGuideSubject = new BehaviorSubject<Guide>(JSON.parse(localStorage.getItem('guide')));
+      this.guideDetails = this.currentGuideSubject.asObservable();
+      
   }
 
   public get currentUserValue(): UserAccount {
       return this.currentUserSubject.value;
   }
+
+  public get getStudent(): Student {
+    return this.currentStudentSubject.value;
+  }
+
+  public get getGuide(): Guide {
+    return this.currentGuideSubject.value;
+  }
+
+  
   public get isLoggedIn(): boolean{
     console.log("---INSIDE  LOGIN CHECK----"+this.currentUserValue);
     return (this.currentUserValue)?true:false;
@@ -59,7 +78,7 @@ export class LoginService {
             console.log("----LOGIN REPLY FROM SERVER-------");
             console.log(user);
               // login successful if there's a jwt token in the response
-              if (user) {
+              if(user){
                 console.log(user.token);
                 console.log(user.user.userAccount);
 
@@ -68,17 +87,34 @@ export class LoginService {
                   localStorage.setItem('token', user.token);
                   console.log(user);
                   this.currentUserSubject.next(user.user.userAccount);
+                  //store student and guide details according to role
+                  if(user.user.userAccount.role == "ROLE_STUDENT"){
+                   
+                    localStorage.setItem('student', JSON.stringify(user.user));
+                    console.log('saved student');
+                    this.currentStudentSubject.next(user.user);
+                    console.log('saved student');
+                  }
+                  if(user.user.userAccount.role == "ROLE_GUIDE"){
+                    console.log('saved guide');
+                    localStorage.setItem('guide', JSON.stringify(user.user));
+                    this.currentGuideSubject.next(user.user);
+                  }
               }
-
-              return user;
+              console.log(user.user);
+              return user.user;
           }));
   }
 
   logout() {
       // remove user from local storage to log user out
       localStorage.removeItem('currentUser');
+      localStorage.removeItem('student');
+      localStorage.removeItem('guide');
       localStorage.removeItem('token');
       this.currentUserSubject.next(null);
+      this.currentStudentSubject.next(null);
+      this.currentGuideSubject.next(null);
       window.location.reload();
 
   }

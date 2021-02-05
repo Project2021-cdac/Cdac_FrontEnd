@@ -30,8 +30,9 @@ export class StudentNavComponent implements OnInit{
   openDialog() {
     console.log("inside change password open");
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = false;
     dialogConfig.data = {
-      email: this.loginService.studentDetails.userAccount.email
+      email: this.loginService.currentUserValue.email
   };
     let dialogRef = this.dialog.open(ChangePswdComponent,dialogConfig); 
   }

@@ -13,39 +13,34 @@ export class GuideService {
   projects:Project[];
   guideDetails:Guide;
 
-  constructor(private http:HttpClient) {
-   // this.getAvailableProj().subscribe((data: any)=>{
-   //   console.log(data);
-      
-   // });
-   }
+  constructor(private http:HttpClient) {}
 
    getAvailableProj():Observable<Project[]>{
     return this.http.get<Project[]>(`${environment.apiUrl}/guide/availableprojects/${this.guideDetails.userAccount.courseName}`)
     .pipe(catchError(this.handleError));
   }
   chooseProject(gid :number,pid:number):Observable<any>{
-    const params=new HttpParams().set('guideid',"gid").set('projectid',"pid");
-    return this.http.post<any>(`${environment.apiUrl}/guide/select`,{'params' :params});
+   // const params=new HttpParams().set('guideid',String(gid)).set('projectid',String(pid));
+    return this.http.post<any>(`${environment.apiUrl}/guide/select?guideId=${gid}&projectId=${pid}`,{});
   }
   guideProjectList(gid:number):Observable<any>{
-    const params=new HttpParams().set('guideid',"gid");
+    const params=new HttpParams().set('guideId',String(gid));
     return this.http.get<any>(`${environment.apiUrl}/guide/projects`,{'params' :params}).pipe(map(res => {
       console.log("------RESPONSE FROM SERVER(Project list)-------");
       return res;
           }));
   }
   showProject(pid:number):Observable<any>{
-    const params=new HttpParams().set('projectid',"pid");
+    const params=new HttpParams().set('projectid',String(pid));
     return this.http.get<any>(`${environment.apiUrl}/guide/project`,{'params' :params});
   }
   startsession(pid:number):Observable<any>{
-    const params=new HttpParams().set('projectid',"pid");
-    return this.http.post<any>(`${environment.apiUrl}/guide/startsession`,{'params' :params});
+    //const params=new HttpParams().set('projectid',String(pid));
+    return this.http.post<any>(`${environment.apiUrl}/guide/startsession?projectid=${pid}`,{});
   }
   endsession(sessionid:number):Observable<any>{
-    const params=new HttpParams().set('sessionid',"sessionid");
-    return this.http.post<any>(`${environment.apiUrl}/guide/endsession`,{'params' :params});
+   //const params=new HttpParams().set('sessionid',String(sessionid));
+    return this.http.post<any>(`${environment.apiUrl}/guide/endsession?sessionid=${sessionid}`,{});
   }
 
   handleError(error: HttpErrorResponse) {

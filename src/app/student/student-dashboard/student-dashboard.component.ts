@@ -16,6 +16,8 @@ export class StudentDashboardComponent implements OnInit{
   projectData;
   progress;
   daysOver;
+  startM
+  endM
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -43,11 +45,13 @@ export class StudentDashboardComponent implements OnInit{
     console.log("---------INSIDE STUDENT INIT---------");
     console.log(this.loginService.studentDetails);
     //check whether project = null then openDialog()
-    this.studentService.studentDetails= this.loginService.studentDetails;
-    this.projectData = this.loginService.studentDetails.project;
+    this.studentService.studentDetails= this.loginService.getStudent;
+    this.projectData = this.loginService.getStudent.project;
     if(this.studentService.studentDetails.project!= null){
       console.log("----project exists---");
       this.calculateProgress();
+      this.startM = moment(this.projectData.startDate,'yyyy-MM-DD').format('ddd, MMM Do YYYY');
+      this.endM = moment(this.projectData.endDate,'yyyy-MM-DD').format('ddd, MMM Do YYYY');
     }else{
       console.log("------no project show dialog --------");
       this.openDialog();

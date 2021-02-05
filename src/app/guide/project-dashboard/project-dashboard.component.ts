@@ -47,6 +47,21 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.dataSource = new ProjectDashboardDataSource();
+     //getting project id from route
+     this.id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+     console.log(this.id);
+     // Find the project that correspond with the id provided in route.
+      this.project = this.guideService.projects.find(proj => proj.id === this.id);
+      console.log(JSON.stringify(this.project));
+    this.treeFlattener = new MatTreeFlattener(
+       this.transformer,
+       this.getLevel,
+       this.isExpandable,
+       this.getChildren);
+ 
+     this.treeControl = new FlatTreeControl(this.getLevel, this.isExpandable);
+     this.tdataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+     this.tdataSource.data = mileStones;
   }
 
   ngAfterViewInit() {
@@ -65,21 +80,7 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
    tdataSource: MatTreeFlatDataSource<MilestoneTreeNode, FlatTreeNode>;
  
    constructor(private activatedRoute: ActivatedRoute, private guideService: GuideService) {
-     //getting project id from route
-     this.id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
-     console.log(this.id);
-     // Find the project that correspond with the id provided in route.
-      this.project = this.guideService.projects.find(proj => proj.id === this.id);
     
-    this.treeFlattener = new MatTreeFlattener(
-       this.transformer,
-       this.getLevel,
-       this.isExpandable,
-       this.getChildren);
- 
-     this.treeControl = new FlatTreeControl(this.getLevel, this.isExpandable);
-     this.tdataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-     this.tdataSource.data = mileStones;
    }
  
    /** Transform the data to something the tree can read. */

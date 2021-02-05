@@ -1,14 +1,14 @@
 <h2 mat-dialog-title>Change Password</h2>
 <div mat-dialog-content [formGroup]="form">
    
-            <div mat-form-field >
-              <div class="form-group">
+            <div mat-form-field class="form-group">
+              
                 <input type="text"
                 formControlName="newpswd">
-                <mat-error *ngIf="form.controls['newpswd'].hasError('required')">
+                <mat-error *ngIf="form.controls['newpswd'].hasError('required') && (form.controls['newpswd'].dirty || form.controls['newpswd'].touched)">
                   Password is <strong>required</strong>
                 </mat-error>
-            </div>
+          
             </div>
       
 </div>

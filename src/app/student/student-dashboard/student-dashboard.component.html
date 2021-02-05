@@ -19,12 +19,37 @@
             </mat-menu>-->
           </mat-card-title>
         </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
+        <mat-card-content [ngClass]="card.title == 'Technology' ? 'dashboard-card-list' : 'dashboard-card-content'">
           <div [ngSwitch]="card.title">
-            <div *ngSwitchCase="'Description'"><h3>>{{projectData.description}}</h3></div>
-            <div *ngSwitchCase="'Timeline'">Two</div>
-            <div *ngSwitchCase="'Technology'">Three</div>
-            <div *ngSwitchCase="'Guide'">Four</div>
+            <div *ngSwitchCase="'Description'"><h1>{{projectData.description}}</h1></div>
+            <div *ngSwitchCase="'Timeline'">
+              
+            <div class="flex-row">
+              <div class="temp">
+                <span class="sm-text">Start</span>
+                <span class="title-text">{{startM}}</span>
+                <span class="sm-text">End</span>
+                <span class="title-text">{{endM}}</span>
+              </div>
+              <div class="outlook">
+                <div class="avatar-icon">
+                <mat-icon inline="true">today</mat-icon>
+                </div>
+                <span class="big-text">{{daysOver}} DAYS</span>
+              </div>
+          </div>
+            </div>
+            <div *ngSwitchCase="'Technology'">
+              <mat-list>
+                <mat-list-item *ngFor="let item of projectData.technologies">
+                  {{ item.name }}
+                </mat-list-item>
+                
+              </mat-list>
+            </div>
+            <div *ngSwitchCase="'Guide'"><p *ngIf="projectData.guide">Guide assigned</p>
+              <p *ngIf="projectData.guide == null">No guide assigned yet.</p>
+            </div>
             
           </div>
         </mat-card-content>

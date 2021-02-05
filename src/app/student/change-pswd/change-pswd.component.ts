@@ -9,8 +9,8 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./change-pswd.component.css']
 })
 export class ChangePswdComponent implements OnInit {
-  email
-  newpswd
+  email;
+  newpswd;
   form: FormGroup;
   constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<ChangePswdComponent>,private loginService : LoginService,@Inject(MAT_DIALOG_DATA) data) { 
     this.email = data.email;
@@ -18,7 +18,7 @@ export class ChangePswdComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      newpswd: [this.newpswd, [Validators.required]],
+      newpswd: ['', [Validators.required]],
   });
   }
   onCancel(): void { 

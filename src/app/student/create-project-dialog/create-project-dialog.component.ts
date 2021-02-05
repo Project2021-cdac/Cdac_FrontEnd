@@ -55,7 +55,7 @@ export class CreateProjectDialogComponent implements OnInit {
       this.studentsList = data;
     });
     //api call to get team size
-    this.adminService.getTeamSize(this.loginService.studentDetails.userAccount.courseName).subscribe((data: any[])=>{
+    this.adminService.getTeamSize(this.loginService.getStudent.userAccount.courseName).subscribe((data: any[])=>{
       console.log(data);
      // this.maxTeamsize = data;
     });
@@ -68,10 +68,10 @@ export class CreateProjectDialogComponent implements OnInit {
       console.log("step 1");
      //check if valid prn
      if(this.createProjectForm.get('t_lead').valid){
-      if( this.loginService.studentDetails.prn != val){
+      if( this.loginService.getStudent.prn != val){
         console.log("step 2");
         //add only if not exists
-        this.teamControl.value.indexOf(val) === -1 ? this.teamControl.setValue([this.loginService.studentDetails.prn]):null;
+        this.teamControl.value.indexOf(val) === -1 ? this.teamControl.setValue([this.loginService.getStudent.prn]):null;
         console.log(this.teamControl.value);
       }
     }

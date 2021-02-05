@@ -6,6 +6,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { Admin } from 'src/app/models/admin-model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditTeamSizeComponent } from '../edit-team-size/edit-team-size.component';
+import { UserAccount } from 'src/app/models/User-Interface';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -13,7 +14,7 @@ import { EditTeamSizeComponent } from '../edit-team-size/edit-team-size.componen
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent implements OnInit{
-  adminData: Admin;
+  adminData: UserAccount;
   maxTeamSize='';
   text="Our project management information system (CPMS) is how information needed to asses a project is organized. It collects and uses project information through one or more students. What we do is help a project team to plan, execute and close their project.Our main objective is to record and report relevant information and the status of various tasks of the project in such a manner as to bring the most critical activities directly to the attention of concerned guides at appropriate level.";
   /** Based on the screen size, switch from standard to one column per row */
@@ -21,12 +22,12 @@ export class AdminDashboardComponent implements OnInit{
 
   constructor(public dialog: MatDialog,private breakpointObserver: BreakpointObserver,private adminService: AdminService,private loginService: LoginService) {}
   ngOnInit(): void {
-    this.adminData = this.loginService.adminDetails;
-    console.log(this.adminData.userAccount.courseName);
-    this.adminService.course = this.adminData.userAccount.courseName;
+    this.adminData = this.loginService.currentUserValue;
+    console.log(this.adminData.courseName);
+    this.adminService.course = this.adminData.courseName;
     //get team size
     //api call to get team size
-    this.adminService.getTeamSize(this.loginService.adminDetails.userAccount.courseName).subscribe((data)=>{
+    this.adminService.getTeamSize(this.loginService.currentUserValue.courseName).subscribe((data)=>{
       console.log(data);
       this.maxTeamSize = String(data);
       this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -60,7 +61,7 @@ export class AdminDashboardComponent implements OnInit{
 
     dialogConfig.data = {
         size: this.maxTeamSize,
-        course: this.loginService.adminDetails.userAccount.courseName
+        course: this.loginService.currentUserValue.courseName
     };
     let dialogRef = this.dialog.open(EditTeamSizeComponent,dialogConfig); 
   

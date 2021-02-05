@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
 import { Project } from 'src/app/models/project-model';
 import { GuideService } from 'src/app/services/guide.service';
 import { LoginService } from 'src/app/services/login.service';
@@ -11,27 +12,9 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./choose-project-dialog.component.css']
 })
 export class ChooseProjectDialogComponent implements OnInit {
-  availableList = [
-    {
-        "id":1233,
-        "projectTitle":"title1",
-        "projectDescription":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "technologies":"Spring,Mysql,Angular"
-    },
-    {
-        "id":1234,
-        "projectTitle":"title2",
-        "projectDescription":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "technologies":"Spring,Mysql,Angular"
-    },
-    {
-        "id":1235,
-        "projectTitle":"title3",
-        "projectDescription":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "technologies":"Spring,Mysql,Angular"
-    }
-]
-;
+  @ViewChild(MatSelectionList) result: MatSelectionList;
+  selectedOptions
+  availableList: Project[]=[];
   form= this.fb.group({
     projects: new FormArray([]) 
   },{validators: this.minSelectedCheckboxes});
@@ -48,8 +31,8 @@ export class ChooseProjectDialogComponent implements OnInit {
     );
   }
   ngOnInit(): void {
-    console.log(this.loginService.guideDetails);
-    this.guideService.guideDetails=this.loginService.guideDetails;
+    console.log(this.loginService.getGuide);
+    this.guideService.guideDetails=this.loginService.getGuide;
     //get avaliabe projects list from api to show in form
     this.guideService.getAvailableProj().subscribe((data: any[])=>{
       console.log(data);
@@ -58,6 +41,7 @@ export class ChooseProjectDialogComponent implements OnInit {
     this.addCheckboxes();
   }
 
+
   onCancel(): void { 
     this.dialogRef.close(); 
   }
@@ -65,17 +49,18 @@ export class ChooseProjectDialogComponent implements OnInit {
 
   submit() {
     console.log('inside submit');
-    this.projIds = this.form.value.projects
-    .map((checked, i) => (checked ? this.availableList[i].id : null))
-    .filter(v => v !== null);
+    console.log(JSON.stringify(this.selectedOptions))
+    //this.projIds = this.form.value.projects
+    //.map((checked, i) => (checked ? this.availableList[i].id : null))
+    //.filter(v => v !== null);
     //api to choose project from list(post)(suvidha----doubt (show to pass single select project id))
-   /* this.guideService.chooseProject(this.guideService.guideDetails.id,this.projIds[]).subscribe(data => {
+   this.guideService.chooseProject(this.guideService.guideDetails.id,this.selectedOptions[0].id).subscribe(data => {
       this.projIds=data;
       console.log(" project selected ",data);
       
     },
-     error => console.log("error",error));*/
-  console.log(this.projIds);
+     error => console.log("error",error));
+  //console.log(this.projIds);
 
     this.dialogRef.close();
   }
@@ -83,11 +68,11 @@ export class ChooseProjectDialogComponent implements OnInit {
 
   public minSelectedCheckboxes(control: AbstractControl): ValidationErrors | null {
     const selected = control.get('projects') ? control.get('projects').value : [];
-    //console.log(selected);
+    console.log(selected);
     const count = selected
     .reduce((prev, next) => next ? prev + next : prev, 0);
     //console.log(count);
-    return count >= 1 ? null : { required: true };
+    return count >= 1 ?count > 1 ?{ manyItems: true }: null : { required: true };
             
   }
 }

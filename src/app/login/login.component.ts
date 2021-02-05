@@ -36,26 +36,16 @@ export class LoginComponent implements OnInit{
   }else
 {
   this.loginService.login(this.f.email.value, this.f.password.value)
-      .pipe(first())
       .subscribe(
-          data => {
+          () => {
               console.log('Login successful');
-              console.log(data);
+             // console.log(data);
               console.log(JSON.parse(localStorage.getItem('currentUser')));
               console.log(this.loginService.getRole);
-              if(data){
+              if(this.loginService.currentUserValue){
                 var role ='';
                 if(this.loginService.getRole){
                 role = this.loginService.getRole.toLowerCase();
-                if(role=="admin"){
-                  this.loginService.adminDetails=data.user;
-                }
-                if(role=="student"){
-                this.loginService.studentDetails=data.user;
-                }
-                if(role=="guide"){
-                  this.loginService.guideDetails=data.user;
-                }
                 this.router.navigate(['/'+role]);
                 }
                 //this.router.navigate(['/'+role]).then(() => {
@@ -66,7 +56,7 @@ export class LoginComponent implements OnInit{
           error => {
               //alert(error);
               console.log(JSON.stringify(error));
-              this.snackBar.open(error.error, 'Ok', {
+              this.snackBar.open('Something went wrong during login!', 'Ok', {
                 duration: 5000,
               });
           });
