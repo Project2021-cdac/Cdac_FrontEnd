@@ -6,7 +6,7 @@
 .strikethrough {
   text-decoration: line-through;
   text-decoration-color:#3F51B5;
-  text-decoration-thickness: 3px;
+  text-decoration-thickness: 1px;
 }
 
 .flex-container {
@@ -23,5 +23,14 @@
   width: 120px;
 }
 
+table {
+  width: 100%;
+}
+
+.list-container {
+  padding: 30px;
+  margin-top: 10px;
+
+}
 
 

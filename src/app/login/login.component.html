@@ -1,8 +1,14 @@
 
-<mat-toolbar>
+<div class="main">
+
+<mat-toolbar color="primary">
+  <span class="toolbar-spacer"></span>
   <span>CDAC Project Management System</span>
+  <span class="toolbar-spacer"></span>
 </mat-toolbar>
-<div layout="row" layout-align="center center">
+
+  <div class="inner">
+    <div class="center">
     <form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
       <mat-card class="login-card">
         <mat-card-header>
@@ -39,4 +45,6 @@
         </mat-card-content>
       </mat-card>
     </form>
+    </div>
+    </div>
   </div>

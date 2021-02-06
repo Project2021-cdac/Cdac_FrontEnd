@@ -8,6 +8,7 @@ import { GuideNavComponent } from './guide-nav/guide-nav.component';
 import { AngularMaterialModule } from '../angular-material.module';
 import { ChooseProjectDialogComponent } from './choose-project-dialog/choose-project-dialog.component';
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
+import { ChangePswdComponent } from './change-pswd/change-pswd.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ProjectDashboardComponent } from './project-dashboard/project-dashboard
     GuideDashboardComponent,
     Page404GuideComponent,
     ChooseProjectDialogComponent,
-    ProjectDashboardComponent],
+    ProjectDashboardComponent,
+    ChangePswdComponent],
   imports: [
     CommonModule,
     AngularMaterialModule,

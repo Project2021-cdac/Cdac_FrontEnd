@@ -3,7 +3,7 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>CDAC PM</mat-toolbar>
+    <mat-toolbar><img src="../../../assets/cdaclogo.png" height="60px"/></mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="/student/home" routerLinkActive="active-link">Home</a>
       <a mat-list-item routerLink="/student/tasks">Tasks</a>

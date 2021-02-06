@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 //import { SelectAutocompleteComponent } from 'mat-select-autocomplete-angular9';
 import * as moment from 'moment';
 import { Project } from 'src/app/models/project-model';
@@ -39,7 +40,7 @@ export class CreateProjectDialogComponent implements OnInit {
   });
 
   constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<CreateProjectDialogComponent>,
-              private studentService : StudentService,private adminService : AdminService,private loginService: LoginService) { }
+              private studentService : StudentService,private adminService : AdminService,private loginService: LoginService,private snackBar: MatSnackBar) { }
   
   ngOnInit(): void {
     console.log("------------INSIDE CREATE PROJECT INIT ------------------");
@@ -109,6 +110,9 @@ export class CreateProjectDialogComponent implements OnInit {
   .subscribe(data => {
     
     console.log("project created",data);
+    this.snackBar.open("Project created successfully", 'Ok', {
+      duration: 5000,
+      });
     
   },
    error => console.log("error",error));

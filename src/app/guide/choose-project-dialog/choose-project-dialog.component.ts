@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Project } from 'src/app/models/project-model';
 import { GuideService } from 'src/app/services/guide.service';
 import { LoginService } from 'src/app/services/login.service';
@@ -23,7 +24,7 @@ export class ChooseProjectDialogComponent implements OnInit {
   }
   projIds: number[] =[];
   constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<ChooseProjectDialogComponent>
-              ,private guideService:GuideService,private loginService :LoginService) { }
+              ,private guideService:GuideService,private loginService :LoginService,private snackBar: MatSnackBar) { }
 
   private addCheckboxes() {
     this.availableList.forEach(() =>
@@ -54,14 +55,14 @@ export class ChooseProjectDialogComponent implements OnInit {
     //.map((checked, i) => (checked ? this.availableList[i].id : null))
     //.filter(v => v !== null);
     //api to choose project from list(post)(suvidha----doubt (show to pass single select project id))
-   this.guideService.chooseProject(this.guideService.guideDetails.id,this.selectedOptions[0].id).subscribe(data => {
-      this.projIds=data;
-      console.log(" project selected ",data);
-      
+   this.guideService.chooseProject(this.guideService.guideDetails.id,this.selectedOptions[0].id).subscribe(() => {
+      console.log(" project selected ");
+      this.snackBar.open("Project selected", 'Ok', {
+        duration: 5000,
+        });
     },
      error => console.log("error",error));
   //console.log(this.projIds);
-
     this.dialogRef.close();
   }
 

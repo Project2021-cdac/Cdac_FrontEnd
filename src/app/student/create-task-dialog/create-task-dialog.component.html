@@ -19,7 +19,7 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Milestone</mat-label>
                         <mat-select formControlName="milestone">
-                          <mat-option *ngFor="let mile of milesList" [value]="mile.id">{{mile.milestoneCheckPoint}}</mat-option>
+                          <mat-option *ngFor="let mile of milesList" [value]="mile.id">{{mile.title}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                 </div>

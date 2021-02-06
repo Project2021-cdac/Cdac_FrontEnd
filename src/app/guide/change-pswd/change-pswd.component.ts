@@ -12,9 +12,9 @@ export class ChangePswdComponent implements OnInit {
   email;
   newpswd;
   form: FormGroup;
-  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<ChangePswdComponent>,private loginService : LoginService,@Inject(MAT_DIALOG_DATA) data) { 
+  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<ChangePswdComponent>,private loginService : LoginService,@Inject(MAT_DIALOG_DATA) data) {
     this.email = data.email;
-  }
+   }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -25,6 +25,7 @@ export class ChangePswdComponent implements OnInit {
         
   });
   }
+
   onCancel(): void { 
     this.dialogRef.close(); 
   }

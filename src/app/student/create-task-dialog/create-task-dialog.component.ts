@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import * as moment from 'moment';
 import { Milestone } from 'src/app/models/milestone-model';
 import { LoginService } from 'src/app/services/login.service';
@@ -12,41 +13,20 @@ import { StudentService } from 'src/app/services/student.service';
   styleUrls: ['./create-task-dialog.component.css']
 })
 export class CreateTaskDialogComponent implements OnInit {
-  studentId:number = 1234;
-  milesList:Milestone[] = [
-    {
-      id:123,
-      startDate:324234,
-      endDate:34234234,
-      milestoneCheckPoint:"Milestone 1",
-      tasks:[]
-    },
-    {
-      id:124,
-      startDate:324234,
-      endDate:34234234,
-      milestoneCheckPoint:"Milestone 2",
-      tasks:[]
-    },
-    {
-      id:125,
-      startDate:324234,
-      endDate:34234234,
-      milestoneCheckPoint:"Milestone 3",
-      tasks:[]
-    },
-  ];
+  studentId:number;
+  projId:number;
+  milesList:Milestone[] = [];
   createTaskForm = this.fb.group({
     description:['',Validators.compose([
-      Validators.required, Validators.minLength(50), Validators.maxLength(300)])],
+      Validators.required, Validators.minLength(10), Validators.maxLength(300)])],
     milestone: ['',Validators.required]
   });
   constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<CreateTaskDialogComponent>,
-              private studentService:StudentService ,private loginService:LoginService) { }
+              private studentService:StudentService ,private loginService:LoginService,private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    
-    
+    this.studentId = this.loginService.getStudent.prn;
+    this.projId = this.loginService.getStudent.project.id;
     //get milestones names and ids from api
     this.studentService.getMilestone().subscribe((data: any[])=>{
       console.log("inside get Milestone  ",data);
@@ -63,18 +43,20 @@ export class CreateTaskDialogComponent implements OnInit {
   submitForm() {
     
     const formData = this.fb.group({
-      status:'CREATED',
-      createdOn: moment().unix(),
-      createdBy:this.studentId,
+      status:"STARTED",
       description:this.createTaskForm.get('description').value,
-      milestoneid:this.createTaskForm.get('milestone').value
+      milestone:this.createTaskForm.get('milestone').value
     });
     console.log(formData.value);
     //rest api submit form data and close form
-    this.studentService.createTask(formData.value).subscribe((data: any[])=>{
+    this.studentService.createTask(formData.value,this.projId,this.studentId).subscribe((data: any[])=>{
       console.log(data);
+      this.snackBar.open("Task created successfully", 'Ok', {
+        duration: 5000,
+        });
+        this.dialogRef.close();
       //this.techList = data;
     }, error => console.log("error",error));
-    this.dialogRef.close();
+    
   }
 }

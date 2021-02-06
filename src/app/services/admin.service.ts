@@ -11,12 +11,13 @@ import { environment } from 'src/environments/environment';
 import { CreateGuide } from '../models/regGuide';
 import { FormBuilder } from '@angular/forms';
 import { projects } from '../admin/project-dashboard/example-data';
+import { Milestone } from '../models/milestone-model';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
   course:String;
-  projects:Project[] = [];
+  projects:any[];
   constructor(private http:HttpClient, private formBuilder: FormBuilder) {}
 
   registerStudent(file: File): Observable<any> {
@@ -77,6 +78,17 @@ export class AdminService {
    // const params=new HttpParams().set('size',String(count));
    // console.log(params.toString());
     return this.http.post(`${environment.apiUrl}/admin/${course}/setsize/${count}`,{});
+  }
+
+  showProject(pid:number):Observable<any>{
+    const params=new HttpParams().set('projectId',String(pid));
+    return this.http.get<any>(`${environment.apiUrl}/project`,{'params' :params});
+  }
+
+   //Milestone api for all users
+   getMilestoneForAllUser(pid:number):Observable<Milestone[]>{
+    //const params=new HttpParams().set('id',String(pid));
+    return this.http.get<Milestone[]>(`${environment.apiUrl}/milestones/${pid}`);
   }
  //exception handling
  /*private HandleError(errorResponse:HttpErrorResponse){

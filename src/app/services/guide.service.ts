@@ -5,6 +5,7 @@ import {  throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Guide } from '../models/guide-model';
+import { Milestone } from '../models/milestone-model';
 import { Project } from '../models/project-model';
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,7 @@ export class GuideService {
   }
   showProject(pid:number):Observable<any>{
     const params=new HttpParams().set('projectId',String(pid));
-    return this.http.get<any>(`${environment.apiUrl}/guide/project`,{'params' :params});
+    return this.http.get<any>(`${environment.apiUrl}/project`,{'params' :params});
   }
   startsession(pid:number):Observable<any>{
     //const params=new HttpParams().set('projectid',String(pid));
@@ -42,7 +43,11 @@ export class GuideService {
    //const params=new HttpParams().set('sessionid',String(sessionid));
     return this.http.post<any>(`${environment.apiUrl}/guide/endsession?sessionId=${sessionid}`,{});
   }
-
+   //Milestone api for all users
+   getMilestoneForAllUser(pid:number):Observable<Milestone[]>{
+    //const params=new HttpParams().set('id',String(pid));
+    return this.http.get<Milestone[]>(`${environment.apiUrl}/milestones/${pid}`);
+  }
   handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {

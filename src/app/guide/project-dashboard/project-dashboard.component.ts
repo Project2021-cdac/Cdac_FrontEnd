@@ -1,14 +1,20 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
+import { Activity } from 'src/app/models/activity-model';
 import { Project } from 'src/app/models/project-model';
+import { Task } from 'src/app/models/task-model';
 import { GuideService } from 'src/app/services/guide.service';
+import { LoginService } from 'src/app/services/login.service';
 import { mileStones } from './example-data';
-import { ProjectActivityItem, ProjectDashboardDataSource } from './project-dashboard-datasource';
+import { ProjectDashboardDataSource } from './project-dashboard-datasource';
 
 /** File node data with possible child nodes. */
 export interface MilestoneTreeNode {
@@ -33,32 +39,55 @@ export interface FlatTreeNode {
   styleUrls: ['./project-dashboard.component.css']
 })
 export class ProjectDashboardComponent implements AfterViewInit, OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatTable) table: MatTable<ProjectActivityItem>;
+  //@ViewChild(MatPaginator) paginator: MatPaginator;
+  //@ViewChild(MatSort) sort: MatSort;
+  @ViewChild('TableOne', {static: true}) table: MatTable<Activity>;
+  @ViewChild('TableOnePaginator', {static: true}) tableOnePaginator: MatPaginator;
+  @ViewChild('TableOneSort', {static: true}) tableOneSort: MatSort;
   dataSource: ProjectDashboardDataSource;
-
+  displayedColumns2: string[] = ['description', 'status', 'createdOn'];
+  dataSource2 = new MatTableDataSource<Task>();
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['avatar','id', 'name','status','date'];
-  
+  displayedColumns = ['description','date'];
+  session
   inSession:boolean = false;
   public id: number;
   project:Project;
+  activities:Activity[];
+  team:String[]=[];
+  grouped
+  progress
 
   ngOnInit() {
-    this.dataSource = new ProjectDashboardDataSource();
+    
      //getting project id from route
      this.id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
      console.log(this.id);
      // Find the project that correspond with the id provided in route.
       this.project = this.guideService.projects.find(proj => proj.id === this.id);
+      this.calculateProgress();
       console.log(JSON.stringify(this.project));
+      //get milestones for this project
+      //get all milestones for projid
+    this.guideService.getMilestoneForAllUser(this.id).subscribe(data=>{
+      console.log(data);
+      this.grouped = groupBy(data, task => task.milestone.title);
+      console.log(String(this.grouped));
+    });
       //get activity milestone of the project
       this.guideService.showProject(this.id).subscribe(data=>{
         console.log(JSON.stringify(data));
+        this.activities = data.activities;
+        this.team = data.studentNames;
+        this.dataSource = new ProjectDashboardDataSource(this.activities);
+        this.dataSource.sort = this.tableOneSort;
+        this.dataSource.paginator = this.tableOnePaginator;
+        this.table.dataSource = this.dataSource;
       },error=>{
 
       })
+      
+
     this.treeFlattener = new MatTreeFlattener(
        this.transformer,
        this.getLevel,
@@ -68,12 +97,18 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
      this.treeControl = new FlatTreeControl(this.getLevel, this.isExpandable);
      this.tdataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
      this.tdataSource.data = mileStones;
+      //check if session persists
+     this.session = JSON.parse(localStorage.getItem('guideSession'));
+     var guideState = JSON.parse(localStorage.getItem('guide'))
+     console.log('got session as '+JSON.stringify(this.session))
+     if(this.session||guideState.inSession){
+       this.inSession = true
+     }
+     
   }
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+   
   }
 
    /** The TreeControl controls the expand/collapse state of tree nodes.  */
@@ -85,7 +120,7 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
    /** The MatTreeFlatDataSource connects the control and flattener to provide data. */
    tdataSource: MatTreeFlatDataSource<MilestoneTreeNode, FlatTreeNode>;
  
-   constructor(private activatedRoute: ActivatedRoute, private guideService: GuideService) {
+   constructor(private snackBar: MatSnackBar,private activatedRoute: ActivatedRoute, private guideService: GuideService,private loginService: LoginService) {
     
    }
  
@@ -122,10 +157,70 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
    //onSession start clicked
    onStart(){
     this.inSession = true;
+    this.guideService.startsession(this.id).subscribe(data=>{
+      console.log('success'+JSON.stringify(data))
+      this.snackBar.open("Session started", 'Ok', {
+        duration: 5000,
+        });
+      this.session = data.object
+      localStorage.setItem('guideSession', JSON.stringify(data.object));
+    },error=>{
+      console.log('failed'+JSON.stringify(error))
+      this.snackBar.open(error.error.responseMessage, 'Ok', {
+        duration: 5000,
+        });
+    });
    }
    //onSession ended
    onEnd(){
-     this.inSession = false;
-
+     
+     
+     if(this.session && this.session.id){
+       //session undisturbed case
+      this.inSession = false;
+     this.guideService.endsession(this.session.id).subscribe(data=>{
+      console.log('success'+JSON.stringify(data))
+      localStorage.removeItem('guideSession')
+    },error=>{
+      console.log('failed'+JSON.stringify(error))
+      this.snackBar.open(error.error.responseMessage, 'Ok', {
+        duration: 5000,
+        });
+    });
+    }else{
+      //
+    }
    }
+     
+   addData(data: any){
+    this.dataSource2 = new MatTableDataSource(data);
+  }
+
+  calculateProgress() {
+    console.log("inside calculate project progresss" + JSON.stringify(this.project));
+    var startDate = moment(this.project.startDate, "yyyy-MM-DD");
+    var endDate = moment(this.project.endDate, "yyyy-MM-DD");
+    var nowDate = moment();
+    var daysTotal = endDate.diff(startDate, 'days');
+    console.log("project progress is "+ daysTotal);
+    var daysOver = nowDate.diff(startDate, 'days');
+    console.log("project progress is "+ daysOver);
+    this.progress = 100 - ((daysTotal-daysOver)/daysTotal * 100)
+    console.log("project progress is "+ this.progress);
+
+  }
+}
+
+function groupBy(list, keyGetter) {
+  const map = new Map();
+  list.forEach((item) => {
+       const key = keyGetter(item);
+       const collection = map.get(key);
+       if (!collection) {
+           map.set(key, [item]);
+       } else {
+           collection.push(item);
+       }
+  });
+  return map;
 }

@@ -13,7 +13,7 @@ import { projects } from '../project-dashboard/example-data';
   styleUrls: ['./admin-projects.component.css']
 })
 export class AdminProjectsComponent   {
-  projects:Project[]= [];
+  projects:any[]= [];
   errorMessage: any;
   
   constructor(private adminService:AdminService,private breakpointObserver: BreakpointObserver){}

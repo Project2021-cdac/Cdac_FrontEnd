@@ -1,3 +1,4 @@
+import { Student } from "./student-model";
 import { Technology } from "./technology-model";
 
 
@@ -8,7 +9,7 @@ export interface Project{
     description:string;
     startDate:string;
     endDate:string;
-    teamLead:number;
+    teamLead:Student;
     guide:number;
     technologies:Technology[];
 

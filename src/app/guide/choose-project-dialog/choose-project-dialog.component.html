@@ -17,12 +17,12 @@
         </label>-->
         
     <mat-selection-list #result [(ngModel)]="selectedOptions" [multiple]="false">
-      <mat-list-option *ngFor="let i of availableList" [value]="i">
+      <mat-list-option *ngFor="let i of availableList" [value]="i" class="mat-elevation-z8">
         <h3 class="big-text">{{i.title}}</h3>
         <span class="temp">Technology -  
         <p *ngFor="let j of i.technologies">{{j.name}} </p></span>
         <h4>{{i.description}}</h4>
-        <mat-divider></mat-divider>
+       
         <!-- <mat-card>
           <mat-card-header>
               <mat-card-title>{{i.title}}</mat-card-title>

@@ -60,6 +60,15 @@ mat-card {
 .outlook {
   color: black;
   background: rgba(0,0,0,0.1);
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.info {
+  color: black;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -67,13 +76,11 @@ mat-card {
 }
 
 .temp {
-  background: #3f51b5;
-  color: white;
-  margin-right: 10px;
+  color: black;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 .big-text {
@@ -82,10 +89,18 @@ mat-card {
 .sm-text {
   font-size: 20px;
 }
+.sm1-text {
+  font-size: 25px;
+  margin-bottom: 10px;
+}
 
 .avatar-icon {
   height: 60px;
   width: 60px;
   font-size: 60px;
   line-height: 60px;
+}
+.inline-icon {
+  vertical-align: top;
+  font-size: 18px !important;
 }

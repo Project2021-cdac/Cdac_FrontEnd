@@ -33,22 +33,32 @@ export class StudentService {
     /*.pipe(catchError(this.handleError));*/
   }
 
-  createTask(data:any):Observable<any>{
-      const params=new HttpParams().set('id',"pid");
+  createTask(data:any,pid:number,prn:number):Observable<any>{
+    //  const params=new HttpParams().set('id',"pid");
+    const headers= new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*');
     const taskBody=JSON.stringify(data);
-    return this.http.post<any>(`${environment.apiUrl}/student/createtask`,taskBody,{'params' :params});
+    console.log(taskBody);
+    return this.http.post<any>(`${environment.apiUrl}/student/createtask/${pid}/${prn}`,taskBody,{ 'headers': headers });
   }
-  getStudentsTasks():Observable<Task[]>{
-    return this.http.get<Task[]>(`${environment.apiUrl}/student/task/${this.studentDetails.prn}`);
+
+  showProject(pid:number):Observable<any>{
+    const params=new HttpParams().set('projectId',String(pid));
+    return this.http.get<any>(`${environment.apiUrl}/project`,{'params' :params});
   }
-  endTask():Observable<any>{
-    return this.http.post<any>(`${environment.apiUrl}/student/endtask/${this.taskDetails.id}`,null);
+  
+  getStudentsTasks(prn:number):Observable<Task[]>{
+    return this.http.get<Task[]>(`${environment.apiUrl}/student/task/${prn}`);
+  }
+  endTask(tid:number):Observable<any>{
+    return this.http.post<any>(`${environment.apiUrl}/student/endtask/${tid}`,{});
 
   }
   //Milestone api for all users
   getMilestoneForAllUser(pid:number):Observable<Milestone[]>{
-    const params=new HttpParams().set('id',"pid");
-    return this.http.get<Milestone[]>(`${environment.apiUrl}/milestones`,{'params' :params});
+    //const params=new HttpParams().set('id',String(pid));
+    return this.http.get<Milestone[]>(`${environment.apiUrl}/milestones/${pid}`);
   }
   //list of all milestones
   getMilestone():Observable<Milestone[]>{

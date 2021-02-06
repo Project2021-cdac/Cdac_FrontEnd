@@ -28,7 +28,7 @@ export class AdminGuidesComponent implements AfterViewInit, OnInit {
   dataSource: AdminGuidesDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name','email','phone','tech'];
+  displayedColumns = ['avatar','name','email','phone','tech'];
   constructor(public dialog: MatDialog,private adminService: AdminService) {}
 
   openDialog() {
