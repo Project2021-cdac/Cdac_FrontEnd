@@ -46,9 +46,11 @@ export class AdminGuidesComponent implements AfterViewInit, OnInit {
     
      //make api call to get data(--Rithika)
      this.adminService.getGuideList(this.loginService.currentUserValue.courseName).subscribe((result)=>{    
+      if(result){
       this.guideData  =  result;
       console.log("-------Getting Guide Data --------");
       console.log(result);
+      }
       this.dataSource = new AdminGuidesDataSource(this.guideData);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
