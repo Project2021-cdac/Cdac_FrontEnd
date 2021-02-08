@@ -113,6 +113,8 @@ export class CreateProjectDialogComponent implements OnInit {
     this.snackBar.open("Project created successfully", 'Ok', {
       duration: 5000,
       });
+      console.log("project created logging out");
+      this.loginService.logout();
     
   },
    error => console.log("error",error));

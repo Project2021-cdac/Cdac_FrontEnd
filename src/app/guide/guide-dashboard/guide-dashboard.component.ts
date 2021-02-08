@@ -56,7 +56,7 @@ export class GuideDashboardComponent implements OnInit {
     console.log("inside choose proj open");
     let dialogRef = this.dialog.open(ChooseProjectDialogComponent); 
     dialogRef.afterClosed().subscribe(result => { 
-      console.log("size changed getting team size");
+      console.log("After choose proj dialog close.");
       this.ngOnInit();
     });
   }

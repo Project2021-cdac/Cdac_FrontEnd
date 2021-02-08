@@ -63,8 +63,7 @@ export class StudentDashboardComponent implements OnInit{
     console.log("inside choose proj open");
     let dialogRef = this.dialog.open(CreateProjectDialogComponent,{ disableClose: true }); 
     dialogRef.afterClosed().subscribe(result => { 
-      console.log("project created logging out");
-      this.loginService.logout();
+    
     });
   }
 
