@@ -60,10 +60,11 @@ export class ChooseProjectDialogComponent implements OnInit {
       this.snackBar.open("Project selected", 'Ok', {
         duration: 5000,
         });
+        this.dialogRef.close();
     },
      error => console.log("error",error));
   //console.log(this.projIds);
-    this.dialogRef.close();
+  
   }
 
 
