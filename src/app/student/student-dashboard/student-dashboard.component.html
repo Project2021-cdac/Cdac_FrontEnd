@@ -1,5 +1,5 @@
-<div class="grid-container">
-  <h1 class="mat-h1">{{projectData.title}}</h1>
+<div class="grid-container" *ngIf="projectData != null">
+  <h1 class="mat-h1" >{{projectData.title}}</h1>
  <!-- <button mat-raised-button color="primary" (click)="openDialog()">Project</button>-->
   <div class="progress-bar"> 
   <mat-progress-bar matTooltip="Project progess" matTooltipPosition="above" mode="determinate" [value]="progress" style="padding:9px 0px;"></mat-progress-bar>
