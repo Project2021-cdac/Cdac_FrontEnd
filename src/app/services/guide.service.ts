@@ -43,6 +43,11 @@ export class GuideService {
    //const params=new HttpParams().set('sessionid',String(sessionid));
     return this.http.post<any>(`${environment.apiUrl}/guide/endsession?sessionId=${sessionid}`,{});
   }
+
+  getsession(gid:number){
+    return this.http.get<any>(`${environment.apiUrl}/guide/getsession/${gid}`);
+  }
+
    //Milestone api for all users
    getMilestoneForAllUser(pid:number):Observable<Milestone[]>{
     //const params=new HttpParams().set('id',String(pid));

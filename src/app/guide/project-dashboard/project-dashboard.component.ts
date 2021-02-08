@@ -101,8 +101,25 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
      this.session = JSON.parse(localStorage.getItem('guideSession'));
      var guideState = JSON.parse(localStorage.getItem('guide'))
      console.log('got session as '+JSON.stringify(this.session))
-     if(this.session||guideState.inSession){
+     if(guideState.inSession){
+       if(this.session){
        this.inSession = true
+       }else{
+              //get guide session and store
+      this.guideService.getsession(this.loginService.getGuide.id).subscribe(data=>{
+        console.log('got prev session'+JSON.stringify(data))
+        this.session = data.object
+        this.inSession = true
+        localStorage.setItem('guideSession', JSON.stringify(data.object));
+      },error=>{
+        console.log('failed'+JSON.stringify(error))
+        this.snackBar.open('Could not retrieve guide session.', 'Ok', {
+          duration: 5000,
+          verticalPosition: 'top', // 'top' | 'bottom'
+          horizontalPosition: 'end'
+          });
+      });
+       }
      }
      
   }
@@ -156,7 +173,6 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
 
    //onSession start clicked
    onStart(){
-    this.inSession = true;
     this.guideService.startsession(this.id).subscribe(data=>{
       console.log('success'+JSON.stringify(data))
       this.snackBar.open("Session started.", 'Ok', {
@@ -166,9 +182,10 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
         });
       this.session = data.object
       localStorage.setItem('guideSession', JSON.stringify(data.object));
+      this.inSession = true;
     },error=>{
       console.log('failed'+JSON.stringify(error))
-      this.snackBar.open(error.error.responseMessage, 'Ok', {
+      this.snackBar.open('Could not start session.', 'Ok', {
         duration: 5000,
         verticalPosition: 'top', // 'top' | 'bottom'
         horizontalPosition: 'end'
@@ -177,8 +194,6 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
    }
    //onSession ended
    onEnd(){
-     
-     
      if(this.session && this.session.id){
        //session undisturbed case
       this.inSession = false;
@@ -199,7 +214,7 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
         });
     });
     }else{
-      //
+ 
     }
    }
      

@@ -36,7 +36,7 @@ export class GuideNavComponent implements OnInit{
         });
     }else{
     this.loginService.logout();
-    }
+    } 
     }
     openDialog() {
       console.log("inside change password open");
