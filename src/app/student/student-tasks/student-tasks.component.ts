@@ -65,7 +65,7 @@ export class StudentTasksComponent implements OnInit{
       this.snackBar.open("Task completed successfully", 'Ok', {
         duration: 5000,
         });
-      
+      this.ngOnInit();
     },
      error => console.log("error",error));
 }
