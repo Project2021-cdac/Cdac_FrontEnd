@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 //import { SelectAutocompleteComponent } from 'mat-select-autocomplete-angular9';
 import * as moment from 'moment';
 import { Project } from 'src/app/models/project-model';
@@ -17,6 +18,7 @@ import { StudentService } from 'src/app/services/student.service';
   styleUrls: ['./create-project-dialog.component.css']
 })
 export class CreateProjectDialogComponent implements OnInit {
+  role
   minsDate = new Date();//set start date today
   maxsDate = new Date(this.minsDate.getFullYear(),this.minsDate.getMonth(),this.minsDate.getDate() + 15); // set max start date 15 days from now 
   mineDate = new Date(this.minsDate.getFullYear(),this.minsDate.getMonth(),this.minsDate.getDate() + 16);//set end date 16 days from now
@@ -39,7 +41,7 @@ export class CreateProjectDialogComponent implements OnInit {
     techs: [this.techs]
   });
 
-  constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<CreateProjectDialogComponent>,
+  constructor(private fb: FormBuilder,private router: Router,public dialogRef: MatDialogRef<CreateProjectDialogComponent>,
               private studentService : StudentService,private adminService : AdminService,private loginService: LoginService,private snackBar: MatSnackBar) { }
   
   ngOnInit(): void {
@@ -117,8 +119,15 @@ export class CreateProjectDialogComponent implements OnInit {
       this.loginService.logout();
     
   },
-   error => console.log("error",error));
-    
+   error => {console.log("error",error);
+   this.snackBar.open(error.error, 'Ok', {
+    duration: 5000,
+    });
+    if(this.loginService.getRole){
+      this.role = this.loginService.getRole.toLowerCase();
+      this.router.navigate(['/'+this.role]);
+      }
+  })
   }
   
   onStudentRemoved(student: Number) {
