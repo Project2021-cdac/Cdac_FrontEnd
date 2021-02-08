@@ -159,8 +159,10 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
     this.inSession = true;
     this.guideService.startsession(this.id).subscribe(data=>{
       console.log('success'+JSON.stringify(data))
-      this.snackBar.open("Session started", 'Ok', {
+      this.snackBar.open("Session started.", 'Ok', {
         duration: 5000,
+        verticalPosition: 'top', // 'top' | 'bottom'
+        horizontalPosition: 'end'
         });
       this.session = data.object
       localStorage.setItem('guideSession', JSON.stringify(data.object));
@@ -168,6 +170,8 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
       console.log('failed'+JSON.stringify(error))
       this.snackBar.open(error.error.responseMessage, 'Ok', {
         duration: 5000,
+        verticalPosition: 'top', // 'top' | 'bottom'
+        horizontalPosition: 'end'
         });
     });
    }
@@ -181,10 +185,17 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
      this.guideService.endsession(this.session.id).subscribe(data=>{
       console.log('success'+JSON.stringify(data))
       localStorage.removeItem('guideSession')
+      this.snackBar.open("Session completed.", 'Ok', {
+        duration: 5000,
+        verticalPosition: 'top', // 'top' | 'bottom'
+        horizontalPosition: 'end'
+        });
     },error=>{
       console.log('failed'+JSON.stringify(error))
       this.snackBar.open(error.error.responseMessage, 'Ok', {
         duration: 5000,
+        verticalPosition: 'top', // 'top' | 'bottom'
+        horizontalPosition: 'end'
         });
     });
     }else{

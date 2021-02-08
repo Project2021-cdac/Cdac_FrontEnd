@@ -5,6 +5,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { LoginService } from 'src/app/services/login.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ChangePswdComponent } from '../change-pswd/change-pswd.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-guide-nav',
@@ -19,13 +20,23 @@ export class GuideNavComponent implements OnInit{
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver,public loginService: LoginService,public dialog: MatDialog) {}
+  constructor(private snackBar: MatSnackBar,private breakpointObserver: BreakpointObserver,public loginService: LoginService,public dialog: MatDialog) {}
+  
+ 
   ngOnInit(): void {
     console.log("-----Init Guide Nav-----");
     this.loginService.redirectPath();
   }
   logout(){
+    if(JSON.parse(localStorage.getItem('guideSession'))){
+      this.snackBar.open("Session in progress cannot log out.", 'Ok', {
+        duration: 5000,
+        verticalPosition: 'bottom', // 'top' | 'bottom'
+        horizontalPosition: 'start'
+        });
+    }else{
     this.loginService.logout();
+    }
     }
     openDialog() {
       console.log("inside change password open");
