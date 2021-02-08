@@ -16,6 +16,7 @@ export class StudentDashboardComponent implements OnInit{
   projectData;
   progress;
   daysOver;
+  daysLeft;
   startM
   endM
   /** Based on the screen size, switch from standard to one column per row */
@@ -75,6 +76,7 @@ export class StudentDashboardComponent implements OnInit{
     var daysTotal = endDate.diff(startDate, 'days');
     console.log("project progress is "+ daysTotal);
     this.daysOver = nowDate.diff(startDate, 'days');
+    this.daysLeft = endDate.diff(nowDate, 'days');
     console.log("project progress is "+ this.daysOver);
     this.progress = 100 - ((daysTotal-this.daysOver)/daysTotal * 100)
     console.log("project progress is "+ this.progress);

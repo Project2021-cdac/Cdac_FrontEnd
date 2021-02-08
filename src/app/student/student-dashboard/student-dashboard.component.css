@@ -45,7 +45,7 @@ mat-card {
   font-size: medium;
   margin: 0;
   text-align: center;
-  color: lightgray;
+  color: black;
 }
 .flex-row {
   display: flex;

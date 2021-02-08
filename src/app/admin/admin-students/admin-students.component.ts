@@ -49,7 +49,7 @@ export class AdminStudentsComponent implements AfterViewInit, OnInit {
         if(data){
         console.log(data.length);
         this.studentData = data;
-        console.log(this.studentData.length);
+        console.log(this.studentData);
         console.log("----INSIDE STUDENTS INIT METHOD------"+this.studentData.length);
         this.dataSource = new AdminStudentsDataSource(this.studentData);
         this.dataSource.sort = this.sort;

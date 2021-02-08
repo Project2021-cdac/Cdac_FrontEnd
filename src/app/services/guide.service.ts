@@ -16,6 +16,9 @@ export class GuideService {
 
   constructor(private http:HttpClient) {}
 
+  getGuide(uid:number):Observable<any>{
+     return this.http.get<Milestone[]>(`${environment.apiUrl}/guide/${uid}`);
+  }
   getAvailableProj():Observable<Project[]>{
     return this.http.get<Project[]>(`${environment.apiUrl}/guide/availableprojects/${this.guideDetails.userAccount.courseName}`)
     .pipe(catchError(this.handleError));

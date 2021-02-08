@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit{
           error => {
               //alert(error);
               console.log(JSON.stringify(error));
-              this.snackBar.open('Something went wrong during login!', 'Ok', {
+              this.snackBar.open(error.error.detailedMessage, 'Ok', {
                 duration: 5000,
               });
           });

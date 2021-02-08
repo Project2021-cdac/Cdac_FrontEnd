@@ -36,7 +36,16 @@ export class GuideDashboardComponent implements OnInit {
     this.guideService.guideDetails= this.loginService.getGuide;
     
     console.log("------------------INside guide dashboards------------------------");
-   
+    //call api to update guide object 
+    this.guideService.getGuide(this.loginService.currentUserValue.id).subscribe(
+     (data)=>{
+         console.log('got prev guide'+JSON.stringify(data))
+         localStorage.setItem('guide', JSON.stringify(data));
+      },
+      (error)=>{
+        console.log('failed'+JSON.stringify(error))
+      }
+    )
     //call api which will show project list assosciated with guide
     
     this.guideService.guideProjectList(this.loginService.getGuide.id).subscribe({    

@@ -102,15 +102,17 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
      var guideState = JSON.parse(localStorage.getItem('guide'))
      console.log('got session as '+JSON.stringify(this.session))
      if(guideState.inSession){
-       if(this.session){
+       if(this.session && this.id == this.session.project.id){
        this.inSession = true
        }else{
               //get guide session and store
       this.guideService.getsession(this.loginService.getGuide.id).subscribe(data=>{
         console.log('got prev session'+JSON.stringify(data))
-        this.session = data.object
-        this.inSession = true
-        localStorage.setItem('guideSession', JSON.stringify(data.object));
+        this.session = data
+        if(this.session && this.id == this.session.project.id){
+          this.inSession = true
+        }
+        localStorage.setItem('guideSession', JSON.stringify(data));
       },error=>{
         console.log('failed'+JSON.stringify(error))
         this.snackBar.open('Could not retrieve guide session.', 'Ok', {
@@ -180,8 +182,8 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
         verticalPosition: 'top', // 'top' | 'bottom'
         horizontalPosition: 'end'
         });
-      this.session = data.object
-      localStorage.setItem('guideSession', JSON.stringify(data.object));
+      this.session = data
+      localStorage.setItem('guideSession', JSON.stringify(data));
       this.inSession = true;
     },error=>{
       console.log('failed'+JSON.stringify(error))
@@ -194,10 +196,10 @@ export class ProjectDashboardComponent implements AfterViewInit, OnInit {
    }
    //onSession ended
    onEnd(){
-     if(this.session && this.session.id){
+     if(this.session && this.session.session.id){
        //session undisturbed case
       this.inSession = false;
-     this.guideService.endsession(this.session.id).subscribe(data=>{
+     this.guideService.endsession(this.session.session.id).subscribe(data=>{
       console.log('success'+JSON.stringify(data))
       localStorage.removeItem('guideSession')
       this.snackBar.open("Session completed.", 'Ok', {

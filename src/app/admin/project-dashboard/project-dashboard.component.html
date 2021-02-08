@@ -26,9 +26,9 @@
         <mat-divider></mat-divider>
         <div class="text-container">
           <span *ngIf="project.guide == null"><b>Guide</b> - No Guide assigned.</span>
-          <span *ngIf="project.guide"><b>Guide</b> - {{project.guide.userAccount.firstName}} {{project.guide.userAccount.lastName}}</span>
-         <span><b>Team Lead</b> - {{project.teamLead.userAccount.firstName}} {{project.teamLead.userAccount.lastName}}</span>
-         <span><b>Team</b> - {{team.join(', ')}}</span>
+          <span *ngIf="project.guide"><b>Guide</b> - {{project.guide.userAccount.firstName | titlecase}} {{project.guide.userAccount.lastName | titlecase}}</span>
+         <span><b>Team Lead</b> - {{project.teamLead.userAccount.firstName | titlecase}} {{project.teamLead.userAccount.lastName | titlecase}}</span>
+         <span><b>Team</b> - {{team.join(', ') | titlecase}}</span>
         </div>
  
   </mat-card-content>

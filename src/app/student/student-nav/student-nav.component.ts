@@ -12,7 +12,7 @@ import { ChangePswdComponent } from '../change-pswd/change-pswd.component';
   styleUrls: ['./student-nav.component.css']
 })
 export class StudentNavComponent implements OnInit{
-
+  studentName:string=''
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -23,6 +23,7 @@ export class StudentNavComponent implements OnInit{
   ngOnInit(): void {
     console.log("-----Init Student Nav-----");
     this.loginService.redirectPath();
+    this.studentName = this.loginService.currentUserValue.firstName+' '+this.loginService.currentUserValue.lastName
   }
   logout(){
     this.loginService.logout();

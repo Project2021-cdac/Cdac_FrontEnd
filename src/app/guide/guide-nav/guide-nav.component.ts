@@ -13,7 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./guide-nav.component.css']
 })
 export class GuideNavComponent implements OnInit{
-
+  guideName:string=''
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -26,6 +26,7 @@ export class GuideNavComponent implements OnInit{
   ngOnInit(): void {
     console.log("-----Init Guide Nav-----");
     this.loginService.redirectPath();
+    this.guideName = this.loginService.currentUserValue.firstName+' '+this.loginService.currentUserValue.lastName
   }
   logout(){
     if(JSON.parse(localStorage.getItem('guideSession'))){

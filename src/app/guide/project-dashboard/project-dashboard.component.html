@@ -25,8 +25,8 @@
           </div>
           <mat-divider></mat-divider>
           <div class="text-container">
-           <span><b>Team Lead</b> - {{project.teamLead.userAccount.firstName}} {{project.teamLead.userAccount.lastName}}</span>
-           <span><b>Team</b> - {{team.join(', ')}}</span>
+           <span><b>Team Lead</b> - {{project.teamLead.userAccount.firstName | titlecase }} {{project.teamLead.userAccount.lastName | titlecase}}</span>
+           <span><b>Team</b> - {{team.join(', ') | titlecase}}</span>
           </div>
   </mat-card-content>
 </mat-card>
