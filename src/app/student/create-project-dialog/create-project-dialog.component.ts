@@ -33,7 +33,7 @@ export class CreateProjectDialogComponent implements OnInit {
     title:['',Validators.compose([
       Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
     description:['',Validators.compose([
-      Validators.required, Validators.minLength(50), Validators.maxLength(300)])],
+      Validators.required, Validators.minLength(10), Validators.maxLength(300)])],
     stime: [moment(), [Validators.required]],
     etime: [moment(), [Validators.required]],
     techs: [this.techs]
