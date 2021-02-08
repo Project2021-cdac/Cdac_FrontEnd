@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { Guide } from 'src/app/models/guide-model';
 import { AdminService } from 'src/app/services/admin.service';
+import { LoginService } from 'src/app/services/login.service';
 import { RegisterGuideDialogComponent } from '../register-guide-dialog/register-guide-dialog.component';
 import { AdminGuidesDataSource } from './admin-guides-datasource';
 
@@ -29,16 +30,22 @@ export class AdminGuidesComponent implements AfterViewInit, OnInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['avatar','name','email','phone','tech'];
-  constructor(public dialog: MatDialog,private adminService: AdminService) {}
+  constructor(public dialog: MatDialog,private adminService: AdminService,private loginService: LoginService) {}
 
   openDialog() {
     let dialogRef = this.dialog.open(RegisterGuideDialogComponent); 
+    dialogRef.afterClosed().subscribe(result => { 
+      
+      console.log("Guide registered refreshing..list");
+      this.ngOnInit();
+   
+    });
   }
 
   ngOnInit() {
     
      //make api call to get data(--Rithika)
-     this.adminService.getGuideList().subscribe((result)=>{    
+     this.adminService.getGuideList(this.loginService.currentUserValue.courseName).subscribe((result)=>{    
       this.guideData  =  result;
       console.log("-------Getting Guide Data --------");
       console.log(result);

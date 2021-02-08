@@ -16,7 +16,6 @@ import { Milestone } from '../models/milestone-model';
   providedIn: 'root'
 })
 export class AdminService {
-  course:String;
   projects:any[];
   constructor(private http:HttpClient, private formBuilder: FormBuilder) {}
 
@@ -39,20 +38,20 @@ export class AdminService {
     return this.http.post<any>(`${environment.apiUrl}/admin/guides/register`,{ guidedata,technologylist },{ 'headers': headers });
   
   }
-  getGuideList():Observable<Guide[]>{
-    return this.http.get<Guide[]>(`${environment.apiUrl}/admin/guides/${this.course}`).pipe(map(res => {
+  getGuideList(course:string):Observable<Guide[]>{
+    return this.http.get<Guide[]>(`${environment.apiUrl}/admin/guides/${course}`).pipe(map(res => {
       console.log("------Guide List from server-------");
       return res;
           }));
   }
-  getProjectList():Observable<Project[]>{
-    return this.http.get<Project[]>(`${environment.apiUrl}/admin/projects/list/${this.course}`).pipe(map(res => {
+  getProjectList(course:string):Observable<Project[]>{
+    return this.http.get<Project[]>(`${environment.apiUrl}/admin/projects/list/${course}`).pipe(map(res => {
       console.log("------PROJECT LIST FROM SERVER-------");
       return res;
           }));
   }
-  getStudentList():Observable<Student[]>{
-    return this.http.get<Student[]>(`${environment.apiUrl}/admin/students/${this.course}`).pipe(map(res => {
+  getStudentList(course:string):Observable<Student[]>{
+    return this.http.get<Student[]>(`${environment.apiUrl}/admin/students/${course}`).pipe(map(res => {
       console.log("------RESPONSE FROM SERVER-------");
       return res;
           }));

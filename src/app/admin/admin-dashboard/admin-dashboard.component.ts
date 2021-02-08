@@ -24,7 +24,7 @@ export class AdminDashboardComponent implements OnInit{
   ngOnInit(): void {
     this.adminData = this.loginService.currentUserValue;
     console.log(this.adminData.courseName);
-    this.adminService.course = this.adminData.courseName;
+  
     //get team size
     //api call to get team size
     this.adminService.getTeamSize(this.loginService.currentUserValue.courseName).subscribe((data)=>{

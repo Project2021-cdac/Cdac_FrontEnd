@@ -1,6 +1,6 @@
 
 <div class="grid-container">
-  <h1 class="mat-h1">Projects Title</h1>
+  <h1 class="mat-h1">{{project.title}}</h1>
 <div class="dashboard-container">
  <mat-card class="dashboard-card">
 
@@ -10,7 +10,10 @@
       </div>
     <div class="text-container">
       <span><b>Project Description</b></span>
-      <span>{{project.description}}</span>
+      <span style="text-align: justify;">{{project.description}}</span>
+    </div>
+      <mat-divider></mat-divider>
+      <div class="text-container">
       <span><b>Timeline</b> {{project.startDate | date: 'dd MMM, yyyy'}} - {{project.endDate | date: 'dd MMM, yyyy'}}</span>
       <span><b>Technologies</b></span>
       <mat-chip-list>
@@ -18,6 +21,12 @@
              <mat-chip>{{tech.name}} </mat-chip>
          </span>
          </mat-chip-list>
+         
+        </div>
+        <mat-divider></mat-divider>
+        <div class="text-container">
+          <span *ngIf="project.guide == null"><b>Guide</b> - No Guide assigned.</span>
+          <span *ngIf="project.guide"><b>Guide</b> - {{project.guide.userAccount.firstName}} {{project.guide.userAccount.lastName}}</span>
          <span><b>Team Lead</b> - {{project.teamLead.userAccount.firstName}} {{project.teamLead.userAccount.lastName}}</span>
          <span><b>Team</b> - {{team.join(', ')}}</span>
         </div>

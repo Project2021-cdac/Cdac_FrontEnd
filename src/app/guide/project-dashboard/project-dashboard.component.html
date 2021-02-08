@@ -8,20 +8,26 @@
     <div class="progress-bar"> 
       <mat-progress-bar matTooltip="Project progess" matTooltipPosition="above" mode="determinate" [value]="progress" style="padding:9px 0px;"></mat-progress-bar>
       </div>
-    <div class="text-container">
-      <span><b>Project Description</b></span>
-      <span>{{project.description}}</span>
-      <span><b>Timeline</b> {{project.startDate | date: 'dd MMM, yyyy'}} - {{project.endDate | date: 'dd MMM, yyyy'}}</span>
-      <span><b>Technologies</b></span>
-      <mat-chip-list>
-        <span *ngFor="let tech of project.technologies">
-             <mat-chip>{{tech.name}} </mat-chip>
-         </span>
-         </mat-chip-list>
-         <span><b>Team Lead</b> - {{project.teamLead.userAccount.firstName}} {{project.teamLead.userAccount.lastName}}</span>
-         <span><b>Team</b> - {{team.join(', ')}}</span>
-        </div>
- 
+      <div class="text-container">
+        <span><b>Project Description</b></span>
+        <span style="text-align: justify;">{{project.description}}</span>
+      </div>
+        <mat-divider></mat-divider>
+        <div class="text-container">
+        <span><b>Timeline</b> {{project.startDate | date: 'dd MMM, yyyy'}} - {{project.endDate | date: 'dd MMM, yyyy'}}</span>
+        <span><b>Technologies</b></span>
+        <mat-chip-list>
+          <span *ngFor="let tech of project.technologies">
+               <mat-chip>{{tech.name}} </mat-chip>
+           </span>
+           </mat-chip-list>
+           
+          </div>
+          <mat-divider></mat-divider>
+          <div class="text-container">
+           <span><b>Team Lead</b> - {{project.teamLead.userAccount.firstName}} {{project.teamLead.userAccount.lastName}}</span>
+           <span><b>Team</b> - {{team.join(', ')}}</span>
+          </div>
   </mat-card-content>
 </mat-card>
 </div>
@@ -78,7 +84,7 @@
     </mat-tab>
     <mat-tab label="Activity"> 
       <div class="mat-elevation-z8">
-        <table mat-table #TableOne="matTable"class="full-width-table" matSort #TableOneSort="matSort" matSortActive="date" matSortDirection="desc" matSortDisableClear aria-label="Elements">
+        <table mat-table #TableOne="matTable"class="full-width-table" matSort #TableOneSort="matSort" matSortActive="date" matSortDirection="desc" matSortDisableClear aria-label="Activity">
            <!-- avatar Column -->
          <!-- <ng-container matColumnDef="avatar">
             <th mat-header-cell *matHeaderCellDef mat-sort-header></th>

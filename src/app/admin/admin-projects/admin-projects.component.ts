@@ -5,6 +5,7 @@ import { Project } from 'src/app/models/project-model';
 import { Observable } from 'rxjs';
 import { AdminService } from 'src/app/services/admin.service';
 import { projects } from '../project-dashboard/example-data';
+import { LoginService } from 'src/app/services/login.service';
 
 
 @Component({
@@ -16,14 +17,14 @@ export class AdminProjectsComponent   {
   projects:any[]= [];
   errorMessage: any;
   
-  constructor(private adminService:AdminService,private breakpointObserver: BreakpointObserver){}
+  constructor(private adminService:AdminService,private loginService: LoginService,private breakpointObserver: BreakpointObserver){}
 
   ngOnInit() {
     this.fetchProjectList();
   }
   
   fetchProjectList() {
-       this.adminService.getProjectList().subscribe({    
+       this.adminService.getProjectList(this.loginService.currentUserValue.courseName).subscribe({    
         next: data => {
           this.projects = data;
           this.adminService.projects=data;

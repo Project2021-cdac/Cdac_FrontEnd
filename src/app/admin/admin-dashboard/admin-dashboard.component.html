@@ -5,7 +5,7 @@
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            <h1>{{card.title}}</h1>
+            <h1 class="dashboard-card-title">{{card.title}}</h1>
            <button *ngIf="card.title == 'TeamSize'" mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>

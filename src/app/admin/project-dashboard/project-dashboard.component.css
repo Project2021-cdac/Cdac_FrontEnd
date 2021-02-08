@@ -41,3 +41,7 @@ table {
   align-items: flex-start;
   padding: 10px 20px;
 }
+span {
+  font-size: 20px;
+  padding: 10px;
+}

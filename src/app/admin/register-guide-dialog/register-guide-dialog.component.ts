@@ -2,6 +2,7 @@ import { formatCurrency } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import * as moment from 'moment';
 import { Guide } from 'src/app/models/guide-model';
@@ -43,7 +44,7 @@ export class RegisterGuideDialogComponent implements OnInit {
   });
   errorMessage: any;
   constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<RegisterGuideDialogComponent>
-              ,private adminservice:AdminService) { }
+              ,private adminservice:AdminService,private snackBar: MatSnackBar) { }
   guide: Guide;
   ngOnInit() {
     console.log((moment(this.minDate).format('yyyy-MM-DD')));
@@ -113,13 +114,18 @@ export class RegisterGuideDialogComponent implements OnInit {
       },
       "technologylist":this.technologies
     };
-    this.dialogRef.close();
+   
     console.log("----DATA BEFORE FUCN------"+data);
     //calling register guide service 
    return this.adminservice.registerGuide(data)
   .subscribe(data => {
     /*this.guide=data;*/
     console.log("register success",data);
+    this.snackBar.open("Guide registered", 'Ok', {
+      duration: 5000,
+    });
+     this.dialogRef.close();
+
     
   },
    error => console.log("error",error));

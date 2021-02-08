@@ -17,5 +17,14 @@
 }
 
 .dashboard-card-content {
-  text-align: center;
+  text-align: justify;
+  margin: 0 16px;
 }
+.dashboard-card-title{
+  color: #3f51b5;
+}
+.mat-h2, .mat-title, .mat-typography h2 {
+  margin: 0 16px;
+  color :blue;
+}
+

@@ -44,7 +44,7 @@ export class AdminStudentsComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     console.log("----INSIDE STUDENTS INIT METHOD------");
-    this.adminService.getStudentList().subscribe(
+    this.adminService.getStudentList(this.loginService.currentUserValue.courseName).subscribe(
       (data: any[]) => {
         if(data){
         console.log(data.length);
