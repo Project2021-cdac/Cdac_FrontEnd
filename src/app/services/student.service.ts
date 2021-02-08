@@ -37,7 +37,7 @@ export class StudentService {
     //  const params=new HttpParams().set('id',"pid");
     const headers= new HttpHeaders()
     .set('content-type', 'application/json')
-    .set('Access-Control-Allow-Origin', '*');
+   .set('Access-Control-Allow-Origin', '*');
     const taskBody=JSON.stringify(data);
     console.log(taskBody);
     return this.http.post<any>(`${environment.apiUrl}/student/createtask/${pid}/${prn}`,taskBody,{ 'headers': headers });

@@ -31,11 +31,11 @@ export class AdminService {
 
   registerGuide(data: any): Observable<any> {
     const headers= new HttpHeaders()
-    .set('content-type', 'application/json')
-    .set('Access-Control-Allow-Origin', '*');
+    .set('content-type', 'application/json');
+    /*.set('Access-Control-Allow-Origin', '*');*/
     const guidedata=data.guidedata;
     const technologylist=data.technologylist;
-    return this.http.post<any>(`${environment.apiUrl}/admin/guides/register`,{ guidedata,technologylist },{ 'headers': headers });
+    return this.http.post<any>(`${environment.apiUrl}/admin/guides/register`,{ guidedata,technologylist }/*,{ 'headers': headers }*/);
   
   }
   getGuideList(course:string):Observable<Guide[]>{
@@ -58,14 +58,14 @@ export class AdminService {
   }
   getCourseList():Observable<any>{
     const headers= new HttpHeaders()
-    .set('content-type', 'application/json')
-    .set('Access-Control-Allow-Origin', '*');
+    .set('content-type', 'application/json');
+    /*.set('Access-Control-Allow-Origin', '*');*/
     return this.http.get(`${environment.apiUrl}/course/list`,{ 'headers': headers });
   }
   getTechnologyList():Observable<any>{
     const headers= new HttpHeaders()
-    .set('content-type', 'application/json')
-    .set('Access-Control-Allow-Origin', '*');
+    .set('content-type', 'application/json');
+/*.set('Access-Control-Allow-Origin', '*');*//*suvidha*/
     return this.http.get(`${environment.apiUrl}/technology/list`,{ 'headers': headers });
   }
   getTeamSize(course:String):Observable<any>{
