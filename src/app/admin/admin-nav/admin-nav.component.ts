@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class AdminNavComponent implements OnInit{
   role='';
+  adminName= ''
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -22,6 +23,7 @@ export class AdminNavComponent implements OnInit{
   ngOnInit(): void {
     console.log("-----Init Admin Nav-----");
     this.loginService.redirectPath();
+    this.adminName = this.loginService.currentUserValue.firstName+' '+this.loginService.currentUserValue.lastName
   }
   logout(){
         this.loginService.logout();

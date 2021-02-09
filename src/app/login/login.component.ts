@@ -11,6 +11,7 @@ import { LoginService } from '../services/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
+  pressed = false
   hide = true;
   role = '';
   loginForm = this.fb.group({

@@ -1,19 +1,37 @@
 
 <div class="main">
 
-<mat-toolbar color="primary">
+<!--<mat-toolbar color="primary">
   <span class="toolbar-spacer"></span>
   <span>CDAC Project Management System</span>
   <span class="toolbar-spacer"></span>
-</mat-toolbar>
-
+</mat-toolbar>-->
+<div class="inner">
+  <div class="center">
+    <img src="../../assets/img2.png" />
+  </div>
+</div>
   <div class="inner">
     <div class="center">
+      <div *ngIf="!pressed">
+        <div class="big-title">
+          <h1 class="huge-text">CDAC</h1>
+          <h1 class="huge-text">Project</h1>
+          <h1 class="huge-text">Management</h1>
+          <h1 class="huge-text">System</h1>
+          <button mat-raised-button color="primary" (click)="pressed=true">Login</button>
+        </div>
+        
+      </div>
+      <div *ngIf="pressed">
     <form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
       <mat-card class="login-card">
-        <mat-card-header>
-         <!-- <mat-card-title>CDAC Project Management System</mat-card-title> -->
-        </mat-card-header>
+        <!--<mat-card-header>
+         
+        </mat-card-header>-->
+        <div class="login-text">
+          <h2>LOGIN</h2>
+         </div>
         <mat-card-content>
           <div class="row">
             <div class="col">
@@ -45,6 +63,7 @@
         </mat-card-content>
       </mat-card>
     </form>
+  </div>
     </div>
     </div>
   </div>
