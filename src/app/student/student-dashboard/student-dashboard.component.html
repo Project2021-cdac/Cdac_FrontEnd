@@ -1,0 +1,69 @@
+<div class="grid-container" *ngIf="projectData != null">
+  <h1 class="mat-h1" >{{projectData.title}}</h1>
+ <!-- <button mat-raised-button color="primary" (click)="openDialog()">Project</button>-->
+  <div class="progress-bar"> 
+  <mat-progress-bar matTooltip="Project progess" matTooltipPosition="above" mode="determinate" [value]="progress" style="padding:9px 0px;"></mat-progress-bar>
+  </div>
+  <mat-grid-list cols="2" rowHeight="350px">
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{card.title}}
+            <!--<button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>-->
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content [ngClass]="card.title == 'Technology' ? 'dashboard-card-list' : 'dashboard-card-content'">
+          <div [ngSwitch]="card.title">
+            <div *ngSwitchCase="'Description'"><h1>{{projectData.description}}</h1></div>
+            <div *ngSwitchCase="'Timeline'">
+              
+            <div class="flex-row">
+              <div class="outlook">
+                <div class="avatar-icon">
+                <mat-icon inline="true">today</mat-icon>
+                </div>
+                <span class="big-text">{{daysLeft}} DAYS</span>
+              </div>
+              <mat-divider [vertical]="true"></mat-divider>
+              <div class="temp">
+                <span class="title-text">Start Date</span>
+                <span class="sm-text">{{startM}}</span>
+                <span class="title-text">End Date</span>
+                <span class="sm-text">{{endM}}</span>
+              </div>
+             
+          </div>
+            </div>
+            <div *ngSwitchCase="'Technology'">
+              <mat-list>
+                <mat-list-item *ngFor="let item of projectData.technologies">
+                  {{ item.name }}
+                </mat-list-item>
+                
+              </mat-list>
+            </div>
+            <div *ngSwitchCase="'Guide'">
+              <div *ngIf="projectData.guide">
+                <div class="info">
+                  <span class="sm1-text">{{projectData.guide.userAccount.firstName}} {{projectData.guide.userAccount.lastName}}</span>
+                  <span ><mat-icon class="inline-icon">email</mat-icon>    {{projectData.guide.userAccount.email}}</span>
+                  <span ><mat-icon class="inline-icon">phone</mat-icon>    {{projectData.guide.userAccount.phoneNumber}}</span>
+                  
+                </div>
+              </div>
+              <p *ngIf="projectData.guide == null">No guide assigned yet.</p>
+            </div>
+            
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

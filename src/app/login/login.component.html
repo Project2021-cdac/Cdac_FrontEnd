@@ -1,0 +1,69 @@
+
+<div class="main">
+
+<!--<mat-toolbar color="primary">
+  <span class="toolbar-spacer"></span>
+  <span>CDAC Project Management System</span>
+  <span class="toolbar-spacer"></span>
+</mat-toolbar>-->
+<div class="inner">
+  <div class="center">
+    <img src="../../assets/img2.png" />
+  </div>
+</div>
+  <div class="inner">
+    <div class="center">
+      <div *ngIf="!pressed">
+        <div class="big-title">
+          <h1 class="huge-text">CDAC</h1>
+          <h1 class="huge-text">Project</h1>
+          <h1 class="huge-text">Management</h1>
+          <h1 class="huge-text">System</h1>
+          <button mat-raised-button color="primary" (click)="pressed=true">Login</button>
+        </div>
+        
+      </div>
+      <div *ngIf="pressed">
+    <form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
+      <mat-card class="login-card">
+        <!--<mat-card-header>
+         
+        </mat-card-header>-->
+        <div class="login-text">
+          <h2>LOGIN</h2>
+         </div>
+        <mat-card-content>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width" appearance="fill">
+                <input matInput placeholder="Email" formControlName="email">
+                <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+                  Email is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width" appearance="fill">
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+                  Password is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div>
+        
+          <button [disabled]="!loginForm.valid" mat-flat-button color="primary" type="submit" style="width:120px;" >Login</button>
+        </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+    </div>
+    </div>
+  </div>

@@ -1,0 +1,107 @@
+
+<h2 mat-dialog-title>Create Project</h2>
+<div mat-dialog-content style="width:800px;padding:30px">
+    <div> 
+        <form [formGroup]="createProjectForm" (ngSubmit)="submitForm()" novalidate>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <input type="number" matInput placeholder="Team Lead" formControlName="t_lead">
+                        <mat-error *ngIf="createProjectForm.controls['t_lead'].hasError('required')">
+                          Team Lead is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="createProjectForm.controls['t_lead'].hasError('match')">
+                            Team Lead is <strong>not valid</strong>
+                          </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <input matInput placeholder="Title" formControlName="title">
+                        <mat-error *ngIf="createProjectForm.controls['title'].hasError('required')">
+                            Project Title is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="createProjectForm.controls['title'].hasError('minlength')">
+                            Minimum 5 characters <strong>required</strong>
+                          </mat-error>
+                          <mat-error *ngIf="createProjectForm.controls['title'].hasError('maxlength')">
+                            Maximum 50 characters <strong>allowed</strong>
+                          </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <textarea matInput placeholder="Description" cols="20" rows="8" formControlName="description"></textarea>
+                        <mat-error *ngIf="createProjectForm.controls['description'].hasError('required')">
+                          Description is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="createProjectForm.controls['description'].hasError('minlength')">
+                            Minimum 10 characters <strong>required</strong>
+                          </mat-error>
+                          <mat-error *ngIf="createProjectForm.controls['description'].hasError('maxlength')">
+                            Maximum 300 characters <strong>allowed</strong>
+                          </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                          <input matInput readonly [matDatepicker]="picker" placeholder="Start Date" formControlName="stime" [min]="minsDate" [max]="maxsDate">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                       </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field appearance="fill">
+                            <input matInput readonly [matDatepicker]="picker1" placeholder="End Date" formControlName="etime" [min]="mineDate" [max]="maxeDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+            </div>
+            <div class= "row">
+                <!--<div class="col">
+                    <mat-select-autocomplete
+                        [placeholder]="'Select Team'"
+                        [options]="studentList"
+                        [multiple]='true'
+                        ngDefaultControl
+                        [formControl]="createProjectForm.controls['team']">
+                    </mat-select-autocomplete>
+                </div>-->
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Technology</mat-label>
+                        <mat-select formControlName="techs" multiple>
+                          <mat-option *ngFor="let tech of techList" [value]="tech.id">{{tech.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            <mat-form-field>
+                <mat-label>Team</mat-label>
+                <mat-select [disabled]="createProjectForm.controls['t_lead'].invalid" [formControl]="teamControl" multiple>
+              
+                  <mat-select-trigger>
+                    <mat-chip-list>
+                      <mat-chip *ngFor="let student of teamControl.value"
+                        [removable]="true" (removed)="onStudentRemoved(student)">
+                        {{ student }}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                      </mat-chip>
+                    </mat-chip-list>
+                  </mat-select-trigger>
+              
+                  <mat-option *ngFor="let student of studentsList" [value]="student.prn" [disabled]="student.prn === createProjectForm.controls['t_lead'].value">{{student.userAccount.firstName}} {{student.userAccount.lastName}}({{student.prn}})</mat-option>
+              
+                </mat-select>
+              </mat-form-field>
+            </form>
+            </div>
+            <div mat-dialog-actions align="end">
+               
+                <button mat-button color="primary" [disabled]="createProjectForm.invalid" (click)="submitForm()">Create</button>
+              </div>

@@ -1,0 +1,22 @@
+<div class="grid-container">
+  <mat-toolbar>
+    <h1 class="mat-h1">Projects List</h1>
+    <span class="toolbar-spacer"></span>
+    <button mat-raised-button color="primary" (click)="openDialog()">Choose Projects</button>
+  </mat-toolbar>
+  <mat-grid-list cols="{{ ( cards | async )?.columns }}" rowHeight="150px">
+    <mat-grid-tile *ngFor="let project of projects" [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card" [routerLink]="['/guide/project', project.id]">
+        <mat-card-header>
+          <mat-card-title>
+           Group - {{project.id}}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div class="big-text">{{project.title}}</div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+

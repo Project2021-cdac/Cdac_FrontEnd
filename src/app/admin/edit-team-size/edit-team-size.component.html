@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Edit Team Size</h2>
+<div mat-dialog-content [formGroup]="form">
+   
+            <div mat-form-field >
+              <div class="form-group">
+                <input type="number"
+                formControlName="size">
+                <mat-error *ngIf="form.controls['size'].hasError('required')">
+                  Team Size is <strong>required</strong>
+                </mat-error>
+            </div>
+            </div>
+      
+</div>
+<div mat-dialog-actions align="end" >
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" [disabled]="form.invalid" (click)="onSubmit()">Edit</button>
+</div>

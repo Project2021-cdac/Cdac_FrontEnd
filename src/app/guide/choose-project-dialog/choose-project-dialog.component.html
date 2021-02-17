@@ -1,0 +1,41 @@
+
+    
+
+  <div mat-dialog-content style="width:600px;height:800px">
+    <!--<form [formGroup]="form" >
+        <label formArrayName="projects" *ngFor="let proj of projFormArray.controls; let i = index">
+          <input type="checkbox" [formControlName]="i">
+         
+          <mat-card>
+            <mat-card-header>
+                <mat-card-title>{{availableList[i].title}}</mat-card-title>
+                <mat-card-subtitle><p>Technology - {{availableList[i].technologies}}</p></mat-card-subtitle>
+            </mat-card-header>
+                <mat-card-content>{{availableList[i].description}}
+                </mat-card-content>
+            </mat-card>
+        </label>-->
+        
+    <mat-selection-list #result [(ngModel)]="selectedOptions" [multiple]="false">
+      <mat-list-option *ngFor="let i of availableList" [value]="i" class="mat-elevation-z8">
+        <h3 class="big-text">{{i.title}}</h3>
+        <span class="temp">Technology -  
+        <p *ngFor="let j of i.technologies">{{j.name}} </p></span>
+        <h4>{{i.description}}</h4>
+       
+        <!-- <mat-card>
+          <mat-card-header>
+              <mat-card-title>{{i.title}}</mat-card-title>
+             <mat-card-subtitle><p>Technology - {{i.technologies}}</p></mat-card-subtitle>
+          </mat-card-header>
+              <mat-card-content>{{i.description}}
+              </mat-card-content>
+          </mat-card>-->
+      </mat-list-option>
+    </mat-selection-list>
+   <!-- </form>-->
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button type="submit" mat-button color="primary" (click)="submit()">Choose</button>
+  </div>

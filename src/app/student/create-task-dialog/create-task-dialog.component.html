@@ -1,0 +1,33 @@
+
+<h2 mat-dialog-title>Create Task</h2>
+<div mat-dialog-content>
+    <div> 
+        <form [formGroup]="createTaskForm" novalidate>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <textarea matInput placeholder="Description" cols="20" rows="8" formControlName="description"></textarea>
+                        <mat-error *ngIf="createTaskForm.controls['description'].hasError('required')">
+                          Description is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+          
+            <div class= "row">
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Milestone</mat-label>
+                        <mat-select formControlName="milestone">
+                          <mat-option *ngFor="let mile of milesList" [value]="mile.id">{{mile.title}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+    
+            </form>
+            </div>
+            <div mat-dialog-actions align="end">
+                <button mat-button (click)="onCancel()">Cancel</button>
+                <button mat-button (click)="submitForm()" color="primary">Create</button>
+              </div>

@@ -1,0 +1,119 @@
+
+<div class="grid-container">
+  <h1 class="mat-h1">{{project.title}}</h1>
+<div class="dashboard-container">
+ <mat-card class="dashboard-card">
+
+  <mat-card-content class="dashboard-card-content">
+    <div class="progress-bar"> 
+      <mat-progress-bar matTooltip="Project progess" matTooltipPosition="above" mode="determinate" [value]="progress" style="padding:9px 0px;"></mat-progress-bar>
+      </div>
+    <div class="text-container">
+      <span><b>Project Description</b></span>
+      <span style="text-align: justify;">{{project.description}}</span>
+    </div>
+      <mat-divider></mat-divider>
+      <div class="text-container">
+      <span><b>Timeline</b> {{project.startDate | date: 'dd MMM, yyyy'}} - {{project.endDate | date: 'dd MMM, yyyy'}}</span>
+      <span><b>Technologies</b></span>
+      <mat-chip-list>
+        <span *ngFor="let tech of project.technologies">
+             <mat-chip>{{tech.name}} </mat-chip>
+         </span>
+         </mat-chip-list>
+         
+        </div>
+        <mat-divider></mat-divider>
+        <div class="text-container">
+          <span *ngIf="project.guide == null"><b>Guide</b> - No Guide assigned.</span>
+          <span *ngIf="project.guide"><b>Guide</b> - {{project.guide.userAccount.firstName | titlecase}} {{project.guide.userAccount.lastName | titlecase}}</span>
+         <span><b>Team Lead</b> - {{project.teamLead.userAccount.firstName | titlecase}} {{project.teamLead.userAccount.lastName | titlecase}}</span>
+         <span><b>Team</b> - {{team.join(', ') | titlecase}}</span>
+        </div>
+ 
+  </mat-card-content>
+</mat-card>
+</div>
+<div class="dashboard-container">
+<mat-tab-group>
+    <mat-tab label="Milstones"> 
+      <div class="list-container">
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let milestone of grouped | keyvalue" (opened)="addData(milestone.value)">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                
+              </mat-panel-title>
+              <mat-panel-description>
+                {{milestone.key}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            
+            <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
+             
+            
+             <ng-container matColumnDef="description">
+               <th mat-header-cell *matHeaderCellDef>Description</th>
+               <td mat-cell *matCellDef="let row">{{row.description}}</td>
+             </ng-container>
+         
+             
+             <ng-container matColumnDef="status">
+               <th mat-header-cell *matHeaderCellDef>Status</th>
+               <td mat-cell *matCellDef="let row"><mat-chip-list><mat-chip color="primary" selected>{{row.status}}</mat-chip></mat-chip-list></td>
+             </ng-container>
+         
+            
+             <ng-container matColumnDef="createdOn">
+               <th mat-header-cell *matHeaderCellDef>Created</th>
+               <td mat-cell *matCellDef="let row">{{row.createdOn | date: 'dd MMM, yyyy'}}</td>
+             </ng-container>
+         
+              <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+             <tr mat-row *matRowDef="let row; columns: displayedColumns2;" ></tr>
+           </table>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </mat-tab>
+    <mat-tab label="Activity"> 
+      <div class="mat-elevation-z8">
+        <table mat-table #TableOne="matTable"class="full-width-table" matSort #TableOneSort="matSort" matSortActive="date" matSortDirection="desc" matSortDisableClear aria-label="Elements">
+           <!-- avatar Column -->
+         <!-- <ng-container matColumnDef="avatar">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let row">
+              <ngx-avatar [name]="row.name" value="28%" bgColor="#3F51B5" fgColor="#FFFFFF" [size]="30"
+              [textSizeRatio]="2.5" [round]="true"></ngx-avatar>
+            </td>
+          </ng-container>-->
+
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Activity Description</th>
+            <td mat-cell *matCellDef="let row">{{row.description}}</td>
+          </ng-container>
+      
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header >Created</th>
+            <td mat-cell *matCellDef="let row">{{row.createdOn | date: 'dd MMM, yyyy h:mm a'}}</td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+        </table>
+      
+        <mat-paginator #TableOnePaginator="matPaginator"
+            [length]="dataSource?.data.length"
+            [pageIndex]="0"
+            [pageSize]="50"
+            [pageSizeOptions]="[25, 50, 100, 250]">
+        </mat-paginator>
+      </div>
+      
+    </mat-tab>
+  </mat-tab-group>
+</div>
+</div>

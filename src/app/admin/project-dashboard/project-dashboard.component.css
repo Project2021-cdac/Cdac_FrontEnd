@@ -1,0 +1,47 @@
+.grid-container {
+  margin: 20px;
+}
+.full-width-table {
+  width: 100%;
+}
+.dashboard-container {
+  padding:20px 20px;
+}
+.dashboard-card {
+  padding:0 10px;
+}
+
+.dashboard-card-content {
+  text-align: center;
+}
+.progress-bar {
+  margin: 20px;
+}
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+table {
+  width: 100%;
+}
+
+.list-container {
+  padding: 30px;
+  margin-top: 10px;
+
+}
+
+.button-container {
+  padding:0px 10px;
+}
+.text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 10px 20px;
+}
+span {
+  font-size: 20px;
+  padding: 10px;
+}

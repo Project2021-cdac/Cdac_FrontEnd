@@ -1,0 +1,11 @@
+.full-width-table {
+  width: 100%;
+}
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+.list-container {
+  padding: 30px;
+  margin-top: 10px;
+  margin-right: 20px;
+}

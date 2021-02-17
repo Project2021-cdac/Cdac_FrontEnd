@@ -1,0 +1,17 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Projects List</h1>
+  <mat-grid-list cols="{{ ( cards | async )?.columns }}" rowHeight="150px">
+    <mat-grid-tile *ngFor="let project of projects" [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card" [routerLink]="['/admin/projects', project.project.id]">
+        <mat-card-header>
+          <mat-card-title>
+           Group : {{project.project.id}}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>{{project.project.title}}</div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

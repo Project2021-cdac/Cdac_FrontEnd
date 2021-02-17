@@ -1,0 +1,75 @@
+
+<mat-tab-group>
+  <mat-tab label="Milstones"> 
+    <div class="list-container">
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let milestone of grouped | keyvalue" (opened)="addData(milestone.value)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            
+          </mat-panel-title>
+          <mat-panel-description>
+            {{milestone.key}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+         
+         <!-- Name Column -->
+         <ng-container matColumnDef="description">
+           <th mat-header-cell *matHeaderCellDef>Description</th>
+           <td mat-cell *matCellDef="let row">{{row.description}}</td>
+         </ng-container>
+     
+         <!-- Status Column -->
+         <ng-container matColumnDef="status">
+           <th mat-header-cell *matHeaderCellDef>Status</th>
+           <td mat-cell *matCellDef="let row"><mat-chip-list><mat-chip color="primary" selected>{{row.status}}</mat-chip></mat-chip-list></td>
+         </ng-container>
+     
+         <!-- Date Column -->
+         <ng-container matColumnDef="createdOn">
+           <th mat-header-cell *matHeaderCellDef>Created</th>
+           <td mat-cell *matCellDef="let row">{{row.createdOn}}</td>
+         </ng-container>
+     
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+         <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+       </table>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  </mat-tab>
+  <mat-tab label="Tasks"> 
+    <div class="flex-container">
+    <div class="button-container">
+      <button mat-fab color="primary" aria-label="New Task" matTooltip="New Task" (click)="openDialog()">
+        <mat-icon>add_circle</mat-icon>
+      </button>
+    </div>
+    </div>
+    <div class="list-container">
+    <mat-list class="mat-elevation-z8">
+      <mat-list-item *ngFor="let task of tasksList">
+        <div matListAvatar class="button-container">
+            <mat-icon>subject</mat-icon>
+            <mat-checkbox [checked]="statusCheck(task.status)" color="primary" [disabled]="statusCheck(task.status)" (change)="endTask($event,task.id)" ></mat-checkbox>
+        </div>
+       
+        
+     
+        <h3 matLine> <span [ngClass]="statusCheck(task.status) ? 'strikethrough': 'null' "> 
+          {{task.description}}
+           </span>
+            </h3>
+        <p matLine>
+          <span> created </span>
+          <span> -- {{task.createdOn}} </span>
+        </p>
+      
+      
+      </mat-list-item>
+    </mat-list>
+  </div>
+  </mat-tab>
+</mat-tab-group>

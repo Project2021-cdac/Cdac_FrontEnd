@@ -1,0 +1,95 @@
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+   height: 100%;
+}
+
+.login-card {
+  min-width: 120px;
+  width:400px;
+  text-align: center;
+}
+
+.mat-radio-button {
+  display: block;
+  margin: 5px 0;
+}
+
+mat-card-actions {
+display: inline-block;
+align-self: center;
+align-content: space-around;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.main {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.inner {
+  flex-grow: 1;
+  text-align: center;
+  position: relative;
+}
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.big-title {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.huge-text{
+  font-size: 70px;
+  font-weight: 800;
+  padding: 10px;
+}
+
+button.mat-raised-button {
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 20px;
+  border-radius: 15px;
+  width: 150px;
+  height: 40px
+}
+
+.login-text {
+  width: 100%;
+  align-items: center;
+  color: #3f51b5;
+}

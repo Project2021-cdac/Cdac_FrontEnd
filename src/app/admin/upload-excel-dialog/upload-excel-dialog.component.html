@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Upload Students List</h2>
+<div mat-dialog-content>
+    <div >  
+            <div mat-form-field *ngIf="show">
+              <div class="form-group">
+                <input type="file"
+                       id="file"
+                       (change)="handleFileInput($event)">
+            </div>
+            </div>
+            <div *ngIf="!show">
+              <mat-card>
+                Please wait file is being uploaded ....
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+              </mat-card>
+            </div>
+      </div>
+      
+</div>
+<div mat-dialog-actions align="end" *ngIf="show">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onSubmit()">Upload</button>
+</div>

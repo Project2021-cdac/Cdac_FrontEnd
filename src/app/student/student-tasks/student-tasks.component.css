@@ -1,0 +1,36 @@
+.type-icon {
+  color: #757575;
+  margin-right: 5px;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+  text-decoration-color:#3F51B5;
+  text-decoration-thickness: 1px;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 120px;
+}
+
+table {
+  width: 100%;
+}
+
+.list-container {
+  padding: 30px;
+  margin-top: 10px;
+
+}
+
+
